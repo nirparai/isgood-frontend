@@ -9,7 +9,7 @@ This repo contains the code for the frontend part of the isgood.ai webapp
 - Pull the this repo to your local machine 
 - Create a new branch on your local machine.  **Please give the branch a name corresponding to the functionality you are working on.**
 - Working on the functionality in the new branch you created and once done push it this repo and do a merge request.
-- Once your code is reviewed it will be merged with the main branch of this repo.
+- Once your code is reviewed it will be merged with the master branch of this repo.
 
 
 ## Commands to Run the Webapp on your Machine
