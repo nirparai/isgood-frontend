@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# isgood.ai frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo contains the code for the frontend part of the isgood.ai webapp
 
-## Available Scripts
+## To contribute code to this Repo Please:
 
-In the project directory, you can run:
+- Check TODO section below for tasks that needs to be done
+- Create a task on click up and assign yourself to it.
+- Pull the this repo to your local machine 
+- Create a new branch on your local machine.  **Please give the branch a name corresponding to the functionality you are working on.**
+- Working on the functionality in the new branch you created and once done push it this repo and do a merge request.
+- Once your code is reviewed it will be merged with the main branch of this repo.
 
-### `yarn start`
 
-Runs the app in the development mode.\
+## Commands to Run the Webapp on your Machine
+**NB: The following commands should only be run while in the new branch you created after pulling the repo** 
+
+In the project's main directory, you should run:
+
+### `npm install`
+
+This will install the required dependencies for the webapp.
+**NB: You only need to run this once and that's after pulling the code from github for the first time.**
+
+A comprehensive list of dependencies would be saved in a 'requirements.txt' file in the future.
+
+### `npm start`
+
+This command will run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
+### More Commands to be added shortly
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## TODO
+**Please see the current mock-up we are working with at [Mock Up on Miro](https://miro.com/app/board/o9J_kyYfLV0=/?moveToWidget=3074457356087093073&cot=14)**
 
-### `yarn build`
+- Complete the login and signup functionality to communicate with the backend API.
+- Implement Internationalization for the webapp.
+- Add functionality to redirect the user to the dashboard once logged in. 
+- Add dashboad component
+- Add organisation component
+- Add project component
+- Add functionality to let users create new organisation. 
+- Add functionality to let users create create new project. 
+- Add functionality to let users invite new user to an organisation and project. 
+- Add functionality to let user edit their profile information. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
