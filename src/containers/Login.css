@@ -7,4 +7,35 @@
       margin: 0 auto;
       max-width: 320px;
     }
+
+    .container {
+      height: 100vh;
+      
+    }
+    
+    .loginContainer {
+      width: 24rem;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+    
+    .loginLegend {
+      width: 14rem;
+      background: #dee2e6;
+    }
+    .errorMessage {
+      font-size: 12px;
+      letter-spacing: 0.05rem;
+      padding-left: 0.25rem;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      max-width: 320px;
+      
+    }
+    .valError {
+      color: rgb(182, 28, 28);
+      font-size: small;
+    }
   }
