@@ -37,7 +37,7 @@ You will also see any lint errors in the console.
 ## TODO
 **Please see the current mock-up we are working with at [Mock Up on Miro](https://miro.com/app/board/o9J_kyYfLV0=/?moveToWidget=3074457356087093073&cot=14)**
 
-- Complete the login and signup functionality to communicate with the backend API.
+- ~~Complete the login and signup functionality to communicate with the backend API.~~
 - Implement Internationalization for the webapp.
 - Add functionality to redirect the user to the dashboard once logged in. 
 - Add dashboad component
