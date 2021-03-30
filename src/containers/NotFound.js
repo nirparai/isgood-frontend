@@ -1,5 +1,6 @@
 import React from "react";
 import "./NotFound.css";
+import HomePageNavbar from "../components/HomePageNavbar";
 
 export default function NotFound() {
   return (

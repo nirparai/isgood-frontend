@@ -1,0 +1,22 @@
+import React from "react";
+import { LinkContainer } from "react-router-bootstrap";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Dropdown from "react-bootstrap/Dropdown";
+import ListGroup from "react-bootstrap/ListGroup";
+
+export default function DashboardSideNav() {
+  return (
+    <Navbar className="bg-info vh-100 w-25">
+      <ListGroup>
+        <ListGroup.Item active className="sidenav-item nav-item">
+          Projects
+        </ListGroup.Item>
+        <ListGroup.Item className="nav-item">Dashboard</ListGroup.Item>
+        <ListGroup.Item className="nav-item">Reports</ListGroup.Item>
+        <ListGroup.Item className="nav-item">Sharing Center</ListGroup.Item>
+        <ListGroup.Item className="nav-item">Organisation</ListGroup.Item>
+      </ListGroup>
+    </Navbar>
+  );
+}
