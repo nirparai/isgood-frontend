@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import AuthService from "../services/auth";
+import UserService from "../services/user";
 import "./CreateOrganisation.css";
 import HomePageNavbar from "../components/HomePageNavbar";
 
@@ -40,6 +41,7 @@ const validate = (values) => {
 export default function CreateOrganisation() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
+  
 
   const formik = useFormik({
     initialValues: {
@@ -52,9 +54,27 @@ export default function CreateOrganisation() {
     },
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-      history.push("/personalise");
-      window.location.reload();
+      UserService.createOrg(
+        values.organisationName,
+        values.website
+      ).then(
+        () => {
+          history.push("/personalise");
+          window.location.reload();
+        },
+        // response => {
+        //   console.log(response.data);
+        //   // const resMessage = response.data;
+
+        //   // setMessage(resMessage);
+        // },
+        (error) => {
+          //console.log(error.response.data);
+          const errMessage = error.response.data["error"];
+          setServerMessage(errMessage);
+        }
+      );
+      //alert(JSON.stringify(values, null, 2));
     },
   });
 
