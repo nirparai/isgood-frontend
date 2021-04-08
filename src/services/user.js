@@ -4,8 +4,18 @@ import authHeader from './header';
 const API_URL = 'http://localhost:8000/api/';
 
 class UserService {
-  getGlobal() {
-    return axios.get(API_URL + 'all');
+  createOrg(organisationName, website) {
+    const data = {
+      name: organisationName,
+      url: website
+    }
+    return axios.post(API_URL + "org/create", data, {
+      headers: authHeader(),
+    });
+    
+  }
+  getOrg() {
+    return axios.get(API_URL + 'org');
   }
 
   getUserContent() {
