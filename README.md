@@ -43,7 +43,7 @@ You will also see any lint errors in the console.
 - Add dashboad component
 - Add organisation component
 - Add project component
-- Add functionality to let users create new organisation. 
+- ~~Add functionality to let users create new organisation.~~ 
 - Add functionality to let users create create new project. 
 - Add functionality to let users invite new user to an organisation and project. 
 - Add functionality to let user edit their profile information. 
