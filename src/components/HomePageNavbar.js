@@ -3,7 +3,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import logo from "../assets/isgoodai-logo.png";
-import "../App.css";
 
 function HomePageNavbar() {
   return (
@@ -19,10 +18,10 @@ function HomePageNavbar() {
       <Navbar.Collapse className="justify-content-end">
         <Nav activeKey={window.location.pathname}>
           <LinkContainer to="/signup">
-            <Nav.Link>Signup</Nav.Link>
+            <Nav.Link className="font-weight-bold">Signup</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/login">
-            <Nav.Link>Login</Nav.Link>
+            <Nav.Link className="font-weight-bold">Login</Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>

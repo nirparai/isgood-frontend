@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import AuthService from "../services/auth";
-import "./Login.css";
 import HomePageNavbar from "../components/HomePageNavbar";
 
 //Validation code
@@ -67,23 +66,23 @@ export default function Login() {
   });
 
   return (
-    <>
+    <div className="container">
       <HomePageNavbar />
-      <div className="Login">
+      <div className="d-flex flex-column align-items-center">
         {serverMessage ? (
           <div
-            className="alert alert-danger container-fluid errorMessage"
+            className="alert alert-danger d-flex justify-content-center w-25"
             role="alert"
           >
             {serverMessage}
           </div>
         ) : null}
 
-        <fieldset className="loginContainer container-fluid border p-3 rounded">
-          <legend className="loginLegend border rounded p-1 text-center">
+        <fieldset className="container-fluid border p-3 rounded w-50">
+          <legend className="w-50 bg-light border rounded p-1 text-center ">
             Login
           </legend>
-          <Form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit} className="mx-auto">
             <Form.Group controlId="email" size="lg">
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -96,7 +95,7 @@ export default function Login() {
                 value={formik.values.email}
               />
               {formik.touched.email && formik.errors.email ? (
-                <div className="valError">{formik.errors.email}</div>
+                <div className="text-danger">{formik.errors.email}</div>
               ) : null}
             </Form.Group>
             <Form.Group controlId="password" size="lg">
@@ -110,7 +109,7 @@ export default function Login() {
                 value={formik.values.password}
               />
               {formik.touched.password && formik.errors.password ? (
-                <div className="valError">{formik.errors.password}</div>
+                <div className="text-danger">{formik.errors.password}</div>
               ) : null}
             </Form.Group>
             <Button block size="lg" type="submit">
@@ -128,6 +127,6 @@ export default function Login() {
           </Form>
         </fieldset>
       </div>
-    </>
+    </div>
   );
 }

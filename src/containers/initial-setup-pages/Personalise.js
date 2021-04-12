@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import AuthService from "../../services/auth";
-import "./CreateOrganisation.css";
 import HomePageNavbar from "../../components/HomePageNavbar";
 
 //Validation code
@@ -39,7 +36,7 @@ const validate = (values) => {
   if (values.timezone === "Choose....") {
     errors.timezone = "Required";
   }
-  console.log(errors);
+
   return errors;
 };
 
@@ -67,22 +64,22 @@ export default function Personalise() {
   });
 
   return (
-    <>
+    <div className="container">
       <HomePageNavbar />
-      <div className="createOrg">
+      <div className="d-flex flex-column align-items-center">
         {serverMessage ? (
           <div
-            className="alert alert-danger container-fluid errorMessage"
+            className="alert alert-danger d-flex justify-content-center w-25"
             role="alert"
           >
             {serverMessage}
           </div>
         ) : null}
-        <fieldset className="createOrgContainer container-fluid border p-3 rounded">
-          <legend className="createOrgLegend border rounded p-1 text-center">
+        <fieldset className="container-fluid border p-3 rounded w-50">
+          <legend className="w-50 bg-light border rounded p-1 text-center">
             Personalise Profile
           </legend>
-          <Form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit} className="mx-auto">
             <Form.Row>
               <Form.Group as={Col} controlId="firstName">
                 <Form.Label>First Name</Form.Label>
@@ -97,7 +94,7 @@ export default function Personalise() {
                   value={formik.values.firstName}
                 />
                 {formik.touched.firstName && formik.errors.firstName ? (
-                  <div className="valError">{formik.errors.firstName}</div>
+                  <div className="text-danger">{formik.errors.firstName}</div>
                 ) : null}
               </Form.Group>
 
@@ -113,7 +110,7 @@ export default function Personalise() {
                   value={formik.values.lastName}
                 />
                 {formik.touched.lastName && formik.errors.lastName ? (
-                  <div className="valError">{formik.errors.lastName}</div>
+                  <div className="text-danger">{formik.errors.lastName}</div>
                 ) : null}
               </Form.Group>
             </Form.Row>
@@ -128,7 +125,7 @@ export default function Personalise() {
                 value={formik.values.email}
               />
               {formik.touched.email && formik.errors.email ? (
-                <div className="valError">{formik.errors.email}</div>
+                <div className="text-danger">{formik.errors.email}</div>
               ) : null}
             </Form.Group>
 
@@ -144,7 +141,7 @@ export default function Personalise() {
                 value={formik.values.description}
               />
               {formik.touched.description && formik.errors.description ? (
-                <div className="valError">{formik.errors.description}</div>
+                <div className="text-danger">{formik.errors.description}</div>
               ) : null}
             </Form.Group>
             <Form.Row>
@@ -159,7 +156,7 @@ export default function Personalise() {
                   value={formik.values.handle}
                 />
                 {formik.touched.handle && formik.errors.handle ? (
-                  <div className="valError">{formik.errors.handle}</div>
+                  <div className="text-danger">{formik.errors.handle}</div>
                 ) : null}
               </Form.Group>
 
@@ -180,7 +177,7 @@ export default function Personalise() {
                   <option>Organisation Only</option>
                 </Form.Control>
                 {formik.touched.privacy && formik.errors.privacy ? (
-                  <div className="valError">{formik.errors.privacy}</div>
+                  <div className="text-danger">{formik.errors.privacy}</div>
                 ) : null}
               </Form.Group>
             </Form.Row>
@@ -200,7 +197,7 @@ export default function Personalise() {
                   <option>Location</option>
                 </Form.Control>
                 {formik.touched.location && formik.errors.location ? (
-                  <div className="valError">{formik.errors.location}</div>
+                  <div className="text-danger">{formik.errors.location}</div>
                 ) : null}
               </Form.Group>
 
@@ -221,7 +218,7 @@ export default function Personalise() {
                 </Form.Control>
 
                 {formik.touched.timezone && formik.errors.timezone ? (
-                  <div className="valError">{formik.errors.timezone}</div>
+                  <div className="text-danger">{formik.errors.timezone}</div>
                 ) : null}
               </Form.Group>
             </Form.Row>
@@ -232,6 +229,6 @@ export default function Personalise() {
           </Form>
         </fieldset>
       </div>
-    </>
+    </div>
   );
 }

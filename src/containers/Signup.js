@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import AuthService from "../services/auth";
-import "./Signup.css";
 import HomePageNavbar from "../components/HomePageNavbar";
 
 //Validation code
@@ -92,22 +91,22 @@ export default function Signup() {
   });
 
   return (
-    <>
+    <div className="container">
       <HomePageNavbar />
-      <div className="Signup">
+      <div className="d-flex flex-column align-items-center">
         {serverMessage ? (
           <div
-            className="alert alert-danger container-fluid errorMessage"
+            className="alert alert-danger d-flex justify-content-center w-25"
             role="alert"
           >
             {serverMessage}
           </div>
         ) : null}
-        <fieldset className="signupContainer container-fluid border p-3 rounded">
-          <legend className="signupLegend border rounded p-1 text-center">
+        <fieldset className="container-fluid border p-3 rounded w-50">
+          <legend className="w-50 bg-light border rounded p-1 text-center">
             Sign Up
           </legend>
-          <Form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit} className="mx-auto">
             <Form.Row>
               <Form.Group as={Col} controlId="firstName">
                 <Form.Label>First Name</Form.Label>
@@ -122,7 +121,7 @@ export default function Signup() {
                   value={formik.values.firstName}
                 />
                 {formik.touched.firstName && formik.errors.firstName ? (
-                  <div className="valError">{formik.errors.firstName}</div>
+                  <div className="text-danger">{formik.errors.firstName}</div>
                 ) : null}
               </Form.Group>
 
@@ -138,7 +137,7 @@ export default function Signup() {
                   value={formik.values.lastName}
                 />
                 {formik.touched.lastName && formik.errors.lastName ? (
-                  <div className="valError">{formik.errors.lastName}</div>
+                  <div className="text-danger">{formik.errors.lastName}</div>
                 ) : null}
               </Form.Group>
             </Form.Row>
@@ -153,7 +152,7 @@ export default function Signup() {
                 value={formik.values.email}
               />
               {formik.touched.email && formik.errors.email ? (
-                <div className="valError">{formik.errors.email}</div>
+                <div className="text-danger">{formik.errors.email}</div>
               ) : null}
             </Form.Group>
             <Form.Group controlId="password" size="lg">
@@ -167,7 +166,7 @@ export default function Signup() {
                 value={formik.values.password}
               />
               {formik.touched.password && formik.errors.password ? (
-                <div className="valError">{formik.errors.password}</div>
+                <div className="text-danger">{formik.errors.password}</div>
               ) : null}
             </Form.Group>
             <Form.Group controlId="confirmPassword" size="lg">
@@ -182,7 +181,9 @@ export default function Signup() {
               />
               {formik.touched.confirmPassword &&
               formik.errors.confirmPassword ? (
-                <div className="valError">{formik.errors.confirmPassword}</div>
+                <div className="text-danger">
+                  {formik.errors.confirmPassword}
+                </div>
               ) : null}
             </Form.Group>
             <Button block size="lg" type="submit">
@@ -200,6 +201,6 @@ export default function Signup() {
           </Form>
         </fieldset>
       </div>
-    </>
+    </div>
   );
 }
