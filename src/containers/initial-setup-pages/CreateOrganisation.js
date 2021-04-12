@@ -4,10 +4,10 @@ import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import AuthService from "../services/auth";
-import UserService from "../services/user";
+import AuthService from "../../services/auth";
+import UserService from "../../services/user";
 import "./CreateOrganisation.css";
-import HomePageNavbar from "../components/HomePageNavbar";
+import HomePageNavbar from "../../components/HomePageNavbar";
 
 //Validation code
 const validate = (values) => {
@@ -41,7 +41,6 @@ const validate = (values) => {
 export default function CreateOrganisation() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
-  
 
   const formik = useFormik({
     initialValues: {
@@ -54,12 +53,9 @@ export default function CreateOrganisation() {
     },
     validate,
     onSubmit: (values) => {
-      UserService.createOrg(
-        values.organisationName,
-        values.website
-      ).then(
+      UserService.createOrg(values.organisationName, values.website).then(
         () => {
-          history.push("/personalise");
+          history.push("/createproject");
           window.location.reload();
         },
         // response => {

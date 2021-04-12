@@ -4,9 +4,9 @@ import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import AuthService from "../services/auth";
+import AuthService from "../../services/auth";
 import "./CreateOrganisation.css";
-import HomePageNavbar from "../components/HomePageNavbar";
+import HomePageNavbar from "../../components/HomePageNavbar";
 
 //Validation code
 const validate = (values) => {

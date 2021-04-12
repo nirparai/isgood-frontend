@@ -5,9 +5,10 @@ import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Dashboard from "./containers/Dashboard";
 import NotFound from "./containers/NotFound";
-import Welcome from "./containers/Welcome";
-import CreateOrganisation from "./containers/CreateOrganisation";
-import Personalise from "./containers/Personalise";
+import Welcome from "./containers/initial-setup-pages/Welcome";
+import CreateOrganisation from "./containers/initial-setup-pages/CreateOrganisation";
+import CreateProject from "./containers/initial-setup-pages/CreateProject";
+import Personalise from "./containers/initial-setup-pages/Personalise";
 
 export default function Routes() {
   return (
@@ -27,8 +28,11 @@ export default function Routes() {
       <Route exact path="/welcome">
         <Welcome />
       </Route>
-      <Route exact path="/create">
+      <Route exact path="/createorg">
         <CreateOrganisation />
+      </Route>
+      <Route exact path="/createproject">
+        <CreateProject />
       </Route>
       <Route exact path="/personalise">
         <Personalise />
