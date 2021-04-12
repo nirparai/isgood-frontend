@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import AuthService from "../../services/auth";
 import UserService from "../../services/user";
-import "./CreateOrganisation.css";
 import HomePageNavbar from "../../components/HomePageNavbar";
 
 //Validation code
@@ -75,22 +73,22 @@ export default function CreateOrganisation() {
   });
 
   return (
-    <>
+    <div className="container">
       <HomePageNavbar />
-      <div className="createOrg">
+      <div className="d-flex flex-column align-items-center">
         {serverMessage ? (
           <div
-            className="alert alert-danger container-fluid errorMessage"
+            className="alert alert-danger d-flex justify-content-center w-25"
             role="alert"
           >
             {serverMessage}
           </div>
         ) : null}
-        <fieldset className="createOrgContainer container-fluid border p-3 rounded">
-          <legend className="createOrgLegend border rounded p-1 text-center">
+        <fieldset className="container-fluid border p-3 rounded w-50">
+          <legend className="w-50 bg-light border rounded p-1 text-center">
             Create Organisation
           </legend>
-          <Form onSubmit={formik.handleSubmit}>
+          <Form onSubmit={formik.handleSubmit} className="mx-auto">
             <Form.Group controlId="organisationName">
               <Form.Label>Organisation Name</Form.Label>
               <Form.Control
@@ -105,7 +103,9 @@ export default function CreateOrganisation() {
               />
               {formik.touched.organisationName &&
               formik.errors.organisationName ? (
-                <div className="valError">{formik.errors.organisationName}</div>
+                <div className="text-danger">
+                  {formik.errors.organisationName}
+                </div>
               ) : null}
             </Form.Group>
 
@@ -121,7 +121,7 @@ export default function CreateOrganisation() {
                 value={formik.values.description}
               />
               {formik.touched.description && formik.errors.description ? (
-                <div className="valError">{formik.errors.description}</div>
+                <div className="text-danger">{formik.errors.description}</div>
               ) : null}
             </Form.Group>
             <Form.Row>
@@ -136,7 +136,7 @@ export default function CreateOrganisation() {
                   value={formik.values.handle}
                 />
                 {formik.touched.handle && formik.errors.handle ? (
-                  <div className="valError">{formik.errors.handle}</div>
+                  <div className="text-danger">{formik.errors.handle}</div>
                 ) : null}
               </Form.Group>
 
@@ -151,7 +151,7 @@ export default function CreateOrganisation() {
                   value={formik.values.website}
                 />
                 {formik.touched.website && formik.errors.website ? (
-                  <div className="valError">{formik.errors.website}</div>
+                  <div className="text-danger">{formik.errors.website}</div>
                 ) : null}
               </Form.Group>
             </Form.Row>
@@ -171,7 +171,7 @@ export default function CreateOrganisation() {
                   <option>Region</option>
                 </Form.Control>
                 {formik.touched.regions && formik.errors.regions ? (
-                  <div className="valError">{formik.errors.regions}</div>
+                  <div className="text-danger">{formik.errors.regions}</div>
                 ) : null}
               </Form.Group>
 
@@ -191,7 +191,7 @@ export default function CreateOrganisation() {
                 </Form.Control>
 
                 {formik.touched.sector && formik.errors.sector ? (
-                  <div className="valError">{formik.errors.sector}</div>
+                  <div className="text-danger">{formik.errors.sector}</div>
                 ) : null}
               </Form.Group>
             </Form.Row>
@@ -202,6 +202,6 @@ export default function CreateOrganisation() {
           </Form>
         </fieldset>
       </div>
-    </>
+    </div>
   );
 }

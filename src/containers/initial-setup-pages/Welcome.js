@@ -1,7 +1,7 @@
 import React from "react";
 import HomePageNavbar from "../../components/HomePageNavbar";
 import { LinkContainer } from "react-router-bootstrap";
-
+import { Button } from "react-bootstrap";
 export default function Welcome() {
   return (
     <>
@@ -17,10 +17,8 @@ export default function Welcome() {
           1. Create Organisation | 2. Setup a Project | 3. Personalise | 4.
           Share with Team
         </p>
-        <LinkContainer to="/create">
-          <button className="btn btn-primary my-5">
-            Step 1: Create Organisation
-          </button>
+        <LinkContainer to="/createorg">
+          <Button className="my-5">Step 1: Create Organisation</Button>
         </LinkContainer>
         <div>
           <p>Watch Intro Video</p>

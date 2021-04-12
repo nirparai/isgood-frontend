@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Grid, Row, Col, FormGroup, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Formik, FieldArray } from "formik";
-import AuthService from "../../services/auth";
-import "./CreateOrganisation.css";
 import HomePageNavbar from "../../components/HomePageNavbar";
+import AuthService from "../../services/auth";
 
 //Validation code
 const validate = (values) => {
@@ -32,19 +30,19 @@ export default function CreateProject() {
   const history = useHistory();
 
   return (
-    <>
+    <div className="container">
       <HomePageNavbar />
-      <div className="createOrg">
+      <div className="d-flex flex-column align-items-center">
         {serverMessage ? (
           <div
-            className="alert alert-danger container-fluid errorMessage"
+            className="alert alert-danger d-flex justify-content-center w-25"
             role="alert"
           >
             {serverMessage}
           </div>
         ) : null}
-        <fieldset className="createOrgContainer container-fluid border p-3 rounded">
-          <legend className="createOrgLegend border rounded p-1 text-center">
+        <fieldset className="container-fluid border p-3 rounded w-50">
+          <legend className="w-50 bg-light border rounded p-1 text-center">
             Create Project
           </legend>
           <Formik
@@ -61,12 +59,12 @@ export default function CreateProject() {
 
               // move to next project form page
 
-              // history.push("/personalise");
-              // window.location.reload();
+              history.push("/personalise");
+              window.location.reload();
             }}
           >
             {(formik) => (
-              <Form onSubmit={formik.handleSubmit}>
+              <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <Form.Group controlId="organisationName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
@@ -80,7 +78,9 @@ export default function CreateProject() {
                     value={formik.values.projectName}
                   />
                   {formik.touched.projectName && formik.errors.projectName ? (
-                    <div className="valError">{formik.errors.projectName}</div>
+                    <div className="text-danger">
+                      {formik.errors.projectName}
+                    </div>
                   ) : null}
                 </Form.Group>
 
@@ -96,7 +96,9 @@ export default function CreateProject() {
                     value={formik.values.description}
                   />
                   {formik.touched.description && formik.errors.description ? (
-                    <div className="valError">{formik.errors.description}</div>
+                    <div className="text-danger">
+                      {formik.errors.description}
+                    </div>
                   ) : null}
                 </Form.Group>
 
@@ -194,6 +196,6 @@ export default function CreateProject() {
           </Formik>
         </fieldset>
       </div>
-    </>
+    </div>
   );
 }
