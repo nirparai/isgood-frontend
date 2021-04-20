@@ -4,6 +4,7 @@ import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
 import Dashboard from "./containers/Dashboard";
+import ProjectForm from "./containers/ProjectForm";
 import NotFound from "./containers/NotFound";
 import Welcome from "./containers/initial-setup-pages/Welcome";
 import CreateOrganisation from "./containers/initial-setup-pages/CreateOrganisation";
@@ -25,6 +26,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/dashboard">
         <Dashboard />
+      </Route>
+      <Route exact path="/projectform">
+        <ProjectForm />
       </Route>
       <Route exact path="/welcome">
         <Welcome />
