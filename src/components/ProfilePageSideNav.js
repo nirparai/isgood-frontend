@@ -7,8 +7,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 export default function DashboardSideNav() {
   return (
-    <Navbar className="bg-info vh-100 w-25">
-      <ListGroup>
+    <Navbar className="bg-info h-100 w-100">
+   {/*    <ListGroup>
         <ListGroup.Item active className="sidenav-item nav-item">
           Projects
         </ListGroup.Item>
@@ -16,7 +16,7 @@ export default function DashboardSideNav() {
         <ListGroup.Item className="nav-item">Reports</ListGroup.Item>
         <ListGroup.Item className="nav-item">Sharing Center</ListGroup.Item>
         <ListGroup.Item className="nav-item">Organisation</ListGroup.Item>
-      </ListGroup>
+      </ListGroup> */}
     </Navbar>
   );
 }

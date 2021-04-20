@@ -58,7 +58,7 @@ export default function Personalise() {
     validate,
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
-      history.push("/dashboard");
+      history.push("/projectprofilescreen");
       window.location.reload();
     },
   });
