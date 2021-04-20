@@ -7,7 +7,8 @@ import Dashboard from "./containers/Dashboard";
 import NotFound from "./containers/NotFound";
 import Welcome from "./containers/initial-setup-pages/Welcome";
 import CreateOrganisation from "./containers/initial-setup-pages/CreateOrganisation";
-import CreateProject from "./containers/initial-setup-pages/CreateProject";
+import CreateProject from "./containers/initial-setup-pages/CreateProject/CreateProject";
+import CreateProject2 from "./containers/initial-setup-pages/CreateProject/CreateProject2";
 import Personalise from "./containers/initial-setup-pages/Personalise";
 
 export default function Routes() {
@@ -33,6 +34,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/createproject">
         <CreateProject />
+      </Route>
+      <Route exact path="/createproject2">
+        <CreateProject2 />
       </Route>
       <Route exact path="/personalise">
         <Personalise />

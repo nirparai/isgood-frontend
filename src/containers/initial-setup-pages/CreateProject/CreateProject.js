@@ -3,8 +3,8 @@ import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Formik, FieldArray } from "formik";
-import HomePageNavbar from "../../components/HomePageNavbar";
-import AuthService from "../../services/auth";
+import HomePageNavbar from "../../../components/HomePageNavbar";
+import AuthService from "../../../services/auth";
 
 //Validation code
 const validate = (values) => {
@@ -65,7 +65,7 @@ export default function CreateProject() {
           >
             {(formik) => (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
-                <Form.Group controlId="organisationName">
+                <Form.Group controlId="projectName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control
                     autoFocus
