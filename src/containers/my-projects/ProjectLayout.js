@@ -1,9 +1,12 @@
 import React from "react";
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
-import * as Icon from "@material-ui/icons";
-import Overview from "../containers/profile-pages/Overview";
-import Indicators from "../containers/profile-pages/Indicators";
-import Team from "../containers/profile-pages/Team";
+import Icon from "@mdi/react";
+import { mdiShareVariant } from "@mdi/js";
+import { mdiAccountMultiple } from "@mdi/js";
+import { mdiPlus } from "@mdi/js";
+import Overview from "./projects-pages/Overview";
+import Indicators from "./projects-pages/Indicators";
+import Team from "./projects-pages/Team";
 
 const ProjectLayout = () => {
   return (
@@ -11,7 +14,7 @@ const ProjectLayout = () => {
       <Container>
         <Row className="bg-light">
           <Col className="col-lg-2 col-12 d-flex justify-content-center">
-            <Icon.People size="130" className="p-1" />
+            <Icon path={mdiShareVariant} size={1} className="p-1" />
           </Col>
           <Col className="col-lg-7 col-12 d-flex align-items-center justify-content-lg-start justify-content-center">
             <p>Project Name</p>
@@ -19,17 +22,38 @@ const ProjectLayout = () => {
           <Col className="col-lg-3 col-12 d-flex justify-content-end flex-column ">
             <Row className="">
               <Col className=" col-12 d-flex justify-content-end">
-                <Icon.Share size="20" />
+                <Icon path={mdiShareVariant} size={1} className="p-1" />
               </Col>
             </Row>
             <Row>
               <Col className=" col-12 d-flex align-items-end justify-content-end mt-3">
-                <Icon.People className="mr-2 mb-3" />
-                <Icon.People className="mr-2 mb-3" />
-                <Icon.People className="mr-2 mb-3" />
-                <Icon.People className="mr-2 mb-3" />
-                <Icon.People className="mr-2 mb-3" />
-                <Icon.Add className="mr-2 mb-3" />
+                <Icon
+                  path={mdiAccountMultiple}
+                  className="mr-2 mb-3"
+                  size={1}
+                />
+                <Icon
+                  path={mdiAccountMultiple}
+                  className="mr-2 mb-3"
+                  size={1}
+                />
+                <Icon
+                  path={mdiAccountMultiple}
+                  className="mr-2 mb-3"
+                  size={1}
+                />
+                <Icon
+                  path={mdiAccountMultiple}
+                  className="mr-2 mb-3"
+                  size={1}
+                />
+                <Icon
+                  path={mdiAccountMultiple}
+                  className="mr-2 mb-3"
+                  size={1}
+                />
+
+                <Icon path={mdiPlus} className="mr-2 mb-3" size={1} />
               </Col>
             </Row>
           </Col>

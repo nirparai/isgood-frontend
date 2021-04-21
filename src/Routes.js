@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
-import ProjectProfileScreen from "./containers/ProjectProfileScreen";
+import MyProjects from "./containers/my-projects/MyProjects";
 import ProjectForm from "./containers/ProjectForm";
 import NotFound from "./containers/NotFound";
 import Welcome from "./containers/initial-setup-pages/Welcome";
@@ -25,7 +25,7 @@ export default function Routes() {
         <Signup />
       </Route>
       <Route exact path="/projectprofilescreen">
-        <ProjectProfileScreen />
+        <MyProjects />
       </Route>
       <Route exact path="/projectform">
         <ProjectForm />

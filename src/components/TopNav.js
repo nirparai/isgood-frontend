@@ -5,11 +5,13 @@ import Nav from "react-bootstrap/Nav";
 import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "react-bootstrap/Badge";
 import { Container } from "react-bootstrap";
-
+import Icon from "@mdi/react";
+import { mdiBellOutline } from "@mdi/js";
+import { mdiEmailOutline } from "@mdi/js";
 import logo from "../assets/isgoodai-logo.png";
 import "../App.css";
 
-export default function DashboardNav() {
+export default function TopNav() {
   return (
     <Container>
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
@@ -25,7 +27,7 @@ export default function DashboardNav() {
           <Nav>
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link count-indicator toggle-arrow-hide bg-transparent">
-                <i className="mdi mdi-bell-outline mdi-24px"></i>
+                <Icon path={mdiBellOutline} size={1} />
                 <Badge variant="info">7</Badge>
               </Dropdown.Toggle>
               <Dropdown.Menu className="navbar-dropdown preview-list">
@@ -37,7 +39,7 @@ export default function DashboardNav() {
 
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link count-indicator toggle-arrow-hide bg-transparent">
-                <i className="mdi mdi-email-outline mdi-24px"></i>
+                <Icon path={mdiEmailOutline} size={1} />
                 <Badge variant="info">1</Badge>
               </Dropdown.Toggle>
             </Dropdown>
@@ -45,7 +47,7 @@ export default function DashboardNav() {
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link bg-transparent">
                 <img
-                  src="https://placeimg.com/36/36/people"
+                  src="https://placeimg.com/24/24/people"
                   className="img-xs rounded-circle"
                   alt="profile"
                 />

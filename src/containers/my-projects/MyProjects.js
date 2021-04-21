@@ -1,17 +1,17 @@
 import React from "react";
 import { Container, Col, Row } from "react-bootstrap";
-import ProfilePageNav from "../components/ProfilePageNav";
-import ProfilePageSideNav from "../components/ProfilePageSideNav";
-import ProjectLayout from "../components/ProjectLayout";
+import TopNav from "../../components/TopNav";
+import SideNav from "../../components/SideNav";
+import ProjectLayout from "./ProjectLayout";
 
-const ProjectProfileScreen = () => {
+const MyProjects = () => {
   return (
     <div>
-      <ProfilePageNav />
+      <TopNav />
       <Container>
         <Row>
           <Col className="col-3">
-            <ProfilePageSideNav />
+            <SideNav />
           </Col>
           <Col className="col-9">
             <ProjectLayout />
@@ -22,4 +22,4 @@ const ProjectProfileScreen = () => {
   );
 };
 
-export default ProjectProfileScreen;
+export default MyProjects;
