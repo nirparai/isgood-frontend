@@ -59,7 +59,8 @@ export default function CreateProject() {
 
               // move to next project form page
 
-              history.push("/personalise");
+              //history.push("/personalise");
+              history.push("/createproject2");
               window.location.reload();
             }}
           >
