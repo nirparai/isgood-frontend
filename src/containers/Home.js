@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import HomePageNavbar from "../components/HomePageNavbar";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 export default function Home() {
+  const { currentOrgId } = useContext(UserContext);
+  const { isAuthenticated } = useAuth0();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated && currentOrgId) {
+      history.push("/myprojects");
+    } else if (isAuthenticated) {
+      history.push("/welcome");
+    }
+  }, [isAuthenticated]);
   return (
     <div className="container">
       <HomePageNavbar />

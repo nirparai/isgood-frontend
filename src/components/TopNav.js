@@ -10,8 +10,11 @@ import { mdiBellOutline } from "@mdi/js";
 import { mdiEmailOutline } from "@mdi/js";
 import logo from "../assets/isgoodai-logo.png";
 import "../App.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function TopNav() {
+  const { logout } = useAuth0();
+
   return (
     <Container>
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
@@ -60,7 +63,13 @@ export default function TopNav() {
                 <Dropdown.Item>
                   <p>Account</p>
                 </Dropdown.Item>
-                <Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() =>
+                    logout({
+                      returnTo: window.location.origin,
+                    })
+                  }
+                >
                   <p>Logout</p>
                 </Dropdown.Item>
               </Dropdown.Menu>

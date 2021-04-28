@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import ProtectedRoute from "./auth/protected-route";
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Signup from "./containers/Signup";
@@ -11,45 +12,42 @@ import CreateOrganisation from "./containers/initial-setup-pages/CreateOrganisat
 import CreateProject from "./containers/initial-setup-pages/CreateProject/CreateProject";
 import CreateProject2 from "./containers/initial-setup-pages/CreateProject/CreateProject2";
 import Personalise from "./containers/initial-setup-pages/Personalise";
+import { UserContext, UserProvider } from "./context/UserContext";
 
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <Route exact path="/login">
-        <Login />
-      </Route>
-      <Route exact path="/signup">
-        <Signup />
-      </Route>
-      <Route exact path="/projectprofilescreen">
-        <MyProjects />
-      </Route>
-      <Route exact path="/projectform">
-        <ProjectForm />
-      </Route>
-      <Route exact path="/welcome">
-        <Welcome />
-      </Route>
-      <Route exact path="/createorg">
-        <CreateOrganisation />
-      </Route>
-      <Route exact path="/createproject">
-        <CreateProject />
-      </Route>
-      <Route exact path="/createproject2">
-        <CreateProject2 />
-      </Route>
-      <Route exact path="/personalise">
-        <Personalise />
-      </Route>
+      <Route exact path="/" component={Home} />
+
+      <Route exact path="/login" component={Login} />
+
+      <Route exact path="/signup" component={Signup} />
+
+      <Route exact path="/projectform" component={ProjectForm} />
+      <UserProvider>
+        <ProtectedRoute exact path="/myprojects" component={MyProjects} />
+
+        <ProtectedRoute exact path="/welcome" component={Welcome} />
+
+        <ProtectedRoute
+          exact
+          path="/createorg"
+          component={CreateOrganisation}
+        />
+
+        <ProtectedRoute exact path="/createproject" component={CreateProject} />
+
+        <ProtectedRoute
+          exact
+          path="/createproject2"
+          component={CreateProject2}
+        />
+
+        <ProtectedRoute exact path="/personalise" component={Personalise} />
+      </UserProvider>
 
       {/* The NotFound Route needs to stay in the bottom to work for 404 errors*/}
-      <Route>
-        <NotFound />
-      </Route>
+      <Route component={NotFound} />
     </Switch>
   );
 }
