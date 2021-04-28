@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiShareVariant } from "@mdi/js";
+import { mdiAccountCircle } from "@mdi/js";
 import { mdiAccountMultiple } from "@mdi/js";
 import { mdiPlus } from "@mdi/js";
 import Overview from "./projects-pages/Overview";
@@ -14,7 +15,7 @@ const ProjectLayout = () => {
       <Container>
         <Row className="bg-light">
           <Col className="col-lg-2 col-12 d-flex justify-content-center">
-            <Icon path={mdiShareVariant} size={1} className="p-1" />
+            <Icon path={mdiAccountCircle} size={5} className="p-1" />
           </Col>
           <Col className="col-lg-7 col-12 d-flex align-items-center justify-content-lg-start justify-content-center">
             <p>Project Name</p>
@@ -62,7 +63,7 @@ const ProjectLayout = () => {
         <Tab.Container id="left-tabs" defaultActiveKey="Overview">
           <Row className="mt-4">
             <Col lg={3} sm={12}>
-              <Nav variant="pills" className="sticky-top flex-column pt-4">
+              <Nav variant="pills" className="sticky-top flex-column pt-2">
                 <Nav.Item>
                   <Nav.Link
                     eventKey="Overview"
@@ -113,7 +114,7 @@ const ProjectLayout = () => {
                 </Nav.Item>
               </Nav>
             </Col>
-            <Col sm={9}>
+            <Col sm={12} lg={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="Overview">
                   <Overview />
