@@ -32,8 +32,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### More Commands to be added shortly
-
+## Intructions
+ Copy and Edit the `.envsample` file to include the fields for Auth0 and rename to .env
+ 
 ## TODO
 **Please see the current mock-up we are working with at [Mock Up on Miro](https://miro.com/app/board/o9J_kyYfLV0=/?moveToWidget=3074457356087093073&cot=14)**
 
