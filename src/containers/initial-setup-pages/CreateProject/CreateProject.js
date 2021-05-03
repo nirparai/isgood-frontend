@@ -4,30 +4,21 @@ import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Formik, FieldArray } from "formik";
 import HomePageNavbar from "../../../components/HomePageNavbar";
-import AuthService from "../../../services/auth";
-
-//Validation code
-const validate = (values) => {
-  const errors = {};
-  // if (!values.projectName) {
-  //   errors.projectName = "Required";
-  // }
-  // if (!values.description) {
-  //   errors.description = "Required";
-  // }
-  // if (!values.impacts) {
-  //   errors.impacts = "Required";
-  // }
-  // if (!values.outcomes) {
-  //   errors.outcomes = "Required";
-  // }
-
-  return errors;
-};
+import UserService from "../../../services/user";
+import * as Yup from "yup";
+import FormErrorMessage from "../../../components/FormErrorMessage";
 
 export default function CreateProject() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
+
+  const validationSchema = Yup.object().shape({
+    orgId: Yup.string().required("Required"),
+    projectName: Yup.string().required("Required"),
+    description: Yup.string().required("Required"),
+    impacts: Yup.array().of(Yup.string().required("Required")),
+    outcomes: Yup.array().of(Yup.string().required("Required")),
+  });
 
   return (
     <div className="container">
@@ -47,19 +38,27 @@ export default function CreateProject() {
           </legend>
           <Formik
             initialValues={{
+              orgId: "1",
               projectName: "",
               description: "",
               impacts: [""],
               outcomes: [""],
             }}
+            validationSchema={validationSchema}
             onSubmit={(values, methods) => {
-              console.log(methods);
+              UserService.createProject(
+                values.orgId,
+                values.projectName,
+                values.description,
+                values.impacts,
+                values.outcomes
+              );
               alert(JSON.stringify(values, null, 2));
               methods.resetForm();
 
               // move to next project form page
 
-              history.push("/personalise");
+              history.push("/createProject2");
               window.location.reload();
             }}
           >
@@ -77,11 +76,7 @@ export default function CreateProject() {
                     onBlur={formik.handleBlur}
                     value={formik.values.projectName}
                   />
-                  {formik.touched.projectName && formik.errors.projectName ? (
-                    <div className="text-danger">
-                      {formik.errors.projectName}
-                    </div>
-                  ) : null}
+                  <FormErrorMessage name="projectName" />
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -95,11 +90,7 @@ export default function CreateProject() {
                     onBlur={formik.handleBlur}
                     value={formik.values.description}
                   />
-                  {formik.touched.description && formik.errors.description ? (
-                    <div className="text-danger">
-                      {formik.errors.description}
-                    </div>
-                  ) : null}
+                  <FormErrorMessage name="description" />
                 </Form.Group>
 
                 <FieldArray name="impacts">
@@ -110,23 +101,26 @@ export default function CreateProject() {
                       <Form.Group controlId="impacts" size="lg">
                         <Form.Label>Impacts</Form.Label>
                         {formik.values.impacts.map((impact, index) => (
-                          <div key={index} className="d-flex my-2">
-                            <Form.Control
-                              name={`impacts[${index}]`}
-                              type="text"
-                              placeholder="Impact"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={impact}
-                            />
-                            <Button
-                              type="button"
-                              onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
-                              className="mx-1"
-                              variant="danger"
-                            >
-                              -
-                            </Button>
+                          <div key={index}>
+                            <div className="d-flex my-2">
+                              <Form.Control
+                                name={`impacts[${index}]`}
+                                type="text"
+                                placeholder="Impact"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={impact}
+                              />
+                              <Button
+                                type="button"
+                                onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
+                                className="mx-1"
+                                variant="danger"
+                              >
+                                -
+                              </Button>
+                            </div>
+                            <FormErrorMessage name={`impacts[${index}]`} />
                           </div>
                         ))}
                         <div className="d-flex justify-content-center my-2">
@@ -152,23 +146,26 @@ export default function CreateProject() {
                       <Form.Group controlId="outcomes" size="lg">
                         <Form.Label>Outcomes</Form.Label>
                         {formik.values.outcomes.map((outcome, index) => (
-                          <div key={index} className="d-flex my-2">
-                            <Form.Control
-                              name={`outcomes[${index}]`}
-                              type="text"
-                              placeholder="Outcome"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={outcome}
-                            />
-                            <Button
-                              type="button"
-                              onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
-                              className="mx-1"
-                              variant="danger"
-                            >
-                              -
-                            </Button>
+                          <div key={index}>
+                            <div className="d-flex my-2">
+                              <Form.Control
+                                name={`outcomes[${index}]`}
+                                type="text"
+                                placeholder="Outcome"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={outcome}
+                              />
+                              <Button
+                                type="button"
+                                onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
+                                className="mx-1"
+                                variant="danger"
+                              >
+                                -
+                              </Button>
+                            </div>
+                            <FormErrorMessage name={`outcomes[${index}]`} />
                           </div>
                         ))}
                         <div className="d-flex justify-content-center my-2">

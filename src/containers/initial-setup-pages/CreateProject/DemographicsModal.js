@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
-import { FieldArray } from "formik";
 import ModalContainer from "./ModalContainer";
+import FormErrorMessage from "../../../components/FormErrorMessage";
 
 export default function BenerficiaryGroupDemographics({
   beneficiaryIndex,
@@ -44,6 +44,9 @@ export default function BenerficiaryGroupDemographics({
                       .demographics[demographicIndex].demographic
                   }
                 />
+                <FormErrorMessage
+                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.demographic]`}
+                />
               </Form.Group>
               <Form.Group
                 controlId={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
@@ -62,6 +65,9 @@ export default function BenerficiaryGroupDemographics({
                       .demographics[demographicIndex].operator
                   }
                 />
+                <FormErrorMessage
+                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
+                />
               </Form.Group>
               <Form.Group
                 controlId={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
@@ -79,6 +85,9 @@ export default function BenerficiaryGroupDemographics({
                     form.values.beneficiaryGroups[beneficiaryIndex]
                       .demographics[demographicIndex].value
                   }
+                />
+                <FormErrorMessage
+                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
                 />
               </Form.Group>
             </ModalContainer>

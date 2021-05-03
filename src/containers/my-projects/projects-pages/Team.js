@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
-import { mdiAccountBox, mdiMenu, mdiDotsVertical, mdiDotsGrid } from "@mdi/js";
+import { mdiAccountBox, mdiMenu, mdiDotsGrid } from "@mdi/js";
 
 const Team = () => {
   const [members, setMembers] = useState(6);
@@ -19,9 +19,10 @@ const Team = () => {
       {members >= 1 ? (
         <>
           <Row className="d-flex justify-content-center py-5">
-            {[...Array(6)].map(() => {
+            {[...Array(6)].map((element, index) => {
               return (
                 <Col
+                  key={index}
                   md={2}
                   sm={3}
                   xs={5}

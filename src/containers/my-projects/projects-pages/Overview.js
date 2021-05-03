@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "@mdi/react";
-import {mdiPinOff} from "@mdi/js";
+import { mdiPinOff } from "@mdi/js";
 
 const Overview = () => {
   return (
@@ -44,10 +44,21 @@ const Overview = () => {
         </div>
         <div className="px-5 bg-white">
           <h4 className="font-weight-bold">Location</h4>
-          <img src="https://www.vitruvianpartners.com/wp-content/uploads/placeholder-banner.png" className="w-100 my-4"/>
+          <img
+            src="https://www.vitruvianpartners.com/wp-content/uploads/placeholder-banner.png"
+            className="w-100 my-4"
+            alt="banner"
+          />
           <Icon path={mdiPinOff} size={1} className="p-1" />
-          <span className="pl-1 font-weight-bold">Et cillum id nisi duis mollit do.</span>
-          <p className="mt-4 pl-4 " >Pariatur enim do ullamco nisi ad excepteur mollit id aliquip irure elit ipsum. Culpa amet sit amet tempor anim do occaecat in excepteur. Duis minim consequat fugiat sit nisi in fugiat occaecat proident reprehenderit. Enim ad amet quis anim..</p>
+          <span className="pl-1 font-weight-bold">
+            Et cillum id nisi duis mollit do.
+          </span>
+          <p className="mt-4 pl-4 ">
+            Pariatur enim do ullamco nisi ad excepteur mollit id aliquip irure
+            elit ipsum. Culpa amet sit amet tempor anim do occaecat in
+            excepteur. Duis minim consequat fugiat sit nisi in fugiat occaecat
+            proident reprehenderit. Enim ad amet quis anim..
+          </p>
         </div>
       </div>
     </div>

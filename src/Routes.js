@@ -12,7 +12,7 @@ import CreateOrganisation from "./containers/initial-setup-pages/CreateOrganisat
 import CreateProject from "./containers/initial-setup-pages/CreateProject/CreateProject";
 import CreateProject2 from "./containers/initial-setup-pages/CreateProject/CreateProject2";
 import Personalise from "./containers/initial-setup-pages/Personalise";
-import { UserContext, UserProvider } from "./context/UserContext";
+import { UserProvider } from "./context/UserContext";
 
 export default function Routes() {
   return (

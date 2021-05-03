@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import { FieldArray } from "formik";
 
 export default function ModalContainer({ children, remove, index }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleSave = () => {
+    //Check Validation
+
+    //Save Data to database or somewhere local ??
+
+    //Close Modal
+    setShow(false);
+  };
 
   const popover = (
     <Popover id="popover-basic">
@@ -55,7 +61,7 @@ export default function ModalContainer({ children, remove, index }) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSave}>
             Save Changes
           </Button>
         </Modal.Footer>

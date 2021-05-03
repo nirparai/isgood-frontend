@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { FieldArray } from "formik";
 import BenerficiaryGroupChange from "./BeneficiaryModal";
 import BenerficiaryGroupDemographics from "./DemographicsModal";
 import ModalContainer from "./ModalContainer";
+import FormErrorMessage from "../../../components/FormErrorMessage";
 
 export default function BeneficiaryGroups({ arrayHelpers }) {
   const [serverMessage, setServerMessage] = useState();
@@ -40,6 +41,10 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
                   value={
                     form.values.beneficiaryGroups[beneficiaryIndex].demoName
                   }
+                />
+
+                <FormErrorMessage
+                  name={`beneficiaryGroups[${beneficiaryIndex}].demoName`}
                 />
               </Form.Group>
 

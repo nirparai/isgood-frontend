@@ -4,19 +4,29 @@ import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Formik, FieldArray } from "formik";
 import HomePageNavbar from "../../../components/HomePageNavbar";
-import AuthService from "../../../services/auth";
 import BeneficiaryGroups from "./BeneficiaryGroups";
-
-//Validation code
-const validate = (values) => {
-  const errors = {};
-  return errors;
-};
+import * as Yup from "yup";
 
 export default function CreateProject2() {
   const [serverMessage, setServerMessage] = useState();
 
   const history = useHistory();
+
+  const validationSchema = Yup.object().shape({
+    beneficiaryGroups: Yup.array().of(
+      Yup.object().shape({
+        demoName: Yup.string().required("Required"),
+        groupChange: Yup.array().of(Yup.string().required("Required")),
+        demographics: Yup.array().of(
+          Yup.object().shape({
+            demographic: Yup.string().required("Required"),
+            operator: Yup.string().required("Required"),
+            value: Yup.string().required("Required"),
+          })
+        ),
+      })
+    ),
+  });
 
   return (
     <div className="container">
@@ -44,15 +54,15 @@ export default function CreateProject2() {
                 },
               ],
             }}
+            validationSchema={validationSchema}
             onSubmit={(values, methods) => {
               console.log(methods);
               alert(JSON.stringify(values, null, 2));
-              methods.resetForm();
+              // methods.resetForm();
 
               // move to next project form page
 
-              history.push("/personalise");
-              window.location.reload();
+              // history.push("/createproject3");
             }}
           >
             {(formik) => (
