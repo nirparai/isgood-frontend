@@ -4,20 +4,29 @@ import authHeader from "./header";
 const API_URL = "http://localhost:8000/api/";
 
 class UserService {
-  createOrg(organisationName, website) {
+  createOrg(organisationName, website, token) {
     const data = {
       name: organisationName,
       url: website,
     };
     return axios.post(API_URL + "org/create", data, {
-      headers: authHeader(),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
   getOrg() {
     return axios.get(API_URL + "org");
   }
 
-  createProject(orgId, name, description, projectImpacts, outcomesDesired) {
+  createProject(
+    orgId,
+    name,
+    description,
+    projectImpacts,
+    outcomesDesired,
+    token
+  ) {
     const data = {
       orgId: orgId,
       name: name,
@@ -26,7 +35,9 @@ class UserService {
       outcomesDesired: outcomesDesired,
     };
     return axios.post(API_URL + "project/create", data, {
-      headers: authHeader(),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   }
 

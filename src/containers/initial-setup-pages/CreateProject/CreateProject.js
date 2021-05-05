@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -7,13 +7,17 @@ import HomePageNavbar from "../../../components/HomePageNavbar";
 import UserService from "../../../services/user";
 import * as Yup from "yup";
 import FormErrorMessage from "../../../components/FormErrorMessage";
+import { useAuth0 } from "@auth0/auth0-react";
+import UserContext from "../../../context/UserContext";
 
 export default function CreateProject() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
-    orgId: Yup.string().required("Required"),
+    orgId: Yup.string().required("Required").nullable(),
     projectName: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
     impacts: Yup.array().of(Yup.string().required("Required")),
@@ -38,28 +42,38 @@ export default function CreateProject() {
           </legend>
           <Formik
             initialValues={{
-              orgId: "1",
+              orgId: user.currentOrgId,
               projectName: "",
               description: "",
               impacts: [""],
               outcomes: [""],
             }}
             validationSchema={validationSchema}
-            onSubmit={(values, methods) => {
-              UserService.createProject(
-                values.orgId,
-                values.projectName,
-                values.description,
-                values.impacts,
-                values.outcomes
-              );
-              alert(JSON.stringify(values, null, 2));
-              methods.resetForm();
+            onSubmit={async (values, methods) => {
+              try {
+                const token = await getAccessTokenSilently();
+                const res = await UserService.createProject(
+                  values.orgId,
+                  values.projectName,
+                  values.description,
+                  values.impacts,
+                  values.outcomes,
+                  token
+                );
+                // console.log(res);
 
-              // move to next project form page
+                // setUser((state) => {
+                //   return { ...state, currentProjectId: res.data };
+                // });
 
-              history.push("/createProject2");
-              window.location.reload();
+                methods.resetForm();
+
+                // move to next project form page
+                history.push("/createProject2");
+              } catch (err) {
+                const errMessage = err.response.data["error"];
+                setServerMessage(errMessage);
+              }
             }}
           >
             {(formik) => (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import { Col, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -7,10 +7,14 @@ import UserService from "../../services/user";
 import HomePageNavbar from "../../components/HomePageNavbar";
 import * as Yup from "yup";
 import FormErrorMessage from "../../components/FormErrorMessage";
+import { useAuth0 } from "@auth0/auth0-react";
+import UserContext from "../../context/UserContext";
 
 export default function CreateOrganisation() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     organisationName: Yup.string().required("Required"),
@@ -47,28 +51,25 @@ export default function CreateOrganisation() {
               sector: "Choose....",
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-              UserService.createOrg(
-                values.organisationName,
-                values.website
-              ).then(
-                () => {
-                  history.push("/createproject");
-                  window.location.reload();
-                },
-                // response => {
-                //   console.log(response.data);
-                //   // const resMessage = response.data;
+            onSubmit={async (values, methods) => {
+              try {
+                const token = await getAccessTokenSilently();
 
-                //   // setMessage(resMessage);
-                // },
-                (error) => {
-                  //console.log(error.response.data);
-                  const errMessage = error.response.data["error"];
-                  setServerMessage(errMessage);
-                }
-              );
-              //alert(JSON.stringify(values, null, 2));
+                const res = await UserService.createOrg(
+                  values.organisationName,
+                  values.website,
+                  token
+                );
+
+                setUser((state) => {
+                  return { ...state, currentOrgId: res.data.orgId };
+                });
+                methods.resetForm();
+                history.push("/createproject");
+              } catch (err) {
+                const errMessage = err.response.data["error"];
+                setServerMessage(errMessage);
+              }
             }}
           >
             {(formik) => (
