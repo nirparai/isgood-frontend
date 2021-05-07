@@ -7,8 +7,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 export default function SideNav() {
   return (
-    <Navbar className="bg-info h-100 w-100">
-      {/*    <ListGroup>
+    <Navbar className="bg-info vh-100">
+      {/* <ListGroup>
         <ListGroup.Item active className="sidenav-item nav-item">
           Projects
         </ListGroup.Item>

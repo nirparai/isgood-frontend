@@ -19,7 +19,7 @@ export default function TopNav() {
     <Container>
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
         <Navbar.Brand className="font-weight-bold text-muted">
-          <LinkContainer to="/dashboard">
+          <LinkContainer to="/home">
             <Nav.Link>
               <img src={logo} alt="Logo" />
             </Nav.Link>

@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiShareVariant } from "@mdi/js";
 import { mdiAccountCircle } from "@mdi/js";
 import { mdiAccountMultiple } from "@mdi/js";
 import { mdiPlus } from "@mdi/js";
+import { useParams } from "react-router-dom";
+
 import Overview from "./projects-pages/Overview";
 import Indicators from "./projects-pages/Indicators";
 import Team from "./projects-pages/Team";
+import UserContext from "../../context/UserContext";
 
-const ProjectLayout = () => {
+const ProjectPage = () => {
+  const { user, setUser } = useContext(UserContext);
+  const { projectId } = useParams();
+
+  const [currentProject] = user.userProjects.filter(
+    (project) => project.projectId == projectId
+  );
+  console.log(currentProject);
   return (
     <div>
       <Container>
@@ -18,7 +28,7 @@ const ProjectLayout = () => {
             <Icon path={mdiAccountCircle} size={5} className="p-1" />
           </Col>
           <Col className="col-lg-7 col-12 d-flex align-items-center justify-content-lg-start justify-content-center">
-            <p>Project Name</p>
+            <p>{currentProject.name}</p>
           </Col>
           <Col className="col-lg-3 col-12 d-flex justify-content-end flex-column ">
             <Row className="">
@@ -134,4 +144,4 @@ const ProjectLayout = () => {
   );
 };
 
-export default ProjectLayout;
+export default ProjectPage;

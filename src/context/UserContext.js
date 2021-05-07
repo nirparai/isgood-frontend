@@ -11,6 +11,8 @@ export const UserProvider = ({ children }) => {
     userId: null,
     currentOrgId: null,
     currentProjectId: null,
+    userOrgs: null,
+    userProjects: null,
   });
   return (
     <UserContext.Provider value={{ user, setUser }}>

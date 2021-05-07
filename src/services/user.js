@@ -15,8 +15,12 @@ class UserService {
       },
     });
   }
-  getOrg() {
-    return axios.get(API_URL + "org");
+  getOrg(token) {
+    return axios.get(API_URL + "org", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   createProject(
@@ -35,6 +39,14 @@ class UserService {
       outcomesDesired: outcomesDesired,
     };
     return axios.post(API_URL + "project/create", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  getProjectByUser(token) {
+    return axios.get(API_URL + "project", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
