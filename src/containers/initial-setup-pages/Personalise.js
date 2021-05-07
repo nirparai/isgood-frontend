@@ -54,7 +54,7 @@ export default function Personalise() {
             validationSchema={validationSchema}
             onSubmit={(values) => {
               alert(JSON.stringify(values, null, 2));
-              history.push("/myprojects");
+              history.push("/home/myprojects");
             }}
           >
             {(formik) => (

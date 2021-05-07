@@ -9,7 +9,7 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     userId: null,
-    currentOrgId: null,
+    lastOrgId: null,
     currentProjectId: null,
     userOrgs: null,
     userProjects: null,

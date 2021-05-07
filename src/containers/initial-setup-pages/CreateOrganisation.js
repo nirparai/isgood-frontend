@@ -65,7 +65,7 @@ export default function CreateOrganisation() {
                   return { ...state, currentOrgId: res.data.orgId };
                 });
                 methods.resetForm();
-                history.push("/createproject");
+                history.push("/setup/createproject");
               } catch (err) {
                 const errMessage = err.response.data["error"];
                 setServerMessage(errMessage);

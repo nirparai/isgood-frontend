@@ -69,7 +69,7 @@ export default function CreateProject() {
                 methods.resetForm();
 
                 // move to next project form page
-                history.push("/createProject2");
+                history.push("/setup/createProject2");
               } catch (err) {
                 const errMessage = err.response.data["error"];
                 setServerMessage(errMessage);

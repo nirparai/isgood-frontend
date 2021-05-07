@@ -62,7 +62,7 @@ export default function CreateProject2() {
 
               // move to next project form page
 
-              // history.push("/createproject3");
+              // history.push("/setup/createproject3");
             }}
           >
             {(formik) => (

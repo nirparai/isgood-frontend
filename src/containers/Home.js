@@ -11,9 +11,9 @@ export default function Home() {
 
   useEffect(() => {
     if (isAuthenticated && currentOrgId) {
-      history.push("/myprojects");
+      history.push(`/home/myorganisations/${currentOrgId}`);
     } else if (isAuthenticated) {
-      history.push("/welcome");
+      history.push("/setup/welcome");
     }
   }, [isAuthenticated]);
   return (
