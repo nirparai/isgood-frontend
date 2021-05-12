@@ -9,6 +9,7 @@ export default function Home() {
   const { isAuthenticated } = useAuth0();
   const history = useHistory();
 
+  // temp way to redirect to setup if the user isnt part of an org
   useEffect(() => {
     if (isAuthenticated && currentOrgId) {
       history.push(`/home/myorganisations/${currentOrgId}`);

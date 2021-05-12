@@ -4,14 +4,19 @@ import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
 export default function ModalContainer({ children, remove, index }) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    //clear fields of modal
+
+    // close modal
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
   const handleSave = () => {
     //Check Validation
 
     //Save Data to database or somewhere local ??
 
-    //Close Modal
+    //Close Modal if validation and save is successfull
     setShow(false);
   };
 

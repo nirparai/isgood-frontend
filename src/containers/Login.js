@@ -1,3 +1,5 @@
+// OLD CODE FROM BEFORE AUTH0 WAS IMPLEMENTED FOR LOGIN AND SIGNUP
+
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";

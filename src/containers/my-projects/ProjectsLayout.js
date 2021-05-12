@@ -5,13 +5,11 @@ import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserContext from "../../context/UserContext";
 import UserService from "../../services/user";
-import { useRouteMatch } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function ProjectsLayout() {
   const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
-  const { path, url } = useRouteMatch();
 
   useEffect(() => {
     const getProjects = async () => {

@@ -1,5 +1,9 @@
+//Old create project design
+
 import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Formik, FieldArray } from "formik";
@@ -7,7 +11,6 @@ import HomePageNavbar from "../../../components/HomePageNavbar";
 import UserService from "../../../services/user";
 import * as Yup from "yup";
 import FormErrorMessage from "../../../components/FormErrorMessage";
-import { useAuth0 } from "@auth0/auth0-react";
 import UserContext from "../../../context/UserContext";
 
 export default function CreateProject() {

@@ -7,7 +7,8 @@ import * as Yup from "yup";
 import FormErrorMessage from "../../components/FormErrorMessage";
 import HomePageNavbar from "../../components/HomePageNavbar";
 import { useAuth0 } from "@auth0/auth0-react";
-//Validation code
+
+//This is not working and needs to be connected to auth0 management api so that the infomation is stored to the AUTH0 user meta-data
 
 export default function Personalise() {
   const [serverMessage, setServerMessage] = useState();

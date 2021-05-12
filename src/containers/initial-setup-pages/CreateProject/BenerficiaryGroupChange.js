@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import FormErrorMessage from "../../../components/FormErrorMessage";
@@ -7,7 +7,6 @@ export default function BenerficiaryGroupChange({
   beneficiaryIndex,
   changeArrayHelpers,
 }) {
-  const [serverMessage, setServerMessage] = useState();
   const { form, insert, remove } = changeArrayHelpers;
   return (
     <>
@@ -24,7 +23,6 @@ export default function BenerficiaryGroupChange({
                   placeholder=""
                   name={`beneficiaries[${beneficiaryIndex}].lifeChange[${changeIndex}]`}
                   type="text"
-                  onClick={() => setServerMessage(null)}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   value={

@@ -50,14 +50,16 @@ export default function CreateProject() {
         values.beneficiaries,
         token
       );
+      console.log(res);
 
-      // methods.resetForm();
+      methods.resetForm();
 
       // move to next project form page
-      // history.push("/setup/createProject2");
+      history.push("/home/myprojects");
     } catch (err) {
-      const errMessage = err.response.data["error"];
-      setServerMessage(errMessage);
+      console.log(err.response.data);
+      // const errMessage = err.response.data["error"];
+      // setServerMessage(errMessage);
     }
   };
 

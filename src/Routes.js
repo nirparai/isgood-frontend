@@ -4,8 +4,6 @@ import ProtectedRoute from "./auth/protected-route";
 import { UserProvider } from "./context/UserContext";
 
 import Home from "./containers/Home";
-import Login from "./containers/Login";
-import Signup from "./containers/Signup";
 import ProjectForm from "./containers/ProjectForm";
 import NotFound from "./containers/NotFound";
 import UserRoutes from "./UserRoutes";
@@ -15,17 +13,13 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-
-      <Route exact path="/login" component={Login} />
-
-      <Route exact path="/signup" component={Signup} />
-
+      {/* This route was for testing of the geolocation form */}
       <Route exact path="/projectform" component={ProjectForm} />
+      {/* Not sure if the provider should be added here but currently is working */}
       <UserProvider>
         <ProtectedRoute path="/home" component={UserRoutes} />
         <ProtectedRoute path="/setup" component={SetupRoutes} />
       </UserProvider>
-
       {/* The NotFound Route needs to stay in the bottom to work for 404 errors*/}
       <Route component={NotFound} />
     </Switch>

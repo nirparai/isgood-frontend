@@ -14,7 +14,7 @@ export default function CreateOrganisation() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
   const { getAccessTokenSilently } = useAuth0();
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     organisationName: Yup.string().required("Required"),
@@ -34,7 +34,8 @@ export default function CreateOrganisation() {
         values.website,
         token
       );
-
+      // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
+      // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made
       setUser((state) => {
         return { ...state, currentOrgId: res.data.orgId };
       });

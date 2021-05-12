@@ -13,6 +13,7 @@ export default function OrganisationsLayout() {
   const { user, setUser } = useContext(UserContext);
   const { path, url } = useRouteMatch();
 
+  // get the projects a user is part of on load
   useEffect(() => {
     const getOrgs = async () => {
       try {
@@ -27,7 +28,9 @@ export default function OrganisationsLayout() {
     };
     getOrgs();
   }, []);
+
   console.log(user);
+
   return (
     <Container>
       <Row>
