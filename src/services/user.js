@@ -29,6 +29,7 @@ class UserService {
     description,
     projectImpacts,
     outcomesDesired,
+    beneficiarys,
     token
   ) {
     const data = {
@@ -37,6 +38,7 @@ class UserService {
       description: description,
       projectImpacts: projectImpacts,
       outcomesDesired: outcomesDesired,
+      beneficiaries: beneficiarys,
     };
     return axios.post(API_URL + "project/create", data, {
       headers: {

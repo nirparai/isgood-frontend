@@ -25,6 +25,27 @@ export default function CreateOrganisation() {
     sector: Yup.string(),
   });
 
+  const onSubmit = async (values, methods) => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      const res = await UserService.createOrg(
+        values.organisationName,
+        values.website,
+        token
+      );
+
+      setUser((state) => {
+        return { ...state, currentOrgId: res.data.orgId };
+      });
+      methods.resetForm();
+      history.push("/setup/createproject");
+    } catch (err) {
+      const errMessage = err.response.data["error"];
+      setServerMessage(errMessage);
+    }
+  };
+
   return (
     <div className="container">
       <HomePageNavbar />
@@ -51,26 +72,7 @@ export default function CreateOrganisation() {
               sector: "Choose....",
             }}
             validationSchema={validationSchema}
-            onSubmit={async (values, methods) => {
-              try {
-                const token = await getAccessTokenSilently();
-
-                const res = await UserService.createOrg(
-                  values.organisationName,
-                  values.website,
-                  token
-                );
-
-                setUser((state) => {
-                  return { ...state, currentOrgId: res.data.orgId };
-                });
-                methods.resetForm();
-                history.push("/setup/createproject");
-              } catch (err) {
-                const errMessage = err.response.data["error"];
-                setServerMessage(errMessage);
-              }
-            }}
+            onSubmit={onSubmit}
           >
             {(formik) => (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">

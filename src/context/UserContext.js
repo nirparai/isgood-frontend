@@ -11,6 +11,8 @@ export const UserProvider = ({ children }) => {
     userId: null,
     lastOrgId: null,
     currentProjectId: null,
+    currentOrgId: null,
+    orgId: null,
     userOrgs: null,
     userProjects: null,
   });

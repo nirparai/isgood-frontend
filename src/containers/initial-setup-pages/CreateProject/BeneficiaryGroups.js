@@ -14,42 +14,38 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
   return (
     <>
       <Form.Label>Beneficiary Groups</Form.Label>
-      {form.values.beneficiaryGroups.map((beneficiary, beneficiaryIndex) => (
+      {form.values.beneficiaries.map((beneficiary, beneficiaryIndex) => (
         <div
           key={beneficiaryIndex}
           className="d-flex my-2 justify-content-center"
         >
           <div className="w-50 border d-flex align-items-center">
             <div className="mx-2">
-              {form.values.beneficiaryGroups[beneficiaryIndex].demoName}
+              {form.values.beneficiaries[beneficiaryIndex].name}
             </div>
           </div>
           <ModalContainer remove={remove} index={beneficiaryIndex}>
             <>
-              <Form.Group
-                controlId={`beneficiaryGroups[${beneficiaryIndex}].demoName`}
-              >
+              <Form.Group controlId={`beneficiaries[${beneficiaryIndex}].name`}>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   autoFocus
                   placeholder=""
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demoName`}
+                  name={`beneficiaries[${beneficiaryIndex}].name`}
                   type="text"
                   onClick={() => setServerMessage(null)}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
-                  value={
-                    form.values.beneficiaryGroups[beneficiaryIndex].demoName
-                  }
+                  value={form.values.beneficiaries[beneficiaryIndex].name}
                 />
 
                 <FormErrorMessage
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demoName`}
+                  name={`beneficiaries[${beneficiaryIndex}].name`}
                 />
               </Form.Group>
 
               <FieldArray
-                name={`beneficiaryGroups[${beneficiaryIndex}].groupChange`}
+                name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
               >
                 {(changeArrayHelpers) => (
                   <BenerficiaryGroupChange
@@ -60,7 +56,7 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
               </FieldArray>
 
               <FieldArray
-                name={`beneficiaryGroups[${beneficiaryIndex}].demographics`}
+                name={`beneficiaries[${beneficiaryIndex}].demographics`}
               >
                 {(demographicArrayHelpers) => (
                   <BenerficiaryGroupDemographics
@@ -76,10 +72,10 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
       <div className="d-flex justify-content-center my-2">
         <Button
           onClick={() =>
-            insert(form.values.beneficiaryGroups.length, {
-              demoName: "",
-              groupChange: [""],
-              demographics: [{ demographic: "", operator: "", value: "" }],
+            insert(form.values.beneficiaries.length, {
+              name: "",
+              lifeChange: [""],
+              demographics: [{ name: "", operator: "", value: "" }],
             })
           }
         >

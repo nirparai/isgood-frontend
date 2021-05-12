@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
-import { Button, Card, Accordion } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Formik, FieldArray } from "formik";
 import HomePageNavbar from "../../../components/HomePageNavbar";
@@ -9,7 +9,6 @@ import * as Yup from "yup";
 import FormErrorMessage from "../../../components/FormErrorMessage";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserContext from "../../../context/UserContext";
-import BeneficiaryGroups from "./BeneficiaryGroups";
 
 export default function CreateProject() {
   const [serverMessage, setServerMessage] = useState();
@@ -18,48 +17,12 @@ export default function CreateProject() {
   const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
-    orgId: Yup.string().required(),
+    orgId: Yup.string().required("Required").nullable(),
     projectName: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
     impacts: Yup.array().of(Yup.string().required("Required")),
     outcomes: Yup.array().of(Yup.string().required("Required")),
-    beneficiaries: Yup.array().of(
-      Yup.object().shape({
-        name: Yup.string().required("Required"),
-        lifeChange: Yup.array().of(Yup.string().required("Required")),
-        demographics: Yup.array().of(
-          Yup.object().shape({
-            name: Yup.string().required("Required"),
-            operator: Yup.string().required("Required"),
-            value: Yup.string().required("Required"),
-          })
-        ),
-      })
-    ),
   });
-
-  const onSubmit = async (values, methods) => {
-    try {
-      const token = await getAccessTokenSilently();
-      const res = await UserService.createProject(
-        values.orgId,
-        values.projectName,
-        values.description,
-        values.impacts,
-        values.outcomes,
-        values.beneficiaries,
-        token
-      );
-
-      // methods.resetForm();
-
-      // move to next project form page
-      // history.push("/setup/createProject2");
-    } catch (err) {
-      const errMessage = err.response.data["error"];
-      setServerMessage(errMessage);
-    }
-  };
 
   return (
     <div className="container">
@@ -84,16 +47,34 @@ export default function CreateProject() {
               description: "",
               impacts: [""],
               outcomes: [""],
-              beneficiaries: [
-                {
-                  name: "",
-                  lifeChange: [""],
-                  demographics: [{ name: "", operator: "", value: "" }],
-                },
-              ],
             }}
             validationSchema={validationSchema}
-            onSubmit={onSubmit}
+            onSubmit={async (values, methods) => {
+              try {
+                const token = await getAccessTokenSilently();
+                const res = await UserService.createProject(
+                  values.orgId,
+                  values.projectName,
+                  values.description,
+                  values.impacts,
+                  values.outcomes,
+                  token
+                );
+                // console.log(res);
+
+                // setUser((state) => {
+                //   return { ...state, currentProjectId: res.data };
+                // });
+
+                methods.resetForm();
+
+                // move to next project form page
+                history.push("/setup/createProject2");
+              } catch (err) {
+                const errMessage = err.response.data["error"];
+                setServerMessage(errMessage);
+              }
+            }}
           >
             {(formik) => (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
@@ -217,23 +198,6 @@ export default function CreateProject() {
                     );
                   }}
                 </FieldArray>
-
-                <Accordion>
-                  <Card className="my-3">
-                    <Accordion.Toggle as={Card.Header} eventKey="0">
-                      Advance Fields
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey="0">
-                      <Card.Body>
-                        <FieldArray name="beneficiaries">
-                          {(arrayHelpers) => (
-                            <BeneficiaryGroups arrayHelpers={arrayHelpers} />
-                          )}
-                        </FieldArray>
-                      </Card.Body>
-                    </Accordion.Collapse>
-                  </Card>
-                </Accordion>
 
                 <Button block size="lg" type="submit">
                   Next

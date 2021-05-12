@@ -11,26 +11,24 @@ export default function BenerficiaryGroupChange({
   const { form, insert, remove } = changeArrayHelpers;
   return (
     <>
-      <Form.Group
-        controlId={`beneficiaryGroups[${beneficiaryIndex}].groupChange`}
-      >
+      <Form.Group controlId={`beneficiaries[${beneficiaryIndex}].lifeChange`}>
         <Form.Label>
           How does the life of this beneficiary group change?
         </Form.Label>
-        {form.values.beneficiaryGroups[beneficiaryIndex].groupChange.map(
+        {form.values.beneficiaries[beneficiaryIndex].lifeChange.map(
           (change, changeIndex) => (
             <div key={changeIndex}>
               <div className="d-flex flex my-2">
                 <Form.Control
                   autoFocus
                   placeholder=""
-                  name={`beneficiaryGroups[${beneficiaryIndex}].groupChange[${changeIndex}]`}
+                  name={`beneficiaries[${beneficiaryIndex}].lifeChange[${changeIndex}]`}
                   type="text"
                   onClick={() => setServerMessage(null)}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   value={
-                    form.values.beneficiaryGroups[beneficiaryIndex].groupChange[
+                    form.values.beneficiaries[beneficiaryIndex].lifeChange[
                       changeIndex
                     ]
                   }
@@ -45,7 +43,7 @@ export default function BenerficiaryGroupChange({
                 </Button>
               </div>
               <FormErrorMessage
-                name={`beneficiaryGroups[${beneficiaryIndex}].groupChange[${changeIndex}]`}
+                name={`beneficiaries[${beneficiaryIndex}].lifeChange[${changeIndex}]`}
               />
             </div>
           )
@@ -54,8 +52,7 @@ export default function BenerficiaryGroupChange({
           <Button
             onClick={() =>
               insert(
-                form.values.beneficiaryGroups[beneficiaryIndex].groupChange
-                  .length,
+                form.values.beneficiaries[beneficiaryIndex].lifeChange.length,
                 ""
               )
             }

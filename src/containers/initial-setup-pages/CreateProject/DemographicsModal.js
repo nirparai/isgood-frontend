@@ -13,7 +13,7 @@ export default function BenerficiaryGroupDemographics({
   return (
     <>
       <Form.Label>Demographics</Form.Label>
-      {form.values.beneficiaryGroups[beneficiaryIndex].demographics.map(
+      {form.values.beneficiaries[beneficiaryIndex].demographics.map(
         (demographic, demographicIndex) => (
           <div
             key={demographicIndex}
@@ -21,73 +21,76 @@ export default function BenerficiaryGroupDemographics({
           >
             <div className="w-50 border d-flex align-items-center">
               {
-                form.values.beneficiaryGroups[beneficiaryIndex].demographics[
+                form.values.beneficiaries[beneficiaryIndex].demographics[
                   demographicIndex
-                ].demographic
+                ].name
               }
             </div>
             <ModalContainer remove={remove} index={demographicIndex}>
               <Form.Group
-                controlId={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.demographic]`}
+                controlId={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.name]`}
               >
                 <Form.Label>Demographic</Form.Label>
                 <Form.Control
                   autoFocus
                   placeholder=""
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.demographic]`}
+                  name={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.name]`}
                   type="text"
                   onClick={() => setServerMessage(null)}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   value={
-                    form.values.beneficiaryGroups[beneficiaryIndex]
-                      .demographics[demographicIndex].demographic
+                    form.values.beneficiaries[beneficiaryIndex].demographics[
+                      demographicIndex
+                    ].name
                   }
                 />
                 <FormErrorMessage
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.demographic]`}
+                  name={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.name]`}
                 />
               </Form.Group>
               <Form.Group
-                controlId={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
+                controlId={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
               >
                 <Form.Label>Operator</Form.Label>
                 <Form.Control
                   autoFocus
                   placeholder=""
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
+                  name={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
                   type="text"
                   onClick={() => setServerMessage(null)}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   value={
-                    form.values.beneficiaryGroups[beneficiaryIndex]
-                      .demographics[demographicIndex].operator
+                    form.values.beneficiaries[beneficiaryIndex].demographics[
+                      demographicIndex
+                    ].operator
                   }
                 />
                 <FormErrorMessage
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
+                  name={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.operator]`}
                 />
               </Form.Group>
               <Form.Group
-                controlId={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
+                controlId={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
               >
                 <Form.Label>Value</Form.Label>
                 <Form.Control
                   autoFocus
                   placeholder=""
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
+                  name={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
                   type="text"
                   onClick={() => setServerMessage(null)}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   value={
-                    form.values.beneficiaryGroups[beneficiaryIndex]
-                      .demographics[demographicIndex].value
+                    form.values.beneficiaries[beneficiaryIndex].demographics[
+                      demographicIndex
+                    ].value
                   }
                 />
                 <FormErrorMessage
-                  name={`beneficiaryGroups[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
+                  name={`beneficiaries[${beneficiaryIndex}].demographics[${demographicIndex}.value]`}
                 />
               </Form.Group>
             </ModalContainer>
@@ -98,9 +101,8 @@ export default function BenerficiaryGroupDemographics({
         <Button
           onClick={() =>
             insert(
-              form.values.beneficiaryGroups[beneficiaryIndex].demographics
-                .length,
-              { demographic: "", operator: "", value: "" }
+              form.values.beneficiaries[beneficiaryIndex].demographics.length,
+              { name: "", operator: "", value: "" }
             )
           }
         >
