@@ -1,30 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import UserContext from "../../context/UserContext";
+
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
-import { useAuth0 } from "@auth0/auth0-react";
-import UserContext from "../../context/UserContext";
-import UserService from "../../services/user";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function ProjectsLayout() {
-  const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
 
-  useEffect(() => {
-    const getProjects = async () => {
-      try {
-        const token = await getAccessTokenSilently();
-        const res = await UserService.getProjectByUser(token);
-        console.log(res.data);
-        console.log(res);
-        setUser((prev) => ({ ...prev, userProjects: res.data }));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProjects();
-  }, []);
   console.log(user);
   return (
     <Container>

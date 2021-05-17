@@ -15,7 +15,7 @@ class UserService {
       },
     });
   }
-  getOrg(token) {
+  getOrgByUser(token) {
     return axios.get(API_URL + "org", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -53,14 +53,6 @@ class UserService {
         Authorization: `Bearer ${token}`,
       },
     });
-  }
-
-  getUserContent() {
-    return axios.get(API_URL + "user", { headers: authHeader() });
-  }
-
-  getAdminContent() {
-    return axios.get(API_URL + "admin", { headers: authHeader() });
   }
 }
 
