@@ -58,8 +58,12 @@ export default function CreateProject() {
       history.push("/home/myprojects");
     } catch (err) {
       console.log(err.response.data);
-      // const errMessage = err.response.data["error"];
-      // setServerMessage(errMessage);
+      if (err.response.data["error"]) {
+        const errMessage = err.response.data["error"];
+        setServerMessage(errMessage);
+      } else {
+        setServerMessage("There was a problem please try again later");
+      }
     }
   };
 

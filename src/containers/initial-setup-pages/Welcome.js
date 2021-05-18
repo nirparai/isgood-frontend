@@ -18,8 +18,8 @@ export default function Welcome() {
           1. Create Organisation | 2. Setup a Project | 3. Personalise | 4.
           Share with Team
         </p>
-        <LinkContainer to="/setup/createorg">
-          <Button className="my-5">Step 1: Create Organisation</Button>
+        <LinkContainer to="/setup/personalise">
+          <Button className="my-5">Step 1: Personalise</Button>
         </LinkContainer>
         <div>
           <p>Watch Intro Video</p>

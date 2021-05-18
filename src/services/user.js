@@ -54,6 +54,14 @@ class UserService {
       },
     });
   }
+
+  updateUser(values, token) {
+    return axios.post(API_URL + "users/update", values, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
 
 export default new UserService();

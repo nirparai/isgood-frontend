@@ -42,8 +42,12 @@ export default function CreateOrganisation() {
       methods.resetForm();
       history.push("/setup/createproject");
     } catch (err) {
-      const errMessage = err.response.data["error"];
-      setServerMessage(errMessage);
+      if (err.response.data["error"]) {
+        const errMessage = err.response.data["error"];
+        setServerMessage(errMessage);
+      } else {
+        setServerMessage("There was a problem please try again later");
+      }
     }
   };
 

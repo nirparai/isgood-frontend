@@ -1,29 +1,53 @@
 import React, { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
+
+import { Formik } from "formik";
 import Form from "react-bootstrap/Form";
 import { Button, Col } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { Formik } from "formik";
-import * as Yup from "yup";
 import FormErrorMessage from "../../components/FormErrorMessage";
 import HomePageNavbar from "../../components/HomePageNavbar";
-import { useAuth0 } from "@auth0/auth0-react";
+import UserService from "../../services/user";
 
 //This is not working and needs to be connected to auth0 management api so that the infomation is stored to the AUTH0 user meta-data
+//Timezone and Location options need to be filled
 
 export default function Personalise() {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
-    lastName: Yup.string(),
-    email: Yup.string().email(),
-    description: Yup.string(),
+    lastName: Yup.string().required("Required"),
+    email: Yup.string().required("Required"),
     handle: Yup.string(),
     privacy: Yup.string(),
     location: Yup.string(),
     timezone: Yup.string(),
   });
+
+  const onSubmit = async (values) => {
+    try {
+      console.log(values);
+      const token = await getAccessTokenSilently();
+      const res = await UserService.updateUser(values, token);
+      console.log(res);
+      // move to next setup page
+      // history.push("/setup/createorg");
+    } catch (err) {
+      // need to add different error handling either here or on the backend to
+      // handle the difference between an error on the isgood side or the auth0 side
+      console.log(err.response);
+      if (err.response.data["error"]) {
+        const errMessage = err.response.data["error"];
+        setServerMessage(errMessage);
+      } else {
+        setServerMessage("There was a problem please try again later");
+      }
+    }
+  };
+
   console.log(user);
   return (
     <div className="container">
@@ -43,20 +67,16 @@ export default function Personalise() {
           </legend>
           <Formik
             initialValues={{
-              firstName: "Prefilled",
-              lastName: "Prefilled",
+              firstName: "",
+              lastName: "",
               email: user.email,
-              description: "",
               handle: "",
               privacy: "Choose....",
               location: "Choose....",
               timezone: "Choose....",
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
-              alert(JSON.stringify(values, null, 2));
-              history.push("/home/myprojects");
-            }}
+            onSubmit={onSubmit}
           >
             {(formik) => (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
@@ -64,7 +84,6 @@ export default function Personalise() {
                   <Form.Group as={Col} controlId="firstName">
                     <Form.Label>First Name</Form.Label>
                     <Form.Control
-                      disabled
                       autoFocus
                       placeholder="First Name"
                       name="firstName"
@@ -80,7 +99,6 @@ export default function Personalise() {
                   <Form.Group as={Col} controlId="lastName">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control
-                      disabled
                       placeholder="Last Name"
                       name="lastName"
                       type="text"
@@ -106,19 +124,6 @@ export default function Personalise() {
                   <FormErrorMessage name="email" />
                 </Form.Group>
 
-                <Form.Group controlId="description">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Description"
-                    name="description"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.description}
-                  />
-                  <FormErrorMessage name="description" />
-                </Form.Group>
                 <Form.Row>
                   <Form.Group as={Col} controlId="handle" size="lg">
                     <Form.Label>Handle</Form.Label>
@@ -155,7 +160,7 @@ export default function Personalise() {
                 </Form.Row>
                 <Form.Row>
                   <Form.Group as={Col} controlId="location" size="lg">
-                    <Form.Label>Global Region/s</Form.Label>
+                    <Form.Label>Base Location</Form.Label>
                     <Form.Control
                       as="select"
                       name="location"
@@ -192,7 +197,7 @@ export default function Personalise() {
                 </Form.Row>
 
                 <Button block size="lg" type="submit">
-                  Step 4: Invite Team Members
+                  Step 2: Create Organisation
                 </Button>
               </Form>
             )}
