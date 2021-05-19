@@ -5,6 +5,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import { LinkContainer } from "react-router-bootstrap";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function ProjectsLayout() {
   const { user, setUser } = useContext(UserContext);
@@ -12,6 +13,9 @@ export default function ProjectsLayout() {
   console.log(user);
   return (
     <Container>
+      <div className="my-5">
+        <h1>My Projects</h1>
+      </div>
       <Row>
         <Col className=" col-6 mt-3">
           <input placeholder="Filter (future release)" disabled />
@@ -24,23 +28,7 @@ export default function ProjectsLayout() {
       <Row className="d-flex justify-content-center py-5">
         {user.userProjects &&
           user.userProjects.map((project, index) => (
-            <Col
-              key={project.projectId}
-              md={2}
-              sm={3}
-              xs={5}
-              className="p-1 m-2"
-            >
-              <LinkContainer to={`myprojects/${project.projectId}`}>
-                <div className="card d-flex justify-content-center">
-                  <img
-                    src="https://placeimg.com/620/620/any"
-                    alt="Organisation Logo"
-                  />
-                  <h4 className="text-center">{project.name}</h4>
-                </div>
-              </LinkContainer>
-            </Col>
+            <ProjectCard project={project} key={index} />
           ))}
       </Row>
     </Container>

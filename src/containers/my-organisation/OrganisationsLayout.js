@@ -7,6 +7,7 @@ import UserContext from "../../context/UserContext";
 import UserService from "../../services/user";
 import { useRouteMatch } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
+import OrgCard from "../../components/OrgCard";
 
 export default function OrganisationsLayout() {
   const { getAccessTokenSilently } = useAuth0();
@@ -45,17 +46,7 @@ export default function OrganisationsLayout() {
       <Row className="d-flex justify-content-center py-5">
         {user.userOrgs &&
           user.userOrgs.map((org, index) => (
-            <Col key={org.orgId} md={2} sm={3} xs={5} className="p-1 m-2">
-              <LinkContainer to={`myorganisations/${org.orgId}`}>
-                <div className="card d-flex justify-content-center">
-                  <img
-                    src="https://placeimg.com/620/620/any"
-                    alt="Organisation Logo"
-                  />
-                  <h4 className="text-center">{org.name}</h4>
-                </div>
-              </LinkContainer>
-            </Col>
+            <OrgCard key={org.orgId} org={org} />
           ))}
       </Row>
     </Container>

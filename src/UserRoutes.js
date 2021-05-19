@@ -11,6 +11,7 @@ import OrganisationPage from "./containers/my-organisation/OrganisationPage";
 import OrganisationsLayout from "./containers/my-organisation/OrganisationsLayout";
 import ProjectPage from "./containers/my-projects/ProjectPage";
 import ProjectsLayout from "./containers/my-projects/ProjectsLayout";
+import NotFound from "./containers/NotFound";
 
 export default function UserRoutes() {
   const { getAccessTokenSilently } = useAuth0();
@@ -60,6 +61,7 @@ export default function UserRoutes() {
                 path="/home/myprojects/:projectId"
                 component={ProjectPage}
               />
+              <Route component={NotFound} />
             </Switch>
           </Col>
         </Row>

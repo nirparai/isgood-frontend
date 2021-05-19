@@ -16,12 +16,19 @@ const ProjectPage = () => {
   const { user, setUser } = useContext(UserContext);
   const { projectId } = useParams();
 
-  const [currentProject] = user.userProjects.filter(
-    (project) => project.projectId == projectId
-  );
+  let currentProject = {};
+  if (user.userProjects) {
+    const [filter] = user.userProjects.filter(
+      (project) => project.projectId == projectId
+    );
+    currentProject = filter;
+  }
   console.log(currentProject);
   return (
     <div>
+      <div>
+        <h1 className="text-center py-5 border">PROJECT BANNER</h1>
+      </div>
       <Container>
         <Row className="bg-light">
           <Col className="col-lg-2 col-12 d-flex justify-content-center">
