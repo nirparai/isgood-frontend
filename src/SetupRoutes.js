@@ -6,7 +6,6 @@ import CreateProject from "containers/initial-setup-pages/CreateProject/CreatePr
 import Personalise from "containers/initial-setup-pages/Personalise";
 import Welcome from "containers/initial-setup-pages/Welcome";
 import NotFound from "containers/NotFound";
-// All these route components need to be changed as there is lots of code that can be removed from them and added to this component as it is shared across all
 export default function SetupRoutes() {
   return (
     <>

@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 
-import { Button, Card, Accordion, Form } from "react-bootstrap";
+import { Button, Card, Accordion, Form, Col } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import HomePageNavbar from "components/HomePageNavbar";
 import UserService from "services/user";
@@ -36,6 +36,9 @@ export default function CreateProject() {
         ),
       })
     ),
+    geolocation: Yup.array().of(Yup.string()),
+    startDate: Yup.string(),
+    endDate: Yup.string(),
   });
 
   const onSubmit = async (values, methods) => {
@@ -91,6 +94,9 @@ export default function CreateProject() {
               impacts: [""],
               outcomes: [""],
               beneficiaries: [],
+              geolocation: ["", ""],
+              startDate: "",
+              endDate: "",
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
@@ -230,6 +236,38 @@ export default function CreateProject() {
                             <BeneficiaryGroups arrayHelpers={arrayHelpers} />
                           )}
                         </FieldArray>
+                        <Form.Row>
+                          <Form.Group controlId="geolocation" size="lg">
+                            <div>GeolocationFormField</div>
+                          </Form.Group>
+                        </Form.Row>
+                        <Form.Row>
+                          <Form.Group as={Col} controlId="startDate" size="lg">
+                            <Form.Label>Start Date</Form.Label>
+                            <Form.Control
+                              name="startDate"
+                              type="date"
+                              onClick={() => setServerMessage(null)}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.startDate}
+                            />
+                            <FormErrorMessage name="startDate" />
+                          </Form.Group>
+
+                          <Form.Group as={Col} controlId="endDate" size="lg">
+                            <Form.Label>End Date</Form.Label>
+                            <Form.Control
+                              name="endDate"
+                              type="date"
+                              onClick={() => setServerMessage(null)}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.endDate}
+                            />
+                            <FormErrorMessage name="endDate" />
+                          </Form.Group>
+                        </Form.Row>
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>

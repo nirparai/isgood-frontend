@@ -4,7 +4,7 @@ import ProtectedRoute from "auth/protected-route";
 import { UserProvider } from "context/UserContext";
 
 import Home from "containers/Home";
-import ProjectForm from "containers/ProjectForm";
+import ProjectForm from "containers/GeolocationFormField";
 import NotFound from "containers/NotFound";
 import UserRoutes from "UserRoutes";
 import SetupRoutes from "SetupRoutes";
