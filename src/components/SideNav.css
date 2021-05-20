@@ -1,0 +1,45 @@
+@import 'react-pro-sidebar/dist/css/styles.css';
+
+.pro-sidebar .pro-menu .pro-menu-item {
+    font-size: 25px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: aliceblue;
+}
+
+.pro-sidebar > .pro-sidebar-inner > .pro-sidebar-layout .pro-sidebar-header {
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 0px;
+}
+
+.pro-sidebar .pro-menu.shaped .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+    background-color: #81df43c4;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-icon-wrapper .pro-icon {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}
+
+.pro-sidebar > .pro-sidebar-inner {
+    background: #6220fc;
+    height: 100%;
+    position: relative;
+    z-index: 101;
+}
+
+.pro-sidebar .pro-menu .pro-menu-item > .pro-inner-item > .pro-icon-wrapper {
+    margin-right: 20px;
+    font-size: 14px;
+    width: 35px;
+    min-width: 40px;
+    height: 40px;
+    line-height: 35px;
+    text-align: center;
+    display: inline-block;
+}
+

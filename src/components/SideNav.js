@@ -1,22 +1,40 @@
+
 import React from "react";
-import { LinkContainer } from "react-router-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Dropdown from "react-bootstrap/Dropdown";
-import ListGroup from "react-bootstrap/ListGroup";
+import { ProSidebar, Menu, SidebarHeader, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { Link } from 'react-router-dom';
+import './SideNav.css'
+import { BsFillGearFill, BsFillHouseFill, BsFillGridFill,
+   BsClipboardData } from "react-icons/bs";
+
 
 export default function SideNav() {
   return (
-    <Navbar className="bg-info vh-100">
-      {/* <ListGroup>
-        <ListGroup.Item active className="sidenav-item nav-item">
-          Projects
-        </ListGroup.Item>
-        <ListGroup.Item className="nav-item">Dashboard</ListGroup.Item>
-        <ListGroup.Item className="nav-item">Reports</ListGroup.Item>
-        <ListGroup.Item className="nav-item">Sharing Center</ListGroup.Item>
-        <ListGroup.Item className="nav-item">Organisation</ListGroup.Item>
-      </ListGroup> */}
-    </Navbar>
+    <div>
+    <ProSidebar>
+    <SidebarHeader>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAABACAMAAAATQQrVAAADAFBMVEUAAAD////////+/v7z8/P6+vr7/Pv+/v78/Pz9/f3////29vb+/v7+/v7///+oqKjs7Oz+/v7o6ekJCQk5OTnu7u74+Pj+/v6wsLBjY2X////9/f39/f3////n6Ohqa2wWFhZDRET6+/v///9JSUqOj4/+/v/////+/v77+/z////u7u7+/v7r6+vq6uru7u////+IiIj////8/Pz9/f38/Pzx8vT+/v7p6ekMDAz+/v7u7u7FxcX+/v7////19fX9/f0RERH////X2Njz8/QgICASEhNMTE1eXl+Ki4zv8PDz8/QlJSWUlJU6OjpFRkb////////9/v7d3d39/f22trYbGxs9PT2VlZbw8fH+/v7S09T9/f4qKioaGhr////w8fHt7u7n6OgzMzT29vfu7u/+/v7o6Onn5+cuLi8WFhZAQEEnJye0tbXz8/P29vbm5uZmZmcxMTGrrK2goaKNjo/+/v7w8fG0tbbq6+v09PTW1tYjIyN0dXU/P0B/f4BJSUmMjI0vLy9AQEDY2dr9/f7d3t/w8fLW19idnp84ODhUVFQgICDS09RdXV7CwsPi4+OYmZny8/T9/v5KSkvW19hcXV3q6uvOz8/39/fr6+wPDw9cXF0UFBRvcHBUVFVfX2DAwMGYmJm2t7jLzM1iY2Py8/Tn6OlTVFRycnNZWlri4uP////e3+D///+oqan19faLi4ytrq+Jiovq6+vc3d5iYmM7OzvHyMmmpqeCgoPP0NE9PT25urp6e3tOTk98fX3w8fJqa2vQ0NHp6ur9/v7l5ubGx8jS0tNGRkd4eXmamptNTU5VVlaPj5BSU1MvLzBqamuysrOmpqfExcU/P0BtbW22t7fd3t/P0NGZmpvAwcKWl5ji4uN6envT1NWGhof+/v709fV2dnfY2dpubm+1trfU1dfa29ysra3KystnZ2iMjI2oqaqdnp6MjY5VVVZsbW5+fn+8vb6wsbJpaWpxcXHu7/CdnZ55eXrFxcanqKmLi4wAAAADAwMGBgaAmLezAAAA/XRSTlMAAQIEBwUKCBoSHg4VMwwKHCoN/tspIxAOqS0mHWMS8fzfmJv33EZxdjuROyRCOC0+5XxpQjkzMSb7WSIYh0pINv1NSy/89/W4oJNf++fX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" alt="Logo">
+    </img>
+    </SidebarHeader>
+      <Menu iconShape="circle">
+      <MenuItem icon={<BsFillHouseFill />}>Home<Link to="/home" /></MenuItem>
+      <MenuItem icon={<BsFillGridFill />}>Organizations <Link to="/home/myorganisations" /></MenuItem>
+      <MenuItem icon={<BsClipboardData />}>Projects <Link to="/home/myprojects" /></MenuItem>
+      <MenuItem icon={<BsFillGearFill />}>Settings <Link to="/setup/personalise" /></MenuItem>
+    </Menu>
+    </ProSidebar>
+    </div>
   );
 }
+
+/*
+  Potentially add submenus to link to projects
+      <SubMenu title="Components" >
+        <MenuItem>Component 1</MenuItem>
+        <MenuItem>Component 2</MenuItem>
+      </SubMenu>
+
+Add these 3 in future release
+ <MenuItem icon={< />}>Dashboards</MenuItem>
+ <MenuItem icon={< />}>Reports</MenuItem>
+ <MenuItem icon={< />}>Sharing Centre</MenuItem>
+*/
