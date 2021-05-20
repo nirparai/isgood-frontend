@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import UserService from "services/user";
+import UserContext from "context/UserContext";
+
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
-import { useAuth0 } from "@auth0/auth0-react";
-import UserContext from "../../context/UserContext";
-import UserService from "../../services/user";
 import { useRouteMatch } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import OrgCard from "../../components/OrgCard";
+import OrgCard from "components/OrgCard";
 
 export default function OrganisationsLayout() {
   const { getAccessTokenSilently } = useAuth0();

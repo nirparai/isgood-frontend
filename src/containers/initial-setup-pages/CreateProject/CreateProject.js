@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
-import Form from "react-bootstrap/Form";
-import { Button, Card, Accordion } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
-import { Formik, FieldArray } from "formik";
-import HomePageNavbar from "../../../components/HomePageNavbar";
-import UserService from "../../../services/user";
-import * as Yup from "yup";
-import FormErrorMessage from "../../../components/FormErrorMessage";
 import { useAuth0 } from "@auth0/auth0-react";
-import UserContext from "../../../context/UserContext";
+import { useHistory } from "react-router-dom";
+import * as Yup from "yup";
+
+import { Button, Card, Accordion, Form } from "react-bootstrap";
+import { Formik, FieldArray } from "formik";
+import HomePageNavbar from "components/HomePageNavbar";
+import UserService from "services/user";
+import FormErrorMessage from "components/FormErrorMessage";
+import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
 
 export default function CreateProject() {
@@ -90,13 +90,7 @@ export default function CreateProject() {
               description: "",
               impacts: [""],
               outcomes: [""],
-              beneficiaries: [
-                {
-                  name: "",
-                  lifeChange: [""],
-                  demographics: [{ name: "", operator: "", value: "" }],
-                },
-              ],
+              beneficiaries: [],
             }}
             validationSchema={validationSchema}
             onSubmit={onSubmit}

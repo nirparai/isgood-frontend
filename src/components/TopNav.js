@@ -1,16 +1,12 @@
 import React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { LinkContainer } from "react-router-bootstrap";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Dropdown from "react-bootstrap/Dropdown";
-import Badge from "react-bootstrap/Badge";
-import { Container } from "react-bootstrap";
+import { Container, Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiBellOutline } from "@mdi/js";
 import { mdiEmailOutline } from "@mdi/js";
-import logo from "../assets/isgoodai-logo.png";
-import "../App.css";
-import { useAuth0 } from "@auth0/auth0-react";
+import logo from "assets/isgoodai-logo.png";
 
 export default function TopNav() {
   const { logout } = useAuth0();

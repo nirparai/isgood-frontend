@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, getIn } from "formik";
 
-export default function FormErrorMessage({ name }) {
+function FormErrorMessage({ name }) {
   return (
     <>
       <Field name={name}>
@@ -16,3 +16,5 @@ export default function FormErrorMessage({ name }) {
     </>
   );
 }
+
+export default FormErrorMessage;

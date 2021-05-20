@@ -1,5 +1,6 @@
 import React from "react";
-import HomePageNavbar from "../../components/HomePageNavbar";
+
+import HomePageNavbar from "components/HomePageNavbar";
 import { LinkContainer } from "react-router-bootstrap";
 import { Button } from "react-bootstrap";
 

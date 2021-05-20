@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
-import AuthService from "../services/auth";
 
 //geocode
 import Autosuggest from "react-autosuggest";
@@ -18,20 +17,7 @@ export default function ProjectForm() {
       country: "",
     },
     //validateForm,
-    onSubmit: (values) => {
-      AuthService.login(values.email, values.password).then(
-        () => {
-          history.push("/dashboard");
-          window.location.reload();
-        },
-
-        (error) => {
-          const resMessage = error.response.data["error"];
-          setServerMessage(resMessage);
-        }
-      );
-      //alert(JSON.stringify(values, null, 2));
-    },
+    onSubmit: (values) => {},
   });
 
   return (

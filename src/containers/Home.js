@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from "react";
-import HomePageNavbar from "../components/HomePageNavbar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "context/UserContext";
+
+import HomePageNavbar from "components/HomePageNavbar";
 
 export default function Home() {
   const { currentOrgId } = useContext(UserContext);

@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
+
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiShareVariant } from "@mdi/js";
 import { mdiAccountCircle } from "@mdi/js";
 import { mdiAccountMultiple } from "@mdi/js";
 import { mdiPlus } from "@mdi/js";
-import { useParams } from "react-router-dom";
 
 import Overview from "./projects-pages/Overview";
 import Indicators from "./projects-pages/Indicators";

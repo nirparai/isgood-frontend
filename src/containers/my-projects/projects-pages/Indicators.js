@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+
 import { Container, Row, Media } from "react-bootstrap";
-import { mdiDotsHorizontal } from "@mdi/js";
 import Icon from "@mdi/react";
+import { mdiDotsHorizontal } from "@mdi/js";
 
 const Indicators = () => {
   const [indicator, setIndicator] = useState(8);

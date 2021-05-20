@@ -2,7 +2,7 @@ import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import logo from "../assets/isgoodai-logo.png";
+import logo from "assets/isgoodai-logo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function HomePageNavbar() {

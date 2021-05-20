@@ -1,11 +1,11 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
-import { Button } from "react-bootstrap";
+
+import { Button, Form } from "react-bootstrap";
 import { FieldArray } from "formik";
 import BenerficiaryGroupChange from "./BenerficiaryGroupChange";
 import BenerficiaryGroupDemographics from "./DemographicsModal";
 import ModalContainer from "./ModalContainer";
-import FormErrorMessage from "../../../components/FormErrorMessage";
+import FormErrorMessage from "components/FormErrorMessage";
 
 export default function BeneficiaryGroups({ arrayHelpers }) {
   const { form, insert, remove } = arrayHelpers;

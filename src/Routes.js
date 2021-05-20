@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import ProtectedRoute from "./auth/protected-route";
-import { UserProvider } from "./context/UserContext";
+import ProtectedRoute from "auth/protected-route";
+import { UserProvider } from "context/UserContext";
 
-import Home from "./containers/Home";
-import ProjectForm from "./containers/ProjectForm";
-import NotFound from "./containers/NotFound";
-import UserRoutes from "./UserRoutes";
-import SetupRoutes from "./SetupRoutes";
+import Home from "containers/Home";
+import ProjectForm from "containers/ProjectForm";
+import NotFound from "containers/NotFound";
+import UserRoutes from "UserRoutes";
+import SetupRoutes from "SetupRoutes";
 
 export default function Routes() {
   return (

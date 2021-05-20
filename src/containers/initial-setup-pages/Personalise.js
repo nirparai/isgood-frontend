@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
+import * as Yup from "yup";
 
 import { Formik } from "formik";
-import Form from "react-bootstrap/Form";
-import { Button, Col } from "react-bootstrap";
-import FormErrorMessage from "../../components/FormErrorMessage";
-import HomePageNavbar from "../../components/HomePageNavbar";
-import UserService from "../../services/user";
+import { Button, Col, Form } from "react-bootstrap";
+import FormErrorMessage from "components/FormErrorMessage";
+import HomePageNavbar from "components/HomePageNavbar";
+import UserService from "services/user";
 
 //This is not working and needs to be connected to auth0 management api so that the infomation is stored to the AUTH0 user meta-data
 //Timezone and Location options need to be filled
@@ -34,7 +33,7 @@ export default function Personalise() {
       const res = await UserService.updateUser(values, token);
       console.log(res);
       // move to next setup page
-      // history.push("/setup/createorg");
+      history.push("/setup/createorg");
     } catch (err) {
       // need to add different error handling either here or on the backend to
       // handle the difference between an error on the isgood side or the auth0 side

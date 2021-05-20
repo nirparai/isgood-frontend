@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import UserContext from "../../context/UserContext";
+import { useParams } from "react-router-dom";
+import UserContext from "context/UserContext";
 
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
-import ProjectCard from "../../components/ProjectCard";
+import ProjectCard from "components/ProjectCard";
 
 export default function OrganisationPage() {
   const { orgId } = useParams();

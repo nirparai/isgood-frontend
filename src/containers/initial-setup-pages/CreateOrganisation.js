@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
-import Form from "react-bootstrap/Form";
-import { Col, Button } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 import { Formik } from "formik";
-import UserService from "../../services/user";
-import HomePageNavbar from "../../components/HomePageNavbar";
 import * as Yup from "yup";
-import FormErrorMessage from "../../components/FormErrorMessage";
 import { useAuth0 } from "@auth0/auth0-react";
-import UserContext from "../../context/UserContext";
+import { useHistory } from "react-router-dom";
+import UserContext from "context/UserContext";
+
+import { Col, Button, Form } from "react-bootstrap";
+import UserService from "services/user";
+import HomePageNavbar from "components/HomePageNavbar";
+import FormErrorMessage from "components/FormErrorMessage";
 
 export default function CreateOrganisation() {
   const [serverMessage, setServerMessage] = useState();
