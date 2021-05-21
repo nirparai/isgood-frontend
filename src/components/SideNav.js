@@ -29,40 +29,38 @@ export default function SideNav() {
     setCollapsed(!collapsed);
   };
   return (
-    
-      <ProSidebar collapsed={collapsed}>
-        <SidebarHeader>
-          <div className="">
-            <Icon path={mdiMenu} size={1.5} onClick={handleClick} />
+    <ProSidebar collapsed={collapsed}>
+      <SidebarHeader>
+        <div className="">
+          <Icon path={mdiMenu} size={1.5} onClick={handleClick} />
+        </div>
+      </SidebarHeader>
+      <Menu>
+        <MenuItem icon={<Icon path={mdiHome} />}>
+          Home
+          <Link to="/home" />
+        </MenuItem>
+        <MenuItem icon={<Icon path={mdiViewGrid} />}>
+          Organisations <Link to="/home/myorganisations" />
+        </MenuItem>
+        <MenuItem icon={<Icon path={mdiClipboardTextOutline} />}>
+          Projects <Link to="/home/myprojects" />
+        </MenuItem>
+        <MenuItem icon={<Icon path={mdiChartPie} />}>Dashboards</MenuItem>
+        <MenuItem icon={<Icon path={mdiChartBar} />}>Reports</MenuItem>
+        <MenuItem icon={<Icon path={mdiShareVariant} />}>
+          Sharing Centre
+        </MenuItem>
+        <MenuItem icon={<Icon path={mdiCog} />}>Settings</MenuItem>
+      </Menu>
+      <SidebarFooter>
+        {collapsed ? null : (
+          <div className="d-flex justify-content-center">
+            <img src={logo} alt="Logo"></img>
           </div>
-        </SidebarHeader>
-        <Menu>
-          <MenuItem icon={<Icon path={mdiHome} />}>
-            Home
-            <Link to="/home" />
-          </MenuItem>
-          <MenuItem icon={<Icon path={mdiViewGrid} />}>
-            Organizations <Link to="/home/myorganisations" />
-          </MenuItem>
-          <MenuItem icon={<Icon path={mdiClipboardTextOutline} />}>
-            Projects <Link to="/home/myprojects" />
-          </MenuItem>
-          <MenuItem icon={<Icon path={mdiChartPie} />}>Dashboards</MenuItem>
-          <MenuItem icon={<Icon path={mdiChartBar} />}>Reports</MenuItem>
-          <MenuItem icon={<Icon path={mdiShareVariant} />}>
-            Sharing Centre
-          </MenuItem>
-          <MenuItem icon={<Icon path={mdiCog} />}>Settings</MenuItem>
-        </Menu>
-        <SidebarFooter>
-          {collapsed ? null : (
-            <div className="d-flex justify-content-center">
-              <img src={logo} alt="Logo"></img>
-            </div>
-          )}
-        </SidebarFooter>
-      </ProSidebar>
-   
+        )}
+      </SidebarFooter>
+    </ProSidebar>
   );
 }
 

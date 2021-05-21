@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import CreateOrganisation from "containers/initial-setup-pages/CreateOrganisation";
 import CreateProject from "containers/initial-setup-pages/CreateProject/CreateProject";
 import Personalise from "containers/initial-setup-pages/Personalise";
 import Welcome from "containers/initial-setup-pages/Welcome";
 import NotFound from "containers/NotFound";
+import SetupCreateOrg from "containers/initial-setup-pages/SetupCreateOrg";
 export default function SetupRoutes() {
   return (
     <>
@@ -14,7 +14,7 @@ export default function SetupRoutes() {
 
         <Route exact path="/setup/personalise" component={Personalise} />
 
-        <Route exact path="/setup/createorg" component={CreateOrganisation} />
+        <Route exact path="/setup/createorg" component={SetupCreateOrg} />
 
         <Route exact path="/setup/createproject" component={CreateProject} />
 
