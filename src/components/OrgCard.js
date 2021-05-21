@@ -7,8 +7,8 @@ import { mdiDotsVertical } from "@mdi/js";
 export default function OrgCard({ org }) {
   return (
     <Col xs={12} md={6} xl={4} className="my-3">
-      <LinkContainer to={`myorganisations/${org.orgId}`}>
-        <Card className="justify-content-center">
+      <Card className="justify-content-center">
+        <LinkContainer to={`myorganisations/${org.org_id}`}>
           <Card.Body className="p-0">
             <img
               src="https://placeimg.com/200/150/any"
@@ -16,18 +16,18 @@ export default function OrgCard({ org }) {
               className="w-100"
             />
           </Card.Body>
-          <Card.Footer>
-            <Row>
-              <Col>
-                <h4>{org.name}</h4>
-              </Col>
-              <Col className="align-items-center d-flex justify-content-end">
-                <Icon path={mdiDotsVertical} size={1} />
-              </Col>
-            </Row>
-          </Card.Footer>
-        </Card>
-      </LinkContainer>
+        </LinkContainer>
+        <Card.Footer>
+          <Row>
+            <Col>
+              <h4>{org.name}</h4>
+            </Col>
+            <Col className="align-items-center d-flex justify-content-end">
+              <Icon path={mdiDotsVertical} size={1} />
+            </Col>
+          </Row>
+        </Card.Footer>
+      </Card>
     </Col>
   );
 }

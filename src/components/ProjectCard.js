@@ -8,7 +8,7 @@ export default function ProjectCard({ project }) {
   return (
     <Col xs={12} md={6} xl={4} className="my-3">
       <Card className="h-100">
-        <LinkContainer to={`/home/myprojects/${project.projectId}`}>
+        <LinkContainer to={`/home/myprojects/${project.project_id}`}>
           <Card.Body>
             <Row>
               <Col xs={2} className="mt-2">

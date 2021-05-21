@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "context/UserContext";
 
 import { Col, Button, Form } from "react-bootstrap";
-import UserService from "services/user";
+import OrgService from "services/orgService";
 import HomePageNavbar from "components/HomePageNavbar";
 import FormErrorMessage from "components/FormErrorMessage";
 
@@ -29,15 +29,16 @@ export default function CreateOrganisation() {
     try {
       const token = await getAccessTokenSilently();
 
-      const res = await UserService.createOrg(
+      const res = await OrgService.createOrg(
         values.organisationName,
         values.website,
         token
       );
       // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
       // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made
+      console.log(res.data);
       setUser((state) => {
-        return { ...state, currentOrgId: res.data.orgId };
+        return { ...state, currentOrgId: res.data.org_id };
       });
       methods.resetForm();
       history.push("/setup/createproject");

@@ -29,7 +29,7 @@ export default function SideNav() {
     setCollapsed(!collapsed);
   };
   return (
-    <div>
+    
       <ProSidebar collapsed={collapsed}>
         <SidebarHeader>
           <div className="">
@@ -62,7 +62,7 @@ export default function SideNav() {
           )}
         </SidebarFooter>
       </ProSidebar>
-    </div>
+   
   );
 }
 

@@ -14,7 +14,7 @@ export default function OrganisationPage() {
   let projectByOrg = [];
   if (user.userProjects) {
     projectByOrg = user.userProjects.filter(
-      (project, index) => project.orgId == orgId
+      (project, index) => project.org_id == orgId
     );
   }
 

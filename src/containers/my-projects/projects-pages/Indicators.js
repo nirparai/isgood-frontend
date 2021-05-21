@@ -4,16 +4,16 @@ import { Container, Row, Media } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiDotsHorizontal } from "@mdi/js";
 
-const Indicators = () => {
-  const [indicator, setIndicator] = useState(8);
+const Indicators = ({ indicators }) => {
   return (
     <Container>
       <Row>
         <h3>Indicators</h3>
       </Row>
-      {indicator >= 1 ? (
-        <ul className="list-unstyled">
-          {[...Array(8)].map((element, index) => {
+
+      <ul className="list-unstyled">
+        {indicators &&
+          indicators.map((indicator, index) => {
             return (
               <Row key={index}>
                 <Media as="li">
@@ -35,20 +35,13 @@ const Indicators = () => {
                         />
                       </small>
                     </div>
-                    <p>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                      metus scelerisque ante sollicitudin commodo. Cras purus
-                      odio, vestibulum in vulputate at, tempus viverra turpis.
-                      Fusce condimentum nunc ac nisi vulputate fringilla. Donec
-                      lacinia congue felis in faucibus.
-                    </p>
+                    <p>{indicator.description}</p>
                   </Media.Body>
                 </Media>
               </Row>
             );
           })}
-        </ul>
-      ) : null}
+      </ul>
     </Container>
   );
 };

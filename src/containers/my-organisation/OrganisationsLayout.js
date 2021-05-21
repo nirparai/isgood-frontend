@@ -1,40 +1,19 @@
-import React, { useContext, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import UserService from "services/user";
+import React, { useContext } from "react";
 import UserContext from "context/UserContext";
 
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
-import { useRouteMatch } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
 import OrgCard from "components/OrgCard";
 
 export default function OrganisationsLayout() {
-  const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
-  const { path, url } = useRouteMatch();
-
-  // get the projects a user is part of on load
-  useEffect(() => {
-    const getOrgs = async () => {
-      try {
-        const token = await getAccessTokenSilently();
-        const res = await UserService.getOrg(token);
-        console.log(res.data);
-        console.log(res);
-        setUser((prev) => ({ ...prev, userOrgs: res.data }));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getOrgs();
-  }, []);
-
-  console.log(user);
 
   return (
     <Container>
+      <div className="my-5">
+        <h1>My Organisations</h1>
+      </div>
       <Row>
         <Col className=" col-6 mt-3">
           <input placeholder="Filter (future release)" disabled />
@@ -47,7 +26,7 @@ export default function OrganisationsLayout() {
       <Row className="d-flex justify-content-center py-5">
         {user.userOrgs &&
           user.userOrgs.map((org, index) => (
-            <OrgCard key={org.orgId} org={org} />
+            <OrgCard key={org.org_id} org={org} />
           ))}
       </Row>
     </Container>

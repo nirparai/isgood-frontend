@@ -1,13 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import ProjectService from "services/projectService";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
 import Icon from "@mdi/react";
-import { mdiShareVariant } from "@mdi/js";
-import { mdiAccountCircle } from "@mdi/js";
-import { mdiAccountMultiple } from "@mdi/js";
-import { mdiPlus } from "@mdi/js";
-
+import {
+  mdiShareVariant,
+  mdiAccountCircle,
+  mdiAccountMultiple,
+  mdiPlus,
+} from "@mdi/js";
 import Overview from "./projects-pages/Overview";
 import Indicators from "./projects-pages/Indicators";
 import Team from "./projects-pages/Team";
@@ -16,15 +19,27 @@ import UserContext from "../../context/UserContext";
 const ProjectPage = () => {
   const { user, setUser } = useContext(UserContext);
   const { projectId } = useParams();
+  const { getAccessTokenSilently } = useAuth0();
 
   let currentProject = {};
-  if (user.userProjects) {
-    const [filter] = user.userProjects.filter(
-      (project) => project.projectId == projectId
-    );
-    currentProject = filter;
+  if (user.currentProject) {
+    currentProject = user.currentProject;
   }
+  useEffect(() => {
+    const getProject = async () => {
+      const token = await getAccessTokenSilently();
+      const project = await ProjectService.getProjectById(token, projectId);
+      console.log(project.data);
+      setUser((prev) => ({
+        ...prev,
+        currentProject: project.data,
+      }));
+    };
+    getProject();
+  }, []);
+
   console.log(currentProject);
+
   return (
     <div>
       <div>
@@ -125,7 +140,7 @@ const ProjectPage = () => {
                 <Nav.Item>
                   <Nav.Link
                     eventKey="Team"
-                    className="d-flex justify-content-center"
+                    className="d-flex justify-content-center disabled"
                   >
                     Team
                   </Nav.Link>
@@ -135,10 +150,10 @@ const ProjectPage = () => {
             <Col sm={12} lg={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="Overview">
-                  <Overview />
+                  <Overview project={currentProject} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="Indicators">
-                  <Indicators />
+                  <Indicators indicators={currentProject.indicators} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="Team">
                   <Team />

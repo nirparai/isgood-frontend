@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from "react";
-import UserService from "./services/user";
+import OrgService from "./services/orgService";
+import ProjectService from "./services/projectService";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import UserContext from "./context/UserContext";
@@ -21,8 +22,8 @@ export default function UserRoutes() {
     const getUserInfo = async () => {
       try {
         const token = await getAccessTokenSilently();
-        const projects = await UserService.getProjectByUser(token);
-        const orgs = await UserService.getOrgByUser(token);
+        const projects = await ProjectService.getProjectByUser(token);
+        const orgs = await OrgService.getOrgByUser(token);
         setUser((prev) => ({
           ...prev,
           userProjects: projects.data,

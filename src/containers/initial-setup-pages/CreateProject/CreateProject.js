@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Button, Card, Accordion, Form, Col } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import HomePageNavbar from "components/HomePageNavbar";
-import UserService from "services/user";
+import ProjectService from "services/projectService";
 import FormErrorMessage from "components/FormErrorMessage";
 import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
@@ -36,7 +36,7 @@ export default function CreateProject() {
         ),
       })
     ),
-    geolocation: Yup.array().of(Yup.string()),
+    // geolocation: Yup.string(),
     startDate: Yup.string(),
     endDate: Yup.string(),
   });
@@ -44,7 +44,7 @@ export default function CreateProject() {
   const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      const res = await UserService.createProject(
+      const res = await ProjectService.createProject(
         values.orgId,
         values.projectName,
         values.description,
@@ -101,183 +101,190 @@ export default function CreateProject() {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
-            {(formik) => (
-              <Form onSubmit={formik.handleSubmit} className="mx-auto">
-                <Form.Group controlId="projectName">
-                  <Form.Label>Project Name</Form.Label>
-                  <Form.Control
-                    autoFocus
-                    placeholder="Project Name"
-                    name="projectName"
-                    type="text"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.projectName}
-                  />
-                  <FormErrorMessage name="projectName" />
-                </Form.Group>
+            {(formik) => {
+              console.log(formik);
+              return (
+                <Form onSubmit={formik.handleSubmit} className="mx-auto">
+                  <Form.Group controlId="projectName">
+                    <Form.Label>Project Name</Form.Label>
+                    <Form.Control
+                      autoFocus
+                      placeholder="Project Name"
+                      name="projectName"
+                      type="text"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.projectName}
+                    />
+                    <FormErrorMessage name="projectName" />
+                  </Form.Group>
 
-                <Form.Group controlId="description">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Project Description"
-                    name="description"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.description}
-                  />
-                  <FormErrorMessage name="description" />
-                </Form.Group>
+                  <Form.Group controlId="description">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Project Description"
+                      name="description"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.description}
+                    />
+                    <FormErrorMessage name="description" />
+                  </Form.Group>
 
-                <FieldArray name="impacts">
-                  {(arrayHelpers) => {
-                    // console.log(formik);
-                    // console.log(arrayHelpers);
-                    return (
-                      <Form.Group controlId="impacts" size="lg">
-                        <Form.Label>Impacts</Form.Label>
-                        {formik.values.impacts.map((impact, index) => (
-                          <div key={index}>
-                            <div className="d-flex my-2">
+                  <FieldArray name="impacts">
+                    {(arrayHelpers) => {
+                      // console.log(formik);
+                      // console.log(arrayHelpers);
+                      return (
+                        <Form.Group controlId="impacts" size="lg">
+                          <Form.Label>Impacts</Form.Label>
+                          {formik.values.impacts.map((impact, index) => (
+                            <div key={index}>
+                              <div className="d-flex my-2">
+                                <Form.Control
+                                  name={`impacts[${index}]`}
+                                  type="text"
+                                  placeholder="Impact"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={impact}
+                                />
+                                <Button
+                                  type="button"
+                                  onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
+                                  className="mx-1"
+                                  variant="danger"
+                                >
+                                  -
+                                </Button>
+                              </div>
+                              <FormErrorMessage name={`impacts[${index}]`} />
+                            </div>
+                          ))}
+                          <div className="d-flex justify-content-center my-2">
+                            <Button
+                              onClick={() =>
+                                arrayHelpers.insert(
+                                  arrayHelpers.form.values.impacts.length,
+                                  ""
+                                )
+                              }
+                            >
+                              + Add Field
+                            </Button>
+                          </div>
+                        </Form.Group>
+                      );
+                    }}
+                  </FieldArray>
+
+                  <FieldArray name="outcomes">
+                    {(arrayHelpers) => {
+                      return (
+                        <Form.Group controlId="outcomes" size="lg">
+                          <Form.Label>Outcomes</Form.Label>
+                          {formik.values.outcomes.map((outcome, index) => (
+                            <div key={index}>
+                              <div className="d-flex my-2">
+                                <Form.Control
+                                  name={`outcomes[${index}]`}
+                                  type="text"
+                                  placeholder="Outcome"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={outcome}
+                                />
+                                <Button
+                                  type="button"
+                                  onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
+                                  className="mx-1"
+                                  variant="danger"
+                                >
+                                  -
+                                </Button>
+                              </div>
+                              <FormErrorMessage name={`outcomes[${index}]`} />
+                            </div>
+                          ))}
+                          <div className="d-flex justify-content-center my-2">
+                            <Button
+                              onClick={() =>
+                                arrayHelpers.insert(
+                                  arrayHelpers.form.values.outcomes.length,
+                                  ""
+                                )
+                              }
+                            >
+                              + Add Field
+                            </Button>
+                          </div>
+                        </Form.Group>
+                      );
+                    }}
+                  </FieldArray>
+
+                  <Accordion>
+                    <Card className="my-3">
+                      <Accordion.Toggle as={Card.Header} eventKey="0">
+                        Advance Fields
+                      </Accordion.Toggle>
+                      <Accordion.Collapse eventKey="0">
+                        <Card.Body>
+                          <FieldArray name="beneficiaries">
+                            {(arrayHelpers) => (
+                              <BeneficiaryGroups arrayHelpers={arrayHelpers} />
+                            )}
+                          </FieldArray>
+                          <Form.Row>
+                            <Form.Group controlId="geolocation" size="lg">
+                              <div>GeolocationFormField</div>
+                            </Form.Group>
+                          </Form.Row>
+                          <Form.Row>
+                            <Form.Group
+                              as={Col}
+                              controlId="startDate"
+                              size="lg"
+                            >
+                              <Form.Label>Start Date</Form.Label>
                               <Form.Control
-                                name={`impacts[${index}]`}
-                                type="text"
-                                placeholder="Impact"
+                                name="startDate"
+                                type="date"
+                                onClick={() => setServerMessage(null)}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={impact}
+                                value={formik.values.startDate}
                               />
-                              <Button
-                                type="button"
-                                onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
-                                className="mx-1"
-                                variant="danger"
-                              >
-                                -
-                              </Button>
-                            </div>
-                            <FormErrorMessage name={`impacts[${index}]`} />
-                          </div>
-                        ))}
-                        <div className="d-flex justify-content-center my-2">
-                          <Button
-                            onClick={() =>
-                              arrayHelpers.insert(
-                                arrayHelpers.form.values.impacts.length,
-                                ""
-                              )
-                            }
-                          >
-                            + Add Field
-                          </Button>
-                        </div>
-                      </Form.Group>
-                    );
-                  }}
-                </FieldArray>
+                              <FormErrorMessage name="startDate" />
+                            </Form.Group>
 
-                <FieldArray name="outcomes">
-                  {(arrayHelpers) => {
-                    return (
-                      <Form.Group controlId="outcomes" size="lg">
-                        <Form.Label>Outcomes</Form.Label>
-                        {formik.values.outcomes.map((outcome, index) => (
-                          <div key={index}>
-                            <div className="d-flex my-2">
+                            <Form.Group as={Col} controlId="endDate" size="lg">
+                              <Form.Label>End Date</Form.Label>
                               <Form.Control
-                                name={`outcomes[${index}]`}
-                                type="text"
-                                placeholder="Outcome"
+                                name="endDate"
+                                type="date"
+                                onClick={() => setServerMessage(null)}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                value={outcome}
+                                value={formik.values.endDate}
                               />
-                              <Button
-                                type="button"
-                                onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
-                                className="mx-1"
-                                variant="danger"
-                              >
-                                -
-                              </Button>
-                            </div>
-                            <FormErrorMessage name={`outcomes[${index}]`} />
-                          </div>
-                        ))}
-                        <div className="d-flex justify-content-center my-2">
-                          <Button
-                            onClick={() =>
-                              arrayHelpers.insert(
-                                arrayHelpers.form.values.outcomes.length,
-                                ""
-                              )
-                            }
-                          >
-                            + Add Field
-                          </Button>
-                        </div>
-                      </Form.Group>
-                    );
-                  }}
-                </FieldArray>
+                              <FormErrorMessage name="endDate" />
+                            </Form.Group>
+                          </Form.Row>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </Card>
+                  </Accordion>
 
-                <Accordion>
-                  <Card className="my-3">
-                    <Accordion.Toggle as={Card.Header} eventKey="0">
-                      Advance Fields
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey="0">
-                      <Card.Body>
-                        <FieldArray name="beneficiaries">
-                          {(arrayHelpers) => (
-                            <BeneficiaryGroups arrayHelpers={arrayHelpers} />
-                          )}
-                        </FieldArray>
-                        <Form.Row>
-                          <Form.Group controlId="geolocation" size="lg">
-                            <div>GeolocationFormField</div>
-                          </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                          <Form.Group as={Col} controlId="startDate" size="lg">
-                            <Form.Label>Start Date</Form.Label>
-                            <Form.Control
-                              name="startDate"
-                              type="date"
-                              onClick={() => setServerMessage(null)}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.startDate}
-                            />
-                            <FormErrorMessage name="startDate" />
-                          </Form.Group>
-
-                          <Form.Group as={Col} controlId="endDate" size="lg">
-                            <Form.Label>End Date</Form.Label>
-                            <Form.Control
-                              name="endDate"
-                              type="date"
-                              onClick={() => setServerMessage(null)}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.endDate}
-                            />
-                            <FormErrorMessage name="endDate" />
-                          </Form.Group>
-                        </Form.Row>
-                      </Card.Body>
-                    </Accordion.Collapse>
-                  </Card>
-                </Accordion>
-
-                <Button block size="lg" type="submit">
-                  Next
-                </Button>
-              </Form>
-            )}
+                  <Button block size="lg" type="submit">
+                    Next
+                  </Button>
+                </Form>
+              );
+            }}
           </Formik>
         </fieldset>
       </div>
