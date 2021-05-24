@@ -5,7 +5,7 @@ import { Container, Col, Row, Button } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import OrgCard from "components/OrgCard";
-import CreateOrgModal from "./CreateOrgModal";
+import CreateOrgModalButton from "./CreateOrgModalButton";
 import CreateOrganisationForm from "components/CreateOrganisationForm";
 export default function OrganisationsLayout() {
   const { user, setUser } = useContext(UserContext);
@@ -20,9 +20,9 @@ export default function OrganisationsLayout() {
           <input placeholder="Filter (future release)" disabled />
         </Col>
         <Col className="col mt-3 d-flex justify-content-end">
-          <CreateOrgModal>
+          <CreateOrgModalButton>
             <CreateOrganisationForm setup={false} />
-          </CreateOrgModal>
+          </CreateOrgModalButton>
         </Col>
         <Col className=" col-2 mt-3 d-flex justify-content-end">
           <Icon path={mdiMenu} size={1.3} className="p-1" />

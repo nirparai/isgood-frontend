@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
-export default function CreateOrgModal({ children }) {
+export default function CreateProjectModalButton({ children }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
@@ -38,7 +38,7 @@ export default function CreateOrgModal({ children }) {
         </Modal.Footer>
       </Modal>
       <Button variant="primary" onClick={handleShow}>
-        + Create Organisation
+        + Create Project
       </Button>
     </>
   );
