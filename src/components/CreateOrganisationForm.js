@@ -8,7 +8,7 @@ import UserContext from "context/UserContext";
 import { Col, Button, Form } from "react-bootstrap";
 import OrgService from "services/orgService";
 import FormErrorMessage from "components/FormErrorMessage";
-
+import Dropzone from "components/Dropzone";
 export default function CreateOrganisationForm({ setup }) {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
@@ -72,6 +72,8 @@ export default function CreateOrganisationForm({ setup }) {
         </legend>
         <Formik
           initialValues={{
+            organisationPicture: null,
+            organisationBanner: null,
             organisationName: "",
             description: "",
             handle: "",
@@ -84,6 +86,7 @@ export default function CreateOrganisationForm({ setup }) {
         >
           {(formik) => (
             <Form onSubmit={formik.handleSubmit} className="mx-auto">
+              <Dropzone formik={formik} name="organisationBanner" />
               <Form.Group controlId="organisationName">
                 <Form.Label>Organisation Name</Form.Label>
                 <Form.Control
