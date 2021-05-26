@@ -8,7 +8,7 @@ import OrgCard from "components/OrgCard";
 import CreateOrgModalButton from "./CreateOrgModalButton";
 import CreateOrganisationForm from "components/CreateOrganisationForm";
 export default function OrganisationsLayout() {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <Container>

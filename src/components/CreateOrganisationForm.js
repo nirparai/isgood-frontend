@@ -9,7 +9,8 @@ import { Col, Button, Form } from "react-bootstrap";
 import OrgService from "services/orgService";
 import FormErrorMessage from "components/FormErrorMessage";
 import Dropzone from "components/Dropzone";
-export default function CreateOrganisationForm({ setup }) {
+
+export default function CreateOrganisationForm({ setup, orgValues }) {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
   const { getAccessTokenSilently } = useAuth0();
@@ -37,8 +38,8 @@ export default function CreateOrganisationForm({ setup }) {
       // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made
       console.log(res.data);
       if (setup) {
-        setUser((state) => {
-          return { ...state, currentOrgId: res.data.org_id };
+        setUser((prev) => {
+          return { ...prev, currentOrgId: res.data.org_id };
         });
         methods.resetForm();
         history.push("/setup/createproject");
@@ -55,7 +56,7 @@ export default function CreateOrganisationForm({ setup }) {
       }
     }
   };
-
+  console.log(orgValues);
   return (
     <div className="d-flex flex-column align-items-center">
       {serverMessage ? (
@@ -72,12 +73,16 @@ export default function CreateOrganisationForm({ setup }) {
         </legend>
         <Formik
           initialValues={{
+<<<<<<< HEAD
+            organisationName: orgValues.name || "",
+=======
             organisationPicture: null,
             organisationBanner: null,
             organisationName: "",
+>>>>>>> master
             description: "",
             handle: "",
-            website: "",
+            website: orgValues.url || "",
             regions: "Choose....",
             sector: "Choose....",
           }}

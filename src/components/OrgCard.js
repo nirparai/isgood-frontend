@@ -23,7 +23,9 @@ export default function OrgCard({ org }) {
               <h4>{org.name}</h4>
             </Col>
             <Col className="align-items-center d-flex justify-content-end">
-              <Icon path={mdiDotsVertical} size={1} />
+              <LinkContainer to={`myorganisations/edit/${org.org_id}`}>
+                <Icon path={mdiDotsVertical} size={1} />
+              </LinkContainer>
             </Col>
           </Row>
         </Card.Footer>

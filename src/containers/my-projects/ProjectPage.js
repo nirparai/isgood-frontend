@@ -27,12 +27,17 @@ const ProjectPage = () => {
   }
   useEffect(() => {
     const getProject = async () => {
+      setUser((prev) => ({
+        ...prev,
+        isLoadingData: true,
+      }));
       const token = await getAccessTokenSilently();
       const project = await ProjectService.getProjectById(token, projectId);
       console.log(project.data);
       setUser((prev) => ({
         ...prev,
         currentProject: project.data,
+        isLoadingData: false,
       }));
     };
     getProject();

@@ -4,7 +4,7 @@ import ProtectedRoute from "auth/protected-route";
 import { UserProvider } from "context/UserContext";
 
 import Home from "containers/Home";
-import ProjectForm from "containers/GeolocationFormField";
+// import ProjectForm from "containers/GeolocationFormField";
 import NotFound from "containers/NotFound";
 import UserRoutes from "UserRoutes";
 import SetupRoutes from "SetupRoutes";
@@ -14,7 +14,7 @@ export default function Routes() {
     <Switch>
       <Route exact path="/" component={Home} />
       {/* This route was for testing of the geolocation form */}
-      <Route exact path="/projectform" component={ProjectForm} />
+      {/* <Route exact path="/projectform" component={ProjectForm} /> */}
       {/* Not sure if the provider should be added here but currently is working */}
       <UserProvider>
         <ProtectedRoute path="/home" component={UserRoutes} />
