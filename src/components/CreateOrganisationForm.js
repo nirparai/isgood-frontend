@@ -20,8 +20,8 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
     organisationName: Yup.string().required("Required"),
     description: Yup.string(),
     handle: Yup.string(),
-    website: Yup.string().required("Required"),
-    regions: Yup.string(),
+    url: Yup.string().required("Required"),
+    region: Yup.string(),
     sector: Yup.string(),
   });
 
@@ -31,7 +31,11 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
 
       const res = await OrgService.createOrg(
         values.organisationName,
-        values.website,
+        values.url,
+        values.description,
+        values.handle,
+        values.sector,
+        values.region,
         token
       );
       // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
@@ -73,124 +77,134 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
         </legend>
         <Formik
           initialValues={{
-<<<<<<< HEAD
-            organisationName: orgValues.name || "",
-=======
             organisationPicture: null,
             organisationBanner: null,
-            organisationName: "",
->>>>>>> master
-            description: "",
-            handle: "",
-            website: orgValues.url || "",
-            regions: "Choose....",
-            sector: "Choose....",
+            organisationName: orgValues.name || "",
+            description: orgValues.description || "",
+            handle: orgValues.handle || "",
+            url: orgValues.url || "",
+            region: orgValues.region || "Choose....",
+            sector: orgValues.sector || "Choose....",
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {(formik) => (
-            <Form onSubmit={formik.handleSubmit} className="mx-auto">
-              <Dropzone formik={formik} name="organisationBanner" />
-              <Form.Group controlId="organisationName">
-                <Form.Label>Organisation Name</Form.Label>
-                <Form.Control
-                  autoFocus
-                  placeholder="Organisation Name"
-                  name="organisationName"
-                  type="text"
-                  onClick={() => setServerMessage(null)}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.organisationName}
-                />
-                <FormErrorMessage name="organisationName" />
-              </Form.Group>
-
-              <Form.Group controlId="description">
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  placeholder="Organisation Description"
-                  name="description"
-                  onClick={() => setServerMessage(null)}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.description}
-                />
-                <FormErrorMessage name="description" />
-              </Form.Group>
-              <Form.Row>
-                <Form.Group as={Col} controlId="handle" size="lg">
-                  <Form.Label>Handle</Form.Label>
+          {(formik) => {
+            console.log(formik);
+            return (
+              <Form onSubmit={formik.handleSubmit} className="mx-auto">
+                <Dropzone formik={formik} name="organisationBanner" />
+                <Form.Group controlId="organisationName">
+                  <Form.Label>Organisation Name</Form.Label>
                   <Form.Control
-                    name="handle"
+                    autoFocus
+                    placeholder="Organisation Name"
+                    name="organisationName"
                     type="text"
                     onClick={() => setServerMessage(null)}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.handle}
+                    value={formik.values.organisationName}
                   />
-                  <FormErrorMessage name="handle" />
+                  <FormErrorMessage name="organisationName" />
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="website" size="lg">
-                  <Form.Label>Org Website</Form.Label>
+                <Form.Group controlId="description">
+                  <Form.Label>Description</Form.Label>
                   <Form.Control
-                    name="website"
-                    type="text"
+                    as="textarea"
+                    placeholder="Organisation Description"
+                    name="description"
                     onClick={() => setServerMessage(null)}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.website}
+                    value={formik.values.description}
                   />
-                  <FormErrorMessage name="website" />
+                  <FormErrorMessage name="description" />
                 </Form.Group>
-              </Form.Row>
-              <Form.Row>
-                <Form.Group as={Col} controlId="regions" size="lg">
-                  <Form.Label>Global Region/s</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="regions"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.regions}
-                  >
-                    <option>Choose....</option>
-                    <option>Region</option>
-                    <option>Region</option>
-                  </Form.Control>
-                  <FormErrorMessage name="regions" />
-                </Form.Group>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="handle" size="lg">
+                    <Form.Label>Handle</Form.Label>
+                    <Form.Control
+                      name="handle"
+                      type="text"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.handle}
+                    />
+                    <FormErrorMessage name="handle" />
+                  </Form.Group>
 
-                <Form.Group as={Col} controlId="sector" size="lg">
-                  <Form.Label>Sector</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="sector"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.sector}
-                  >
-                    <option>Choose....</option>
-                    <option>Sectors</option>
-                    <option>Sectors</option>
-                  </Form.Control>
+                  <Form.Group as={Col} controlId="url" size="lg">
+                    <Form.Label>Org Website</Form.Label>
+                    <Form.Control
+                      name="url"
+                      type="text"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.url}
+                    />
+                    <FormErrorMessage name="url" />
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="region" size="lg">
+                    <Form.Label>Global Region/s</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="region"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.region}
+                    >
+                      <option value="">Choose....</option>
+                      <option value="Region1">Region1</option>
+                      <option value="Region2">Region2</option>
+                    </Form.Control>
+                    <FormErrorMessage name="region" />
+                  </Form.Group>
 
-                  <FormErrorMessage name="sector" />
-                </Form.Group>
-              </Form.Row>
+                  <Form.Group as={Col} controlId="sector" size="lg">
+                    <Form.Label>Sector</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="sector"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.sector}
+                    >
+                      <option>Choose....</option>
+                      <option>Sectors</option>
+                      <option>Sectors</option>
+                    </Form.Control>
 
-              <Button block size="lg" type="submit">
-                {setup ? "Step 2: Create a Project" : "Submit"}
-              </Button>
-            </Form>
-          )}
+                    <FormErrorMessage name="sector" />
+                  </Form.Group>
+                </Form.Row>
+
+                <Button block size="lg" type="submit">
+                  {setup ? "Step 2: Create a Project" : "Submit"}
+                </Button>
+              </Form>
+            );
+          }}
         </Formik>
       </fieldset>
     </div>
   );
 }
+//setting default props for if the values arent passed
+CreateOrganisationForm.defaultProps = {
+  orgValues: {
+    name: "",
+    description: "",
+    handle: "",
+    url: "",
+    region: "Choose....",
+    sector: "Choose....",
+  },
+};

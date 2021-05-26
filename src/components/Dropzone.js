@@ -39,8 +39,6 @@ export default function Dropzone({ formik, name }) {
     acceptedFiles,
   } = useDropzone({ accept: "image/*" });
 
-  console.log(acceptedFiles);
-
   const style = useMemo(
     () => ({
       ...baseStyle,

@@ -13,7 +13,7 @@ export default function EditOrganisationPage() {
   if (user.userOrgs) {
     orgbyId = user.userOrgs.filter((org, index) => org.org_id == orgId);
   }
-
+  // to be passed to the CreateOrganisationForm to prefill the form fields
   const [orgValues] = orgbyId;
 
   return (

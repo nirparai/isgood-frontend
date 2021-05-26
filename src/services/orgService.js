@@ -3,10 +3,14 @@ import axios from "axios";
 const API_URL = "http://localhost:8000/api/";
 
 class OrgService {
-  createOrg(organisationName, website, token) {
+  createOrg(organisationName, url, description, handle, sector, region, token) {
     const data = {
       name: organisationName,
-      url: website,
+      url: url,
+      description: description,
+      handle: handle,
+      sector: sector,
+      region: region
     };
     return axios.post(API_URL + "org/create", data, {
       headers: {
