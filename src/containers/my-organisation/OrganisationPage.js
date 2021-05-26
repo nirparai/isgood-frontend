@@ -9,7 +9,7 @@ import ProjectCard from "components/ProjectCard";
 
 export default function OrganisationPage() {
   const { orgId } = useParams();
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   let projectByOrg = [];
   if (user.userProjects) {

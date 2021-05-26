@@ -14,7 +14,7 @@ const Overview = ({ project }) => {
           <ul>
             {project.impacts &&
               project.impacts.map((impact, index) => {
-                return <li>{impact}</li>;
+                return <li key={index}>{impact}</li>;
               })}
           </ul>
           <h5 className="font-weight-bold my-4">Desired Outcomes</h5>
