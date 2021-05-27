@@ -5,7 +5,6 @@ export const UserContext = createContext({
   userProjects: null,
   currentOrgId: null,
   currentProject: null,
-  isLoadingData: true,
 });
 
 export const UserProvider = ({ children }) => {
@@ -14,7 +13,6 @@ export const UserProvider = ({ children }) => {
     userOrgs: null,
     userProjects: null,
     currentProject: null,
-    isLoadingData: true,
   });
   return (
     <UserContext.Provider value={{ user, setUser }}>

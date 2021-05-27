@@ -14,14 +14,14 @@ const Overview = ({ project }) => {
           <ul>
             {project.impacts &&
               project.impacts.map((impact, index) => {
-                return <li key={index}>{impact}</li>;
+                return <li key={index}>{impact.description}</li>;
               })}
           </ul>
           <h5 className="font-weight-bold my-4">Desired Outcomes</h5>
           <ul>
             {project.outcomes &&
               project.outcomes.map((outcome, index) => {
-                return <li key={index}>{outcome}</li>;
+                return <li key={index}>{outcome.description}</li>;
               })}
           </ul>
         </div>
