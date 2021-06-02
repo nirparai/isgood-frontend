@@ -1,12 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
+import ImageService from "services/imageService"
+import { Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
 const baseStyle = {
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  padding: "20px",
+  margin: "auto",
   borderWidth: 2,
   borderRadius: 2,
   borderColor: "#eeeeee",
@@ -15,6 +13,10 @@ const baseStyle = {
   color: "#bdbdbd",
   outline: "none",
   transition: "border .24s ease-in-out",
+  height: "20vw",
+  width: "20vw",
+  maxHeight: 200,
+  maxWidth: 200,
 };
 
 const activeStyle = {
@@ -28,8 +30,42 @@ const acceptStyle = {
 const rejectStyle = {
   borderColor: "#ff1744",
 };
+const thumbsContainer = {
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  margin: "auto",
+};
+
+const thumb = {
+  display: "inline-flex",
+  borderRadius: 2,
+  border: "1px solid #eaeaea",
+  height: "20vw",
+  width: "20vw",
+  maxHeight: 200,
+  maxWidth: 200,
+
+  boxSizing: "border-box",
+};
+
+const thumbInner = {
+  display: "flex",
+  minWidth: 0,
+  overflow: "hidden",
+};
+
+const img = {
+  display: "block",
+  width: "auto",
+  height: "100%",
+  marginLeft: "50%",
+  transform: "translateX(-50%)",
+};
 
 export default function Dropzone({ formik, name }) {
+  const [file, setFile] = useState(null);
+
   const {
     getRootProps,
     getInputProps,
@@ -37,7 +73,19 @@ export default function Dropzone({ formik, name }) {
     isDragAccept,
     isDragReject,
     acceptedFiles,
-  } = useDropzone({ accept: "image/*" });
+    fileRejections,
+  } = useDropzone({
+    accept: "image/*",
+    maxFiles: 2,
+    onDrop: (acceptedFiles) => {
+      setFile(
+        Object.assign(acceptedFiles[0], {
+          preview: URL.createObjectURL(acceptedFiles[0]),
+        })
+      );
+      formik.setFieldValue(name, acceptedFiles[0]);
+    },
+  });
 
   const style = useMemo(
     () => ({
@@ -49,29 +97,63 @@ export default function Dropzone({ formik, name }) {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  const handleChange = (e) => {
-    console.log(e.target.files);
-    formik.setFieldValue(name, e.target.files[0]);
+  useEffect(
+    () => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      if (file) {
+        URL.revokeObjectURL(file.preview);
+      }
+    },
+    [file]
+  );
+
+  const onSelectFile = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(
+        Object.assign(e.target.files[0], {
+          preview: URL.createObjectURL(e.target.files[0]),
+        })
+      );
+      formik.setFieldValue(name, e.target.files[0]);
+    }
   };
 
+  const handleUpload = async () => {
+    // check file is selected and allowed to be uploaded
+    if (file) {
+      //make request to upload endpoint
+      const token = "fhasdfha";
+      const res = await ImageService.uploadImage(file, token);
+      console.log(res.data.filename);
+      //set formik value as file id / file
+      // formik.setFieldValue(name, res.data.filename);
+    }
+  };
+  console.log(file);
+
   return (
-    <div>
+    <>
       <div {...getRootProps({ style })}>
         <input
           {...getInputProps()}
           name={name}
           id={name}
-          onChange={handleChange}
+          onChange={onSelectFile}
         />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        {file ? (
+          <div style={thumbsContainer}>
+            <div style={thumb} key={file.name}>
+              <div style={thumbInner}>
+                <img src={file.preview} style={img} />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
       </div>
-      <ul>
-        {acceptedFiles.map((file, index) => {
-          return (
-            <li>{`Name: ${file.name} Size: ${file.size} Type: ${file.type}`}</li>
-          );
-        })}
-      </ul>
-    </div>
+
+      <Button onClick={handleUpload}>Upload</Button>
+    </>
   );
 }
