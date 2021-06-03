@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import OrgService from "./services/orgService";
 import ProjectService from "./services/projectService";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -19,11 +19,11 @@ import { Loading } from "components/Loading";
 export default function UserRoutes() {
   const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getUserInfo = async () => {
       try {
-        setUser((prev) => ({ ...prev, isLoadingData: true }));
+        setIsLoading(true);
         const token = await getAccessTokenSilently();
         const projects = await ProjectService.getProjectByUser(token);
         const orgs = await OrgService.getOrgByUser(token);
@@ -31,14 +31,15 @@ export default function UserRoutes() {
           ...prev,
           userProjects: projects.data,
           userOrgs: orgs.data,
-          isLoadingData: false,
         }));
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     getUserInfo();
   }, []);
+  console.log(isLoading);
   return (
     <>
       <TopNav />
@@ -48,7 +49,7 @@ export default function UserRoutes() {
             <SideNav />
           </Col>
           <Col className="col-9">
-            {!user.isLoadingData ? (
+            {!isLoading ? (
               <Switch>
                 <Route
                   exact

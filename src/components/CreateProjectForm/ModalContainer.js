@@ -49,7 +49,7 @@ export default function ModalContainer({ children, remove, index }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Form</Modal.Title>
         </Modal.Header>

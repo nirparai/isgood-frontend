@@ -3,7 +3,7 @@ import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { FieldArray } from "formik";
 import BenerficiaryGroupChange from "./BenerficiaryGroupChange";
-import BenerficiaryGroupDemographics from "./DemographicsModal";
+import BenerficiaryGroupDemographics from "./BenerficiaryGroupDemographics";
 import ModalContainer from "./ModalContainer";
 import FormErrorMessage from "components/FormErrorMessage";
 
@@ -12,6 +12,19 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
   return (
     <>
       <Form.Label>Beneficiary Groups</Form.Label>
+      <div className="d-flex justify-content-center my-2">
+        <Button
+          onClick={() =>
+            insert(form.values.beneficiaries.length, {
+              name: "",
+              lifeChange: [],
+              demographics: [{ name: "", operator: "", value: "" }],
+            })
+          }
+        >
+          + Add Beneficary Group
+        </Button>
+      </div>
       {form.values.beneficiaries.map((beneficiary, beneficiaryIndex) => (
         <div
           key={beneficiaryIndex}
@@ -66,19 +79,6 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
           </ModalContainer>
         </div>
       ))}
-      <div className="d-flex justify-content-center my-2">
-        <Button
-          onClick={() =>
-            insert(form.values.beneficiaries.length, {
-              name: "",
-              lifeChange: [""],
-              demographics: [{ name: "", operator: "", value: "" }],
-            })
-          }
-        >
-          + Add Field
-        </Button>
-      </div>
     </>
   );
 }

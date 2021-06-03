@@ -5,11 +5,14 @@ import * as Yup from "yup";
 
 import { Button, Card, Accordion, Form, Col } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
-import HomePageNavbar from "components/HomePageNavbar";
 import ProjectService from "services/projectService";
 import FormErrorMessage from "components/FormErrorMessage";
 import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
+import ArrayField from "./FieldArrays/ArrayField";
+import "./CreateProjectForm.css";
+import FieldArrayAdd from "./FieldArrays/FieldArrayAdd";
+import ArrayInput from "./ArrayInput";
 
 export default function CreateProjectForm({ setup }) {
   const [serverMessage, setServerMessage] = useState();
@@ -21,8 +24,12 @@ export default function CreateProjectForm({ setup }) {
     orgId: Yup.string().required("Required"),
     projectName: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
-    impacts: Yup.array().of(Yup.string().required("Required")),
-    outcomes: Yup.array().of(Yup.string().required("Required")),
+    impacts: Yup.array()
+      .of(Yup.string().required("Required"))
+      .min(1, "Add at least one impact"),
+    outcomes: Yup.array()
+      .of(Yup.string().required("Required"))
+      .min(1, "Add at least one outcome"),
     beneficiaries: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required("Required"),
@@ -92,8 +99,8 @@ export default function CreateProjectForm({ setup }) {
             orgId: user.currentOrgId,
             projectName: "",
             description: "",
-            impacts: [""],
-            outcomes: [""],
+            impacts: [],
+            outcomes: [],
             beneficiaries: [],
             geolocation: ["", ""],
             startDate: "",
@@ -160,44 +167,31 @@ export default function CreateProjectForm({ setup }) {
                     // console.log(formik);
                     // console.log(arrayHelpers);
                     return (
-                      <Form.Group controlId="impacts" size="lg">
-                        <Form.Label>Impacts</Form.Label>
-                        {formik.values.impacts.map((impact, index) => (
-                          <div key={index}>
-                            <div className="d-flex my-2">
-                              <Form.Control
-                                name={`impacts[${index}]`}
-                                type="text"
-                                placeholder="Impact"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={impact}
-                              />
-                              <Button
-                                type="button"
-                                onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
-                                className="mx-1"
-                                variant="danger"
-                              >
-                                -
-                              </Button>
+                      <>
+                        <ArrayInput
+                          arrayHelpers={arrayHelpers}
+                          label="Impacts"
+                          placeholder="Input project impacts here ..."
+                        />
+                        <Form.Group controlId="impacts" size="lg">
+                          {formik.values.impacts.map((impact, index) => (
+                            <ArrayField
+                              name="impacts"
+                              key={index}
+                              formik={formik}
+                              arrayHelpers={arrayHelpers}
+                              index={index}
+                              value={impact}
+                              placeholder="Input project impacts here ..."
+                            />
+                          ))}
+                          {/* {typeof formik.error.impacts == "string" ? (
+                            <div className="text-danger">
+                              {formik.errors.impacts}
                             </div>
-                            <FormErrorMessage name={`impacts[${index}]`} />
-                          </div>
-                        ))}
-                        <div className="d-flex justify-content-center my-2">
-                          <Button
-                            onClick={() =>
-                              arrayHelpers.insert(
-                                arrayHelpers.form.values.impacts.length,
-                                ""
-                              )
-                            }
-                          >
-                            + Add Field
-                          </Button>
-                        </div>
-                      </Form.Group>
+                          ) : null} */}
+                        </Form.Group>
+                      </>
                     );
                   }}
                 </FieldArray>
@@ -205,44 +199,26 @@ export default function CreateProjectForm({ setup }) {
                 <FieldArray name="outcomes">
                   {(arrayHelpers) => {
                     return (
-                      <Form.Group controlId="outcomes" size="lg">
-                        <Form.Label>Outcomes</Form.Label>
-                        {formik.values.outcomes.map((outcome, index) => (
-                          <div key={index}>
-                            <div className="d-flex my-2">
-                              <Form.Control
-                                name={`outcomes[${index}]`}
-                                type="text"
-                                placeholder="Outcome"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={outcome}
-                              />
-                              <Button
-                                type="button"
-                                onClick={() => arrayHelpers.remove(index)} // remove a impact from the list
-                                className="mx-1"
-                                variant="danger"
-                              >
-                                -
-                              </Button>
-                            </div>
-                            <FormErrorMessage name={`outcomes[${index}]`} />
-                          </div>
-                        ))}
-                        <div className="d-flex justify-content-center my-2">
-                          <Button
-                            onClick={() =>
-                              arrayHelpers.insert(
-                                arrayHelpers.form.values.outcomes.length,
-                                ""
-                              )
-                            }
-                          >
-                            + Add Field
-                          </Button>
-                        </div>
-                      </Form.Group>
+                      <>
+                        <ArrayInput
+                          arrayHelpers={arrayHelpers}
+                          label="Outcomes"
+                          placeholder="Input project outcomes here ..."
+                        />
+                        <Form.Group controlId="outcomes" size="lg">
+                          {formik.values.outcomes.map((outcome, index) => (
+                            <ArrayField
+                              name="outcomes"
+                              key={index}
+                              formik={formik}
+                              arrayHelpers={arrayHelpers}
+                              index={index}
+                              value={outcome}
+                              placeholder="Input project outcomes here ..."
+                            />
+                          ))}
+                        </Form.Group>
+                      </>
                     );
                   }}
                 </FieldArray>

@@ -29,31 +29,24 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
     try {
       const token = await getAccessTokenSilently();
 
-      const res = await OrgService.createOrg(
-        values.organisationName,
-        values.url,
-        values.description,
-        values.handle,
-        values.sector,
-        values.region,
-        token
-      );
+      const res = await OrgService.createOrg(values, token);
       // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
       // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made
       console.log(res.data);
-      if (setup) {
-        setUser((prev) => {
-          return { ...prev, currentOrgId: res.data.org_id };
-        });
-        methods.resetForm();
-        history.push("/setup/createproject");
-      } else {
-        methods.resetForm();
-        window.location.reload();
-      }
+      // if (setup) {
+      //   setUser((prev) => {
+      //     return { ...prev, currentOrgId: res.data.org_id };
+      //   });
+      //   methods.resetForm();
+      //   history.push("/setup/createproject");
+      // } else {
+      //   methods.resetForm();
+      //   window.location.reload();
+      // }
     } catch (err) {
-      if (err.response.data["error"]) {
-        const errMessage = err.response.data["error"];
+      console.log(err.response)
+      if (err.response.data.message) {
+        const errMessage = err.response.data.message;
         setServerMessage(errMessage);
       } else {
         setServerMessage("There was a problem please try again later");
@@ -77,8 +70,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
         </legend>
         <Formik
           initialValues={{
-            organisationPicture: null,
-            organisationBanner: null,
+            organisationLogo: null,
             organisationName: orgValues.name || "",
             description: orgValues.description || "",
             handle: orgValues.handle || "",
@@ -93,7 +85,8 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
             console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
-                <Dropzone formik={formik} name="organisationBanner" />
+                <Dropzone formik={formik} name="organisationLogo" />
+
                 <Form.Group controlId="organisationName">
                   <Form.Label>Organisation Name</Form.Label>
                   <Form.Control

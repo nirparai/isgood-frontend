@@ -10,8 +10,7 @@ const Indicators = ({ indicators }) => {
       <Row>
         <h3>Indicators</h3>
       </Row>
-
-      <ul className="list-unstyled">
+      {typeof indicators === "string" ? <div>{indicators}</div> : (<ul className="list-unstyled">
         {indicators &&
           indicators.map((indicator, index) => {
             return (
@@ -41,7 +40,8 @@ const Indicators = ({ indicators }) => {
               </Row>
             );
           })}
-      </ul>
+      </ul>)}
+      
     </Container>
   );
 };
