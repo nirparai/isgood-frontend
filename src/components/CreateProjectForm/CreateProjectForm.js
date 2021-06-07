@@ -11,7 +11,6 @@ import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";
 import "./CreateProjectForm.css";
-import FieldArrayAdd from "./FieldArrays/FieldArrayAdd";
 import ArrayInput from "./ArrayInput";
 
 export default function CreateProjectForm({ setup }) {
@@ -51,15 +50,8 @@ export default function CreateProjectForm({ setup }) {
   const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      const res = await ProjectService.createProject(
-        values.orgId,
-        values.projectName,
-        values.description,
-        values.impacts,
-        values.outcomes,
-        values.beneficiaries,
-        token
-      );
+      console.log(token);
+      const res = await ProjectService.createProject(values, token);
       console.log(res);
       if (setup) {
         methods.resetForm();
@@ -67,12 +59,12 @@ export default function CreateProjectForm({ setup }) {
         history.push("/home/myprojects");
       } else {
         methods.resetForm();
-        window.location.reload();
+        // window.location.reload();
       }
     } catch (err) {
       console.log(err.response.data);
-      if (err.response.data["error"]) {
-        const errMessage = err.response.data["error"];
+      if (err.response.data.message) {
+        const errMessage = err.response.data.message;
         setServerMessage(errMessage);
       } else {
         setServerMessage("There was a problem please try again later");
@@ -102,7 +94,7 @@ export default function CreateProjectForm({ setup }) {
             impacts: [],
             outcomes: [],
             beneficiaries: [],
-            geolocation: ["", ""],
+            geolocation: [],
             startDate: "",
             endDate: "",
           }}

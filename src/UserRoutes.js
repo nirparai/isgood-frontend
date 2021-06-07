@@ -15,6 +15,7 @@ import ProjectPage from "./containers/my-projects/ProjectPage";
 import ProjectsLayout from "./containers/my-projects/ProjectsLayout";
 import NotFound from "./containers/NotFound";
 import { Loading } from "components/Loading";
+import EditProjectPage from "containers/my-projects/EditProjectPage";
 
 export default function UserRoutes() {
   const { getAccessTokenSilently } = useAuth0();
@@ -39,7 +40,7 @@ export default function UserRoutes() {
     };
     getUserInfo();
   }, []);
-  console.log(isLoading);
+
   return (
     <>
       <TopNav />
@@ -76,6 +77,11 @@ export default function UserRoutes() {
                   exact
                   path="/home/myprojects/:projectId"
                   component={ProjectPage}
+                />
+                <Route
+                  exact
+                  path={`/home/myprojects/edit/:projectId`}
+                  component={EditProjectPage}
                 />
                 <Route component={NotFound} />
               </Switch>

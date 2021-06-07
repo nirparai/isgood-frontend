@@ -3,9 +3,16 @@ import { Button, Popover, OverlayTrigger } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiDelete, mdiCloseCircle } from "@mdi/js";
 
-export default function FieldArrayDelete({ arrayHelpers, index }) {
+export default function FieldArrayDelete({
+  arrayHelpers,
+  index,
+  setdeleteIds,
+}) {
   const handleClick = () => {
-    arrayHelpers.remove(index);
+    const impact = arrayHelpers.remove(index);
+    if (setdeleteIds) {
+      setdeleteIds((prev) => [...prev, impact.id]);
+    }
     document.body.click();
   };
 

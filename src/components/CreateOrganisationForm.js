@@ -33,18 +33,18 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
       // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
       // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made
       console.log(res.data);
-      // if (setup) {
-      //   setUser((prev) => {
-      //     return { ...prev, currentOrgId: res.data.org_id };
-      //   });
-      //   methods.resetForm();
-      //   history.push("/setup/createproject");
-      // } else {
-      //   methods.resetForm();
-      //   window.location.reload();
-      // }
+      if (setup) {
+        setUser((prev) => {
+          return { ...prev, currentOrgId: res.data.org_id };
+        });
+        methods.resetForm();
+        history.push("/setup/createproject");
+      } else {
+        methods.resetForm();
+        window.location.reload();
+      }
     } catch (err) {
-      console.log(err.response)
+      console.log(err.response);
       if (err.response.data.message) {
         const errMessage = err.response.data.message;
         setServerMessage(errMessage);
@@ -180,7 +180,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                 </Form.Row>
 
                 <Button block size="lg" type="submit">
-                  {setup ? "Step 2: Create a Project" : "Submit"}
+                  {setup ? "Step 3: Create a Project" : "Submit"}
                 </Button>
               </Form>
             );

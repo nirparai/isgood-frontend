@@ -8,10 +8,9 @@ class ImageService {
 
     //Adding files to the formdata
     formData.append("image", image);
-    formData.append("description", image.name);
-    console.log(formData)
-  
-    return axios.post(API_URL + "images", formData, {
+    console.log(formData);
+
+    return axios.post(API_URL + "images/org", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
