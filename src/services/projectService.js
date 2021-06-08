@@ -5,6 +5,7 @@ const API_URL = "http://localhost:8000/api/";
 class ProjectService {
   createProject(project, token) {
     const data = {
+      logoId: project.projectLogo,
       orgId: project.orgId,
       name: project.projectName,
       description: project.description,

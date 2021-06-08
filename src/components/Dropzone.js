@@ -64,7 +64,7 @@ const img = {
   transform: "translateX(-50%)",
 };
 
-export default function Dropzone({ formik, name }) {
+export default function Dropzone({ formik, name, type }) {
   const [file, setFile] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const {
@@ -124,13 +124,12 @@ export default function Dropzone({ formik, name }) {
     if (file) {
       //make request to upload endpoint
       const token = await getAccessTokenSilently();
-      const res = await ImageService.uploadImage(file, token);
+      const res = await ImageService.uploadImage(file, token, type);
       console.log(res.data);
       //set formik value as file id / file
       formik.setFieldValue(name, res.data);
     }
   };
-  console.log(file);
 
   return (
     <>

@@ -12,6 +12,7 @@ import BeneficiaryGroups from "./BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";
 import "./CreateProjectForm.css";
 import ArrayInput from "./ArrayInput";
+import Dropzone from "components/Dropzone";
 
 export default function CreateProjectForm({ setup }) {
   const [serverMessage, setServerMessage] = useState();
@@ -59,7 +60,7 @@ export default function CreateProjectForm({ setup }) {
         history.push("/home/myprojects");
       } else {
         methods.resetForm();
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (err) {
       console.log(err.response.data);
@@ -89,6 +90,7 @@ export default function CreateProjectForm({ setup }) {
         <Formik
           initialValues={{
             orgId: user.currentOrgId,
+            projectLogo: null,
             projectName: "",
             description: "",
             impacts: [],
@@ -118,13 +120,18 @@ export default function CreateProjectForm({ setup }) {
                     >
                       <option value={null}>Choose...</option>
                       {user.userOrgs.map((org, index) => {
-                        return <option value={org.org_id}>{org.name}</option>;
+                        return (
+                          <option key={index} value={org.org_id}>
+                            {org.name}
+                          </option>
+                        );
                       })}
                     </Form.Control>
                     <FormErrorMessage name="orgId" />
                   </Form.Group>
                 ) : null}
 
+                <Dropzone formik={formik} name="projectLogo" type="project" />
                 <Form.Group controlId="projectName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control

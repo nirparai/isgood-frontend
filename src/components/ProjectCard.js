@@ -11,10 +11,11 @@ export default function ProjectCard({ project }) {
         <LinkContainer to={`/home/myprojects/${project.project_id}`}>
           <Card.Body>
             <Row>
-              <Col xs={2} className="mt-2">
+              <Col xs={2}>
                 <img
-                  src="https://placeimg.com/35/35/any"
+                  src={`http://localhost:8000/api/images/${project.logo_location}`}
                   alt="Organisation Logo"
+                  width={35}
                 />
               </Col>
               <Col xs={10}>
@@ -30,7 +31,7 @@ export default function ProjectCard({ project }) {
         </LinkContainer>
         <Card.Footer className="d-flex justify-content-end">
           <Icon path={mdiShareVariant} size={1.5} className="p-1" />
-          <LinkContainer to={`myprojects/edit/${project.project_id}`}>
+          <LinkContainer to={`/home/myprojects/edit/${project.project_id}`}>
             <Icon path={mdiDotsVertical} size={1.5} className="p-1" />
           </LinkContainer>
         </Card.Footer>

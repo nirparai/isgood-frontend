@@ -31,7 +31,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
 
       const res = await OrgService.createOrg(values, token);
       // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
-      // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made
+      // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made that handles this
       console.log(res.data);
       if (setup) {
         setUser((prev) => {
@@ -85,7 +85,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
             console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
-                <Dropzone formik={formik} name="organisationLogo" />
+                <Dropzone formik={formik} name="organisationLogo" type="org" />
 
                 <Form.Group controlId="organisationName">
                   <Form.Label>Organisation Name</Form.Label>
