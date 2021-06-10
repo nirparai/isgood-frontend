@@ -14,6 +14,7 @@ class OrgService {
     // data.append("region", values.region);
     const data = {
       logoId: values.organisationLogo,
+      bannerId: values.organisationBanner,
       name: values.organisationName,
       url: values.url,
       description: values.description,

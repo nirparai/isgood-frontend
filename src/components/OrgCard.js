@@ -11,7 +11,11 @@ export default function OrgCard({ org }) {
         <LinkContainer to={`myorganisations/${org.org_id}`}>
           <Card.Body className="p-0 d-flex justify-content-center">
             <img
-              src={`http://localhost:8000/api/images/${org.logo_location}`}
+              src={
+                org.logo_location
+                  ? `http://localhost:8000/api/images/${org.logo_location}`
+                  : null
+              }
               alt="Organisation Logo"
               height={180}
             />

@@ -70,6 +70,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
         </legend>
         <Formik
           initialValues={{
+            organisationBanner: null,
             organisationLogo: null,
             organisationName: orgValues.name || "",
             description: orgValues.description || "",
