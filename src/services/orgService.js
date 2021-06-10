@@ -22,6 +22,7 @@ class OrgService {
     //   region: values.region,
     // };
     return axios.post(API_URL + "org/create", data, {
+      
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -35,5 +36,4 @@ class OrgService {
     });
   }
 }
-
 export default new OrgService();
