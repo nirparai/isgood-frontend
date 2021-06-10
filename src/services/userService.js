@@ -10,6 +10,27 @@ class UserService {
       },
     });
   }
+
+  getUserData(token) {
+    return axios.get(API_URL + "users", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  updateUserImage(image, token) {
+    let formData = new FormData();
+
+    //Adding files to the formdata
+    formData.append("profileImage", image);
+
+    return axios.post(API_URL + "users/image", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
 
 export default new UserService();
