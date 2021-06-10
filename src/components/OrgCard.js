@@ -9,11 +9,11 @@ export default function OrgCard({ org }) {
     <Col xs={12} md={6} xl={4} className="my-3">
       <Card className="justify-content-center">
         <LinkContainer to={`myorganisations/${org.org_id}`}>
-          <Card.Body className="p-0">
+          <Card.Body className="p-0 d-flex justify-content-center">
             <img
-              src="https://placeimg.com/200/150/any"
+              src={`http://localhost:8000/api/images/${org.logo_location}`}
               alt="Organisation Logo"
-              className="w-100"
+              height={180}
             />
           </Card.Body>
         </LinkContainer>

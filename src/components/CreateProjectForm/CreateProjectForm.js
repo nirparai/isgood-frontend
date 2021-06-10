@@ -11,8 +11,8 @@ import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";
 import "./CreateProjectForm.css";
-import FieldArrayAdd from "./FieldArrays/FieldArrayAdd";
 import ArrayInput from "./ArrayInput";
+import Dropzone from "components/Dropzone";
 
 export default function CreateProjectForm({ setup }) {
   const [serverMessage, setServerMessage] = useState();
@@ -51,15 +51,8 @@ export default function CreateProjectForm({ setup }) {
   const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      const res = await ProjectService.createProject(
-        values.orgId,
-        values.projectName,
-        values.description,
-        values.impacts,
-        values.outcomes,
-        values.beneficiaries,
-        token
-      );
+      console.log(token);
+      const res = await ProjectService.createProject(values, token);
       console.log(res);
       if (setup) {
         methods.resetForm();
@@ -71,8 +64,8 @@ export default function CreateProjectForm({ setup }) {
       }
     } catch (err) {
       console.log(err.response.data);
-      if (err.response.data["error"]) {
-        const errMessage = err.response.data["error"];
+      if (err.response.data.message) {
+        const errMessage = err.response.data.message;
         setServerMessage(errMessage);
       } else {
         setServerMessage("There was a problem please try again later");
@@ -97,12 +90,13 @@ export default function CreateProjectForm({ setup }) {
         <Formik
           initialValues={{
             orgId: user.currentOrgId,
+            projectLogo: null,
             projectName: "",
             description: "",
             impacts: [],
             outcomes: [],
             beneficiaries: [],
-            geolocation: ["", ""],
+            geolocation: [],
             startDate: "",
             endDate: "",
           }}
@@ -126,13 +120,18 @@ export default function CreateProjectForm({ setup }) {
                     >
                       <option value={null}>Choose...</option>
                       {user.userOrgs.map((org, index) => {
-                        return <option value={org.org_id}>{org.name}</option>;
+                        return (
+                          <option key={index} value={org.org_id}>
+                            {org.name}
+                          </option>
+                        );
                       })}
                     </Form.Control>
                     <FormErrorMessage name="orgId" />
                   </Form.Group>
                 ) : null}
 
+                <Dropzone formik={formik} name="projectLogo" type="project" />
                 <Form.Group controlId="projectName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control

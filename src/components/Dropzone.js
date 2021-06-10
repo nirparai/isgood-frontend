@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from "react";
-import ImageService from "services/imageService"
+import { useAuth0 } from "@auth0/auth0-react";
+import ImageService from "services/imageService";
 import { Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
 
@@ -63,9 +64,9 @@ const img = {
   transform: "translateX(-50%)",
 };
 
-export default function Dropzone({ formik, name }) {
+export default function Dropzone({ formik, name, type }) {
   const [file, setFile] = useState(null);
-
+  const { getAccessTokenSilently } = useAuth0();
   const {
     getRootProps,
     getInputProps,
@@ -83,7 +84,7 @@ export default function Dropzone({ formik, name }) {
           preview: URL.createObjectURL(acceptedFiles[0]),
         })
       );
-      formik.setFieldValue(name, acceptedFiles[0]);
+      // formik.setFieldValue(name, acceptedFiles[0]);
     },
   });
 
@@ -114,7 +115,7 @@ export default function Dropzone({ formik, name }) {
           preview: URL.createObjectURL(e.target.files[0]),
         })
       );
-      formik.setFieldValue(name, e.target.files[0]);
+      // formik.setFieldValue(name, e.target.files[0]);
     }
   };
 
@@ -122,14 +123,13 @@ export default function Dropzone({ formik, name }) {
     // check file is selected and allowed to be uploaded
     if (file) {
       //make request to upload endpoint
-      const token = "fhasdfha";
-      const res = await ImageService.uploadImage(file, token);
-      console.log(res.data.filename);
+      const token = await getAccessTokenSilently();
+      const res = await ImageService.uploadImage(file, token, type);
+      console.log(res.data);
       //set formik value as file id / file
-      // formik.setFieldValue(name, res.data.filename);
+      formik.setFieldValue(name, res.data);
     }
   };
-  console.log(file);
 
   return (
     <>
@@ -144,7 +144,7 @@ export default function Dropzone({ formik, name }) {
           <div style={thumbsContainer}>
             <div style={thumb} key={file.name}>
               <div style={thumbInner}>
-                <img src={file.preview} style={img} />
+                <img src={file.preview} style={img} alt="preview" />
               </div>
             </div>
           </div>
