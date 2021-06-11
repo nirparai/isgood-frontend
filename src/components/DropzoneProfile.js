@@ -3,11 +3,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import ImageService from "services/imageService";
 import { Button } from "react-bootstrap";
 import { useDropzone } from "react-dropzone";
+import userService from "services/userService";
 
 const baseStyle = {
   margin: "auto",
   borderWidth: 2,
-  borderRadius: 2,
+  borderRadius: "50%",
   borderColor: "#eeeeee",
   borderStyle: "dashed",
   backgroundColor: "#fafafa",
@@ -40,13 +41,12 @@ const thumbsContainer = {
 
 const thumb = {
   display: "inline-flex",
-  borderRadius: 2,
+  borderRadius: "50%",
   border: "1px solid #eaeaea",
   height: "20vw",
   width: "20vw",
   maxHeight: 200,
   maxWidth: 200,
-
   boxSizing: "border-box",
 };
 
@@ -54,6 +54,7 @@ const thumbInner = {
   display: "flex",
   minWidth: 0,
   overflow: "hidden",
+  borderRadius: "50%",
 };
 
 const img = {
@@ -64,7 +65,7 @@ const img = {
   transform: "translateX(-50%)",
 };
 // type is for "org" or "project"
-export default function Dropzone({ formik, name, type }) {
+export default function DropzoneProfile({ formik, name, type }) {
   const [file, setFile] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const {
@@ -84,7 +85,6 @@ export default function Dropzone({ formik, name, type }) {
           preview: URL.createObjectURL(acceptedFiles[0]),
         })
       );
-      // formik.setFieldValue(name, acceptedFiles[0]);
     },
   });
 
@@ -115,7 +115,6 @@ export default function Dropzone({ formik, name, type }) {
           preview: URL.createObjectURL(e.target.files[0]),
         })
       );
-      // formik.setFieldValue(name, e.target.files[0]);
     }
   };
 
@@ -124,11 +123,10 @@ export default function Dropzone({ formik, name, type }) {
     if (file) {
       //make request to upload endpoint
       const token = await getAccessTokenSilently();
-      // type is for "org" or "project"
-      const res = await ImageService.uploadImage(file, token, type);
+
+      const res = await userService.updateUserImage(file, token);
+
       console.log(res.data);
-      //set formik value as file id / file
-      formik.setFieldValue(name, res.data);
     }
   };
 
