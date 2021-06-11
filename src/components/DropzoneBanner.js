@@ -15,9 +15,9 @@ const baseStyle = {
   outline: "none",
   transition: "border .24s ease-in-out",
   height: "20vw",
-  width: "20vw",
+  width: "60vw",
   maxHeight: 200,
-  maxWidth: 200,
+  maxWidth: 600,
 };
 
 const activeStyle = {
@@ -43,10 +43,10 @@ const thumb = {
   borderRadius: 2,
   border: "1px solid #eaeaea",
   height: "20vw",
-  width: "20vw",
+  width: "60vw",
   maxHeight: 200,
-  maxWidth: 200,
-
+  maxWidth: 600,
+  justifyContent: "center",
   boxSizing: "border-box",
 };
 
@@ -64,7 +64,7 @@ const img = {
   transform: "translateX(-50%)",
 };
 // type is for "org" or "project"
-export default function Dropzone({ formik, name, type }) {
+export default function DropzoneBanner({ formik, name, endpoint }) {
   const [file, setFile] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const {
@@ -124,8 +124,8 @@ export default function Dropzone({ formik, name, type }) {
     if (file) {
       //make request to upload endpoint
       const token = await getAccessTokenSilently();
-      // type is for "org" or "project"
-      const res = await ImageService.uploadImage(file, token, type);
+      // endpoint is for "org/banner" or "project/banner or org/logo" or "project/logo"
+      const res = await ImageService.uploadImage(file, token, endpoint);
       console.log(res.data);
       //set formik value as file id / file
       formik.setFieldValue(name, res.data);

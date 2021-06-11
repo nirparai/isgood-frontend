@@ -3,6 +3,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
+import AWSImage from "./AWSImage";
 
 export default function OrgCard({ org }) {
   return (
@@ -10,12 +11,8 @@ export default function OrgCard({ org }) {
       <Card className="justify-content-center">
         <LinkContainer to={`myorganisations/${org.org_id}`}>
           <Card.Body className="p-0 d-flex justify-content-center">
-            <img
-              src={
-                org.logo_location
-                  ? `http://localhost:8000/api/images/${org.logo_location}`
-                  : null
-              }
+            <AWSImage
+              location={org.org_logo.location}
               alt="Organisation Logo"
               height={180}
             />

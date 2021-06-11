@@ -6,6 +6,7 @@ import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import ProjectCard from "components/ProjectCard";
+import OrgBanner from "components/OrgBanner";
 
 export default function OrganisationPage() {
   const { orgId } = useParams();
@@ -14,15 +15,17 @@ export default function OrganisationPage() {
   let projectByOrg = [];
   if (user.userProjects) {
     projectByOrg = user.userProjects.filter(
-      (project, index) => project.org_id == orgId
+      (project, index) => project.org_id === orgId
     );
   }
-
+  let currentOrg = {};
+  if (user.userOrgs) {
+    currentOrg = user.userOrgs.find((org, index) => org.org_id === orgId);
+  }
+  console.log(currentOrg);
   return (
     <div>
-      <div>
-        <h1 className="text-center py-5 border">ORG BANNER</h1>
-      </div>
+      <OrgBanner org={currentOrg} />
       <Container>
         <Row>
           <Col className=" col-6 mt-3">

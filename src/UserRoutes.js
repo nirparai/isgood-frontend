@@ -19,45 +19,44 @@ export default function UserRoutes() {
   return (
     <>
       <TopNav user={user} />
-      <Container>
-        <Row>
-          <Col className="col-3">
-            <SideNav />
-          </Col>
-          <Col className="col-9">
-            <Switch>
-              <Route
-                exact
-                path="/home/myorganisations"
-                component={OrganisationsLayout}
-              />
-              <Route
-                exact
-                path={`/home/myorganisations/:orgId`}
-                component={OrganisationPage}
-              />
-              <Route
-                exact
-                path={`/home/myorganisations/edit/:orgId`}
-                component={EditOrganisationPage}
-              />
 
-              <Route exact path="/home/myprojects" component={ProjectsLayout} />
-              <Route
-                exact
-                path="/home/myprojects/:projectId"
-                component={ProjectPage}
-              />
-              <Route
-                exact
-                path={`/home/myprojects/edit/:projectId`}
-                component={EditProjectPage}
-              />
-              <Route component={NotFound} />
-            </Switch>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col className="col-3">
+          <SideNav />
+        </Col>
+        <Col className="col-9">
+          <Switch>
+            <Route
+              exact
+              path="/home/myorganisations"
+              component={OrganisationsLayout}
+            />
+            <Route
+              exact
+              path={`/home/myorganisations/:orgId`}
+              component={OrganisationPage}
+            />
+            <Route
+              exact
+              path={`/home/myorganisations/edit/:orgId`}
+              component={EditOrganisationPage}
+            />
+
+            <Route exact path="/home/myprojects" component={ProjectsLayout} />
+            <Route
+              exact
+              path="/home/myprojects/:projectId"
+              component={ProjectPage}
+            />
+            <Route
+              exact
+              path={`/home/myprojects/edit/:projectId`}
+              component={EditProjectPage}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </Col>
+      </Row>
     </>
   );
 }

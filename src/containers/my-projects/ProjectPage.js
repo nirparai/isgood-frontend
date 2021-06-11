@@ -16,6 +16,7 @@ import Indicators from "./projects-pages/Indicators";
 import Team from "./projects-pages/Team";
 import UserContext from "../../context/UserContext";
 import { Loading } from "components/Loading";
+import ProjectBanner from "components/ProjectBanner";
 
 const ProjectPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -48,9 +49,7 @@ const ProjectPage = () => {
     <div>
       {!isLoading ? (
         <>
-          <div>
-            <h1 className="text-center py-5 border">PROJECT BANNER</h1>
-          </div>
+          <ProjectBanner project={user.currentProject} />
           <Container>
             <Row className="bg-light">
               <Col className="col-lg-2 col-12 d-flex justify-content-center">

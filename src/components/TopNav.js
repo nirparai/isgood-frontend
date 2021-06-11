@@ -12,13 +12,13 @@ import UpdateProfileModalButton from "containers/my-profile/UpdateProfileModalBu
 import ProfileModalButton from "containers/my-profile/ProfileModalButton";
 import ProfilePage from "containers/my-profile/ProfilePage";
 import ProfilePageEdit from "containers/my-profile/ProfilePageEdit";
-import PersonaliseForm from "./PersonaliseForm";
+import AWSImage from "./AWSImage";
 
 export default function TopNav({ user }) {
   const { logout } = useAuth0();
 
   return (
-    <Container>
+    <>
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
         <Navbar.Brand className="font-weight-bold text-muted">
           <LinkContainer to="/home">
@@ -51,12 +51,13 @@ export default function TopNav({ user }) {
 
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link bg-transparent">
-                <img
-                  src={`http://localhost:8000/api/images/${user.userData.user_metadata.profileImageLocation}`}
+                <AWSImage
+                  location={user.userData.user_metadata.profileImageLocation}
                   className="img-xs rounded-circle"
                   width={24}
                   alt="profile"
                 />
+
                 <span className="mx-2">{user.userData.email}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
@@ -67,7 +68,7 @@ export default function TopNav({ user }) {
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <UpdateProfileModalButton>
-                    <PersonaliseForm userData={user.userData} setup={false} />
+                    <ProfilePageEdit />
                   </UpdateProfileModalButton>
                 </Dropdown.Item>
                 <Dropdown.Item
@@ -84,6 +85,6 @@ export default function TopNav({ user }) {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    </Container>
+    </>
   );
 }

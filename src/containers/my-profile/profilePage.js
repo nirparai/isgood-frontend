@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import UserContext from "context/UserContext";
+import AWSImage from "components/AWSImage";
 
 export default function ProfilePage() {
   const { user } = useContext(UserContext);
@@ -9,8 +10,8 @@ export default function ProfilePage() {
         <h1 className="">User Profile</h1>
       </div>
       <div className="row justify-content-center mb-4">
-        <img
-          src={`http://localhost:8000/api/images/${user.userData.user_metadata.profileImageLocation}`}
+        <AWSImage
+          location={user.userData.user_metadata.profileImageLocation}
           className="img-xs rounded-circle"
           width={150}
           alt="profile"

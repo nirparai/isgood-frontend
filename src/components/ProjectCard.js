@@ -3,6 +3,7 @@ import { Card, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Icon from "@mdi/react";
 import { mdiShareVariant, mdiDotsVertical } from "@mdi/js";
+import AWSImage from "./AWSImage";
 
 export default function ProjectCard({ project }) {
   return (
@@ -12,8 +13,8 @@ export default function ProjectCard({ project }) {
           <Card.Body>
             <Row>
               <Col xs={2}>
-                <img
-                  src={`http://localhost:8000/api/images/${project.logo_location}`}
+                <AWSImage
+                  location={project.project_logo.location}
                   alt="Organisation Logo"
                   width={35}
                 />

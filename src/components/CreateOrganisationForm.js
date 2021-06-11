@@ -8,7 +8,8 @@ import UserContext from "context/UserContext";
 import { Col, Button, Form } from "react-bootstrap";
 import OrgService from "services/orgService";
 import FormErrorMessage from "components/FormErrorMessage";
-import Dropzone from "components/Dropzone";
+import DropzoneLogo from "components/DropzoneLogo";
+import DropzoneBanner from "./DropzoneBanner";
 
 export default function CreateOrganisationForm({ setup, orgValues }) {
   const [serverMessage, setServerMessage] = useState();
@@ -86,7 +87,16 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
             console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
-                <Dropzone formik={formik} name="organisationLogo" type="org" />
+                <DropzoneLogo
+                  formik={formik}
+                  name="organisationLogo"
+                  endpoint="org/logo"
+                />
+                <DropzoneBanner
+                  formik={formik}
+                  name="organisationBanner"
+                  endpoint="org/banner"
+                />
 
                 <Form.Group controlId="organisationName">
                   <Form.Label>Organisation Name</Form.Label>
