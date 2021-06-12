@@ -10,8 +10,8 @@ import logo from "assets/isgoodai-logo.png";
 import UpdateProfileModalButton from "containers/my-profile/UpdateProfileModalButton";
 
 import ProfileModalButton from "containers/my-profile/ProfileModalButton";
-import ProfilePage from "containers/my-profile/ProfilePage";
-import ProfilePageEdit from "containers/my-profile/ProfilePageEdit";
+import UserProfilePage from "containers/my-profile/UserProfilePage";
+import EditProfilePage from "containers/my-profile/EditProfilePage";
 import AWSImage from "./AWSImage";
 
 export default function TopNav({ user }) {
@@ -63,12 +63,12 @@ export default function TopNav({ user }) {
               <Dropdown.Menu>
                 <Dropdown.Item>
                   <ProfileModalButton>
-                    <ProfilePage />
+                    <UserProfilePage />
                   </ProfileModalButton>
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <UpdateProfileModalButton>
-                    <ProfilePageEdit />
+                    <EditProfilePage />
                   </UpdateProfileModalButton>
                 </Dropdown.Item>
                 <Dropdown.Item

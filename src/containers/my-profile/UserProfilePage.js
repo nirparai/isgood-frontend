@@ -3,7 +3,7 @@ import UserContext from "context/UserContext";
 
 import AWSImage from "components/AWSImage";
 
-export default function ProfilePage() {
+export default function UserProfilePage() {
   const { user } = useContext(UserContext);
   return (
     <div className="container">
