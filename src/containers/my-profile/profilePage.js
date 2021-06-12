@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import UserContext from "context/UserContext";
+
 import AWSImage from "components/AWSImage";
 
 export default function ProfilePage() {
