@@ -7,11 +7,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Loading } from "components/Loading";
 
 export const UserContext = createContext({
-  userOrgs: null,
-  userProjects: null,
+  userOrgs: [],
+  userProjects: [],
   currentOrgId: null,
-  currentProject: null,
-  userData: null,
+  currentProject: {},
+  userData: {},
 });
 
 const reducer = (state, action) => {
@@ -26,11 +26,11 @@ const reducer = (state, action) => {
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
+    userOrgs: [],
+    userProjects: [],
     currentOrgId: null,
-    userOrgs: null,
-    userProjects: null,
-    currentProject: null,
-    userData: null,
+    currentProject: {},
+    userData: {},
   });
   const [isLoading, setIsLoading] = useState(true);
 

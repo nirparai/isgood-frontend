@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { Button, Card, Accordion, Form, Col } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import ProjectService from "services/projectService";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";

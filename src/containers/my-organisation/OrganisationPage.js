@@ -1,16 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import UserContext from "context/UserContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import ProjectCard from "components/ProjectCard";
 import OrgBanner from "components/OrgBanner";
+import userService from "services/userService";
 
 export default function OrganisationPage() {
   const { orgId } = useParams();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const { getAccessTokenSilently } = useAuth0();
 
   let projectByOrg = [];
   if (user.userProjects) {
@@ -22,6 +25,21 @@ export default function OrganisationPage() {
   if (user.userOrgs) {
     currentOrg = user.userOrgs.find((org, index) => org.org_id === orgId);
   }
+  //set last org
+  useEffect(() => {
+    const updateLastOrg = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+        const res = await userService.updateLastOrg(orgId, token);
+        console.log(res.data);
+        setUser((prev) => ({ ...prev, userData: res.data }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    updateLastOrg();
+  }, [orgId]);
+
   console.log(currentOrg);
   return (
     <div>

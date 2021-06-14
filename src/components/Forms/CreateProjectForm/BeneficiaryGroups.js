@@ -5,7 +5,7 @@ import { FieldArray } from "formik";
 import BenerficiaryGroupChange from "./BenerficiaryGroupChange";
 import BenerficiaryGroupDemographics from "./BenerficiaryGroupDemographics";
 import ModalContainer from "./ModalContainer";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 
 export default function BeneficiaryGroups({ arrayHelpers }) {
   const { form, insert, remove } = arrayHelpers;

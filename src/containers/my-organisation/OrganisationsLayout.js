@@ -6,7 +6,7 @@ import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import OrgCard from "components/OrgCard";
 import CreateOrgModalButton from "./CreateOrgModalButton";
-import CreateOrganisationForm from "components/CreateOrganisationForm";
+import CreateOrganisationForm from "components/Forms/CreateOrganisationForm";
 export default function OrganisationsLayout() {
   const { user } = useContext(UserContext);
 

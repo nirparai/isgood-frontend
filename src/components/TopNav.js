@@ -52,7 +52,11 @@ export default function TopNav({ user }) {
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link bg-transparent">
                 <AWSImage
-                  location={user.userData.user_metadata.profileImageLocation}
+                  location={
+                    user.userData.user_metadata.profileImageLocation
+                      ? user.userData.user_metadata.profileImageLocation
+                      : null
+                  }
                   className="img-xs rounded-circle"
                   width={24}
                   alt="profile"

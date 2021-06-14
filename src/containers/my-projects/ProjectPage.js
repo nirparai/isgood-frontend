@@ -17,12 +17,20 @@ import Team from "./projects-pages/Team";
 import UserContext from "../../context/UserContext";
 import { Loading } from "components/Loading";
 import ProjectBanner from "components/ProjectBanner";
+import userService from "services/userService";
 
 const ProjectPage = () => {
   const { user, setUser } = useContext(UserContext);
   const { projectId } = useParams();
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
+
+  let currentProject = {};
+  if (user.userProjects) {
+    currentProject = user.userProjects.find(
+      (project, index) => projectId === project.project_id
+    );
+  }
 
   useEffect(() => {
     const getProject = async () => {
@@ -40,6 +48,20 @@ const ProjectPage = () => {
         console.log(err);
       }
     };
+    const updateLastOrg = async () => {
+      try {
+        const token = await getAccessTokenSilently();
+        const res = await userService.updateLastOrg(
+          currentProject.org_id,
+          token
+        );
+        console.log(res.data);
+        setUser((prev) => ({ ...prev, userData: res.data }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    updateLastOrg();
     getProject();
   }, []);
 

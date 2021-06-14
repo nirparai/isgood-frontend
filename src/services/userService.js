@@ -31,6 +31,17 @@ class UserService {
       },
     });
   }
+  updateLastOrg(orgId, token) {
+    const data = {
+      orgId: orgId,
+    };
+
+    return axios.post(API_URL + "users/lastorg", data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }
 
 export default new UserService();

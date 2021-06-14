@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import UserContext from "context/UserContext";
 
-import PersonaliseForm from "components/PersonaliseForm";
+import PersonaliseForm from "components/Forms/PersonaliseForm";
 
 export default function EditProfilePage() {
   const { user } = useContext(UserContext);

@@ -6,7 +6,7 @@ import { Button, Form, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import ProjectService from "services/projectService";
 import "../CreateProjectForm.css";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 
 export default function ProjectInfoEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();

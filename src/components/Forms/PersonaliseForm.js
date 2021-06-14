@@ -5,9 +5,9 @@ import * as Yup from "yup";
 
 import { Formik } from "formik";
 import { Button, Col, Form } from "react-bootstrap";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserService from "services/userService";
-import DropzoneProfile from "./DropzoneProfile";
+import DropzoneProfile from "../DropzoneProfile";
 
 //This is not working and needs to be connected to auth0 management api so that the infomation is stored to the AUTH0 user meta-data
 //Timezone and Location options need to be filled

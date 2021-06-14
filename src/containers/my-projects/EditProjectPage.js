@@ -5,9 +5,9 @@ import ProjectService from "services/projectService";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Container, Col, Row, Accordion, Card, Button } from "react-bootstrap";
-import ImpactsEdit from "components/CreateProjectForm/ProjectEdit/ImpactsEdit";
-import OutcomesEdit from "components/CreateProjectForm/ProjectEdit/OutcomesEdit";
-import ProjectInfoEdit from "components/CreateProjectForm/ProjectEdit/ProjectInfoEdit";
+import ImpactsEdit from "components/Forms/CreateProjectForm/ProjectEdit/ImpactsEdit";
+import OutcomesEdit from "components/Forms/CreateProjectForm/ProjectEdit/OutcomesEdit";
+import ProjectInfoEdit from "components/Forms/CreateProjectForm/ProjectEdit/ProjectInfoEdit";
 
 export default function EditProjectPage() {
   const { user, setUser } = useContext(UserContext);

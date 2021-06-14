@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 import FieldArrayEdit from "./FieldArrayEdit";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 import { Form } from "react-bootstrap";
 import FieldArrayDelete from "./FieldArrayDelete";
 

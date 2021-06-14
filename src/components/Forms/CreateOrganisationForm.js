@@ -7,9 +7,9 @@ import UserContext from "context/UserContext";
 
 import { Col, Button, Form } from "react-bootstrap";
 import OrgService from "services/orgService";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 import DropzoneLogo from "components/DropzoneLogo";
-import DropzoneBanner from "./DropzoneBanner";
+import DropzoneBanner from "../DropzoneBanner";
 
 export default function CreateOrganisationForm({ setup, orgValues }) {
   const [serverMessage, setServerMessage] = useState();
