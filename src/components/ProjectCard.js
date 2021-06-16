@@ -34,9 +34,9 @@ export default function ProjectCard({ project }) {
         </LinkContainer>
         <Card.Footer className="d-flex justify-content-end">
           <Icon path={mdiShareVariant} size={1.5} className="p-1" />
-          <LinkContainer to={`/home/myprojects/edit/${project.project_id}`}>
+          {/* <LinkContainer to={`/home/myprojects/edit/${project.project_id}`}>
             <Icon path={mdiDotsVertical} size={1.5} className="p-1" />
-          </LinkContainer>
+          </LinkContainer> */}
         </Card.Footer>
       </Card>
     </Col>

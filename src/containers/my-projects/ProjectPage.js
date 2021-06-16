@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ProjectService from "services/projectService";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { LinkContainer } from "react-router-bootstrap";
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
 import Icon from "@mdi/react";
 import {
@@ -10,6 +11,7 @@ import {
   mdiAccountCircle,
   mdiAccountMultiple,
   mdiPlus,
+  mdiCog,
 } from "@mdi/js";
 import Overview from "./projects-pages/Overview";
 import Indicators from "./projects-pages/Indicators";
@@ -18,6 +20,7 @@ import UserContext from "../../context/UserContext";
 import { Loading } from "components/Loading";
 import ProjectBanner from "components/ProjectBanner";
 import userService from "services/userService";
+import AWSImage from "components/AWSImage";
 
 const ProjectPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -75,15 +78,27 @@ const ProjectPage = () => {
           <Container>
             <Row className="bg-light">
               <Col className="col-lg-2 col-12 d-flex justify-content-center">
-                <Icon path={mdiAccountCircle} size={5} className="p-1" />
+                <AWSImage
+                  location={
+                    user.currentProject.logo &&
+                    user.currentProject.logo.location
+                  }
+                  width={150}
+                  height={150}
+                />
               </Col>
               <Col className="col-lg-7 col-12 d-flex align-items-center justify-content-lg-start justify-content-center">
-                <p>{user.currentProject.name}</p>
+                <h1>{user.currentProject.name}</h1>
               </Col>
               <Col className="col-lg-3 col-12 d-flex justify-content-end flex-column ">
                 <Row className="">
                   <Col className=" col-12 d-flex justify-content-end">
-                    <Icon path={mdiShareVariant} size={1} className="p-1" />
+                    <Icon path={mdiShareVariant} size={1.5} className="p-1" />
+                    <LinkContainer
+                      to={`/home/myprojects/edit/${user.currentProject.project_id}`}
+                    >
+                      <Icon path={mdiCog} size={1.5} className="p-1" />
+                    </LinkContainer>
                   </Col>
                 </Row>
                 <Row>
@@ -129,47 +144,44 @@ const ProjectPage = () => {
                         eventKey="Overview"
                         className="d-flex justify-content-center"
                       >
-                        Overview
+                        Details
                       </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link
-                        eventKey="Insights"
-                        className="d-flex justify-content-center disabled"
-                      >
-                        Insights
-                      </Nav.Link>
-                    </Nav.Item>
+
                     <Nav.Item>
                       <Nav.Link
                         eventKey="Indicators"
-                        className="d-flex justify-content-center"
+                        className="d-flex justify-content-center my-2"
                       >
                         Indicators
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
-                        eventKey="Dashboards"
-                        className="d-flex justify-content-center disabled"
+                        eventKey="Team"
+                        className="d-flex justify-content-center my-2"
+                        disabled
                       >
-                        Dashboards
+                        Team
+                      </Nav.Link>
+                    </Nav.Item>
+
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="Insights"
+                        className="d-flex justify-content-center my-2"
+                        disabled
+                      >
+                        Insights
                       </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link
                         eventKey="Datasets"
-                        className="d-flex justify-content-center disabled"
+                        className="d-flex justify-content-center my-2"
+                        disabled
                       >
                         Datasets
-                      </Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link
-                        eventKey="Team"
-                        className="d-flex justify-content-center disabled"
-                      >
-                        Team
                       </Nav.Link>
                     </Nav.Item>
                   </Nav>

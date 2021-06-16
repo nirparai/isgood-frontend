@@ -2,10 +2,9 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
+import { Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
 import Icon from "@mdi/react";
-import { mdiBellOutline } from "@mdi/js";
-import { mdiEmailOutline } from "@mdi/js";
+import { mdiBellOutline, mdiLogout, mdiEmailOutline } from "@mdi/js";
 import logo from "assets/isgoodai-logo.png";
 import UpdateProfileModalButton from "containers/my-profile/UpdateProfileModalButton";
 
@@ -33,11 +32,11 @@ export default function TopNav({ user }) {
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link count-indicator toggle-arrow-hide bg-transparent">
                 <Icon path={mdiBellOutline} size={1} />
-                <Badge variant="info">7</Badge>
+                <Badge variant="info">1</Badge>
               </Dropdown.Toggle>
               <Dropdown.Menu className="navbar-dropdown preview-list">
                 <Dropdown.Item>
-                  <p>You have 7 notifications </p>
+                  <p>You have 1 notifications </p>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -47,6 +46,11 @@ export default function TopNav({ user }) {
                 <Icon path={mdiEmailOutline} size={1} />
                 <Badge variant="info">1</Badge>
               </Dropdown.Toggle>
+              <Dropdown.Menu className="navbar-dropdown preview-list">
+                <Dropdown.Item>
+                  <p>You have 1 notifications </p>
+                </Dropdown.Item>
+              </Dropdown.Menu>
             </Dropdown>
 
             <Dropdown className="mx-2">
@@ -82,7 +86,10 @@ export default function TopNav({ user }) {
                     })
                   }
                 >
-                  <p>Logout</p>
+                  <div className="d-flex">
+                    <Icon path={mdiLogout} size={1} className="mx-2" />
+                    <p>Logout</p>
+                  </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

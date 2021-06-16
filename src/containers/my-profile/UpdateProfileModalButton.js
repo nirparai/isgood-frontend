@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Icon from "@mdi/react";
+import { mdiCog } from "@mdi/js";
 import { Button, Modal } from "react-bootstrap";
 
 export default function UpdateProfileModalButton({ children }) {
@@ -37,9 +39,10 @@ export default function UpdateProfileModalButton({ children }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <p variant="primary" onClick={handleShow}>
-        Profile Settings
-      </p>
+      <div className="d-flex" onClick={handleShow}>
+        <Icon path={mdiCog} size={1} className="mx-2" />
+        <p variant="primary">Profile Settings</p>
+      </div>
     </>
   );
 }

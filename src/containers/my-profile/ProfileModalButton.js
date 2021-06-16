@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Icon from "@mdi/react";
+import { mdiAccount } from "@mdi/js";
 import { Button, Modal } from "react-bootstrap";
 
 export default function ProfileModalButton({ children }) {
@@ -37,9 +39,10 @@ export default function ProfileModalButton({ children }) {
           </Button>
         </Modal.Footer>
       </Modal>
-      <p variant="primary" onClick={handleShow}>
-        Profile
-      </p>
+      <div className="d-flex" onClick={handleShow}>
+        <Icon path={mdiAccount} size={1} className="mx-2" />
+        <p variant="primary">Profile</p>
+      </div>
     </>
   );
 }
