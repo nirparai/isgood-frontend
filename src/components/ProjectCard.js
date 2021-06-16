@@ -14,7 +14,9 @@ export default function ProjectCard({ project }) {
             <Row>
               <Col xs={2}>
                 <AWSImage
-                  location={project.project_logo.location}
+                  location={
+                    project.project_logo && project.project_logo.location
+                  }
                   alt="Organisation Logo"
                   width={35}
                 />
