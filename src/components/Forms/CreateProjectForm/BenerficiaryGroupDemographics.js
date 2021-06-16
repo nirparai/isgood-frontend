@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Button, Form } from "react-bootstrap";
 import ModalContainer from "./ModalContainer";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 
 export default function BenerficiaryGroupDemographics({
   beneficiaryIndex,

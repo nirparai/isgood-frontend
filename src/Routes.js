@@ -8,6 +8,7 @@ import Home from "containers/Home";
 import NotFound from "containers/NotFound";
 import UserRoutes from "UserRoutes";
 import SetupRoutes from "SetupRoutes";
+import Redirect from "containers/Redirect";
 
 export default function Routes() {
   return (
@@ -17,10 +18,12 @@ export default function Routes() {
       {/* <Route exact path="/projectform" component={ProjectForm} /> */}
       {/* Not sure if the provider should be added here but currently is working */}
       <UserProvider>
+        <ProtectedRoute path="/redirect" component={Redirect} />
         <ProtectedRoute path="/home" component={UserRoutes} />
         <ProtectedRoute path="/setup" component={SetupRoutes} />
       </UserProvider>
       {/* The NotFound Route needs to stay in the bottom to work for 404 errors*/}
+
       <Route component={NotFound} />
     </Switch>
   );

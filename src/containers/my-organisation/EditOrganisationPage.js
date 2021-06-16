@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import UserContext from "context/UserContext";
 
 import { Container, Col, Row } from "react-bootstrap";
-import CreateOrganisationForm from "components/CreateOrganisationForm";
+import CreateOrganisationForm from "components/Forms/CreateOrganisationForm";
 
 export default function EditOrganisationPage() {
   const { orgId } = useParams();

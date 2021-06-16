@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 import ArrayInput from "./ArrayInput";
 import ArrayField from "./FieldArrays/ArrayField";
 

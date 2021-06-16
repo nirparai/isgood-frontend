@@ -1,7 +1,7 @@
 import React from "react";
 
 import HomePageNavbar from "components/HomePageNavbar";
-import CreateOrganisationForm from "components/CreateOrganisationForm";
+import CreateOrganisationForm from "components/Forms/CreateOrganisationForm";
 
 export default function SetupCreateOrg() {
   return (

@@ -23,7 +23,7 @@ export default function CreateProjectModalButton({ children }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Form</Modal.Title>
         </Modal.Header>

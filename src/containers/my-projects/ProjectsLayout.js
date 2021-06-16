@@ -6,7 +6,7 @@ import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import ProjectCard from "components/ProjectCard";
 import CreateProjectModalButton from "./CreateProjectModalButton";
-import CreateProjectForm from "components/CreateProjectForm/CreateProjectForm";
+import CreateProjectForm from "components/Forms/CreateProjectForm/CreateProjectForm";
 
 export default function ProjectsLayout() {
   const { user, setUser } = useContext(UserContext);

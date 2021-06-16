@@ -6,13 +6,14 @@ import * as Yup from "yup";
 import { Button, Card, Accordion, Form, Col } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import ProjectService from "services/projectService";
-import FormErrorMessage from "components/FormErrorMessage";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";
 import "./CreateProjectForm.css";
 import ArrayInput from "./ArrayInput";
-import Dropzone from "components/Dropzone";
+import DropzoneLogo from "components/DropzoneLogo";
+import DropzoneBanner from "components/DropzoneBanner";
 
 export default function CreateProjectForm({ setup }) {
   const [serverMessage, setServerMessage] = useState();
@@ -131,7 +132,16 @@ export default function CreateProjectForm({ setup }) {
                   </Form.Group>
                 ) : null}
 
-                <Dropzone formik={formik} name="projectLogo" type="project" />
+                <DropzoneLogo
+                  formik={formik}
+                  name="projectLogo"
+                  endpoint="project/logo"
+                />
+                <DropzoneBanner
+                  formik={formik}
+                  name="projectBanner"
+                  endpoint="project/banner"
+                />
                 <Form.Group controlId="projectName">
                   <Form.Label>Project Name</Form.Label>
                   <Form.Control

@@ -23,7 +23,11 @@ export default function ProfileModalButton({ children }) {
 
   return (
     <>
+<<<<<<< HEAD
       <Modal show={show} onHide={handleClose}>
+=======
+      <Modal show={show} onHide={handleClose} size="lg">
+>>>>>>> cb5a2c57d99cdcff4f6070f9efe696af0f096de4
         <Modal.Header closeButton>
           <Modal.Title>Form</Modal.Title>
         </Modal.Header>
