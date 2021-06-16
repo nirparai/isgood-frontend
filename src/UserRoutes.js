@@ -19,47 +19,6 @@ export default function UserRoutes() {
   return (
     <>
       <TopNav user={user} />
-<<<<<<< HEAD
-      <Container>
-        <Row>
-          <Col className="col-3">
-            <SideNav />
-          </Col>
-          <Col className="col-9">
-            <Switch>
-              <Route
-                exact
-                path="/home/myorganisations"
-                component={OrganisationsLayout}
-              />
-              <Route
-                exact
-                path={`/home/myorganisations/:orgId`}
-                component={OrganisationPage}
-              />
-              <Route
-                exact
-                path={`/home/myorganisations/edit/:orgId`}
-                component={EditOrganisationPage}
-              />
-
-              <Route exact path="/home/myprojects" component={ProjectsLayout} />
-              <Route
-                exact
-                path="/home/myprojects/:projectId"
-                component={ProjectPage}
-              />
-              <Route
-                exact
-                path={`/home/myprojects/edit/:projectId`}
-                component={EditProjectPage}
-              />
-              <Route component={NotFound} />
-            </Switch>
-          </Col>
-        </Row>
-      </Container>
-=======
 
       <Row>
         <Col className="col-3">
@@ -98,7 +57,6 @@ export default function UserRoutes() {
           </Switch>
         </Col>
       </Row>
->>>>>>> cb5a2c57d99cdcff4f6070f9efe696af0f096de4
     </>
   );
 }
