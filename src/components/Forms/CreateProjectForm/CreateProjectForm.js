@@ -92,6 +92,7 @@ export default function CreateProjectForm({ setup }) {
           initialValues={{
             orgId: user.currentOrgId,
             projectLogo: null,
+            projectBanner: null,
             projectName: "",
             description: "",
             impacts: [],

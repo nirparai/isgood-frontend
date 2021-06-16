@@ -9,6 +9,7 @@ import NotFound from "containers/NotFound";
 import UserRoutes from "UserRoutes";
 import SetupRoutes from "SetupRoutes";
 import Redirect from "containers/Redirect";
+import GetTokenPage from "GetTokenPage";
 
 export default function Routes() {
   return (
@@ -21,6 +22,7 @@ export default function Routes() {
         <ProtectedRoute path="/redirect" component={Redirect} />
         <ProtectedRoute path="/home" component={UserRoutes} />
         <ProtectedRoute path="/setup" component={SetupRoutes} />
+        <ProtectedRoute path="/token" component={GetTokenPage} />
       </UserProvider>
       {/* The NotFound Route needs to stay in the bottom to work for 404 errors*/}
 
