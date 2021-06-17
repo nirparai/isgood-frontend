@@ -6,7 +6,7 @@ export default function ProjectBanner({ project }) {
   return (
     <div className="container-fluid w-100 d-flex justify-content-center bg-secondary">
       <AWSImage
-        location={project.banner.location}
+        location={project.banner && project.banner.location}
         alt="Org Banner"
         className="img-fluid"
       />

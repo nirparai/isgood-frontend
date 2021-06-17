@@ -17,7 +17,7 @@ export default function OrgCard({ org }) {
         <LinkContainer to={`myorganisations/${org.org_id}`}>
           <Card.Body className="p-0 d-flex justify-content-center">
             <AWSImage
-              location={org.org_logo && org.org_logo.location}
+              location={org.logo && org.logo.location}
               alt="Organisation Logo"
               height={180}
             />
