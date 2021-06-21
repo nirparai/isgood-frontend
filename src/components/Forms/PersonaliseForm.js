@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
@@ -8,6 +8,8 @@ import { Button, Col, Form } from "react-bootstrap";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserService from "services/userService";
 import DropzoneProfile from "../DropzoneProfile";
+import UserContext from "context/UserContext";
+import UserRoutes from "UserRoutes";
 
 //This is not working and needs to be connected to auth0 management api so that the infomation is stored to the AUTH0 user meta-data
 //Timezone and Location options need to be filled
@@ -15,7 +17,8 @@ import DropzoneProfile from "../DropzoneProfile";
 export default function PersonaliseForm({ userData, setup }) {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
@@ -27,16 +30,20 @@ export default function PersonaliseForm({ userData, setup }) {
     timezone: Yup.string(),
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      const res = await UserService.updateUser(values, token);
-      console.log(res);
+      const userRes = await UserService.updateUser(values, token);
+      console.log(userRes);
+
+      setUser((state) => {
+        return { ...state, userData: userRes.data };
+      });
+
       // move to next setup page
       if (setup) {
         history.push("/setup/createorg");
       } else {
-        window.location.reload();
       }
     } catch (err) {
       // need to add different error handling either here or on the backend to
@@ -73,7 +80,7 @@ export default function PersonaliseForm({ userData, setup }) {
           initialValues={{
             firstName: userData ? userData.given_name : "",
             lastName: userData ? userData.family_name : "",
-            email: user.email,
+            email: user.userData.email,
             handle: userData ? userData.nickname : "",
             privacy: "Choose",
             location: userData ? userData.user_metadata.location : "",

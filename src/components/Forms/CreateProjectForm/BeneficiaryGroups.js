@@ -6,6 +6,7 @@ import BenerficiaryGroupChange from "./BenerficiaryGroupChange";
 import BenerficiaryGroupDemographics from "./BenerficiaryGroupDemographics";
 import ModalContainer from "./ModalContainer";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
+import ArrayFieldError from "../ArrayFieldError";
 
 export default function BeneficiaryGroups({ arrayHelpers }) {
   const { form, insert, remove } = arrayHelpers;
@@ -35,7 +36,12 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
               {form.values.beneficiaries[beneficiaryIndex].name}
             </div>
           </div>
-          <ModalContainer remove={remove} index={beneficiaryIndex}>
+          <ModalContainer
+            remove={remove}
+            index={beneficiaryIndex}
+            formik={form}
+            field="beneficiaries"
+          >
             <>
               <Form.Group controlId={`beneficiaries[${beneficiaryIndex}].name`}>
                 <Form.Label>Name</Form.Label>
@@ -64,6 +70,9 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
                   />
                 )}
               </FieldArray>
+              <ArrayFieldError
+                name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
+              />
 
               <FieldArray
                 name={`beneficiaries[${beneficiaryIndex}].demographics`}

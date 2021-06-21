@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as Yup from "yup";
 
@@ -8,11 +8,13 @@ import ProjectService from "services/projectService";
 import "../CreateProjectForm.css";
 import ArrayFieldPatch from "../FieldArrays/ArrayFieldPatch";
 import ArrayInputPatch from "../ArrayInputPatch";
+import UserContext from "context/UserContext";
 
 export default function OutcomesEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
   const [deleteIds, setdeleteIds] = useState([]);
   const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     outcomes: Yup.array().of(Yup.object()),
@@ -35,8 +37,13 @@ export default function OutcomesEdit({ project }) {
         project.project_id,
         deleteIds
       );
+      await setUser((state) => {
+        const newOutcomes = res2.data;
+        const newCurrentProject = state.currentProject;
+        newCurrentProject.outcomes = newOutcomes;
 
-      window.location.reload();
+        return { ...state, currentProject: newCurrentProject };
+      });
     } catch (err) {
       console.log(err.response);
       if (err.response.data.message) {
@@ -69,6 +76,7 @@ export default function OutcomesEdit({ project }) {
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          enableReinitialize={true}
         >
           {(formik) => {
             console.log(formik);

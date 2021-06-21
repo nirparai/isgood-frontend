@@ -28,7 +28,7 @@ export default function BenerficiaryGroupChange({
               arrayHelpers={changeArrayHelpers}
               index={changeIndex}
               value={change}
-              placeholder="Input project impacts here ..."
+              placeholder="Input change here ..."
             />
           )
         )}

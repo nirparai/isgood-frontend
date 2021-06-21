@@ -2,8 +2,14 @@ import React, { useState } from "react";
 
 import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
 
-export default function ModalContainer({ children, remove, index }) {
-  const [show, setShow] = useState(false);
+export default function ModalContainer({
+  children,
+  remove,
+  index,
+  formik,
+  field,
+}) {
+  const [show, setShow] = useState(true);
 
   const handleClose = () => {
     //clear fields of modal
@@ -14,11 +20,30 @@ export default function ModalContainer({ children, remove, index }) {
   const handleShow = () => setShow(true);
   const handleSave = () => {
     //Check Validation
+    formik.validateForm();
 
-    //Save Data to database or somewhere local ??
-
-    //Close Modal if validation and save is successfull
-    setShow(false);
+    if (formik.errors[field]) {
+      console.log("missing fields");
+      formik.setFieldTouched(`${field}[${index}].name`, true);
+      if (
+        typeof formik.errors[`${field}`][`${index}`].lifeChange === "string"
+      ) {
+        formik.setFieldTouched(`${field}[${index}].lifeChange`, []);
+      } else {
+        formik.errors[`${field}`][`${index}`].lifeChange.forEach(
+          (change, cindex) => {
+            formik.setFieldTouched(
+              `${field}[${index}].lifeChange[${cindex}]`,
+              true
+            );
+          }
+        );
+      }
+      //Save Data to database or somewhere local ??
+    } else {
+      //Close Modal if validation and save is successfull
+      setShow(false);
+    }
   };
 
   const popover = (

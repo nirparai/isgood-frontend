@@ -25,6 +25,11 @@ export default function ArrayInput({ arrayHelpers, label, placeholder }) {
     }
     inputRef.current.focus();
   };
+  const handleBlur = () => {
+    if (error) {
+      setError("");
+    }
+  };
 
   return (
     <>
@@ -35,6 +40,7 @@ export default function ArrayInput({ arrayHelpers, label, placeholder }) {
           name="value"
           type="text"
           onChange={handleChange}
+          onBlur={handleBlur}
           value={value}
           ref={inputRef}
         />

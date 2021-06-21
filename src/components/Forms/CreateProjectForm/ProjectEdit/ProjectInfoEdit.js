@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as Yup from "yup";
 
@@ -7,10 +7,12 @@ import { Formik } from "formik";
 import ProjectService from "services/projectService";
 import "../CreateProjectForm.css";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
+import UserContext from "context/UserContext";
 
 export default function ProjectInfoEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
   const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     orgId: Yup.string().required("Required"),
@@ -29,6 +31,15 @@ export default function ProjectInfoEdit({ project }) {
         project.project_id,
         values
       );
+      setUser((state) => {
+        const newCurrentProject = state.currentProject;
+        newCurrentProject.name = res.data.name;
+        newCurrentProject.description = res.data.description;
+        newCurrentProject.geolocation = res.data.geolocation;
+        newCurrentProject.start_date = res.data.start_date;
+        newCurrentProject.end = res.data.end;
+        return { ...state, currentProject: newCurrentProject };
+      });
       window.location.reload();
     } catch (err) {
       console.log(err.response);

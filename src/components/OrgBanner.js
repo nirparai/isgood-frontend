@@ -8,7 +8,6 @@ export default function OrgBanner({ org }) {
       <AWSImage
         location={org.banner && org.banner.location}
         alt="Org Banner"
-        className="img-fluid"
         height={150}
       />
     </div>

@@ -69,7 +69,6 @@ const ProjectPage = () => {
   }, []);
 
   console.log(user.currentProject);
-
   return (
     <div>
       {!isLoading ? (

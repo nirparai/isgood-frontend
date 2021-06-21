@@ -1,4 +1,4 @@
-import { createContext, useState, useReducer, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import OrgService from "services/orgService";
 import ProjectService from "services/projectService";
 import userService from "services/userService";
@@ -9,26 +9,14 @@ import { Loading } from "components/Loading";
 export const UserContext = createContext({
   userOrgs: [],
   userProjects: [],
-  currentOrgId: null,
   currentProject: {},
   userData: {},
 });
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "":
-      return state;
-
-    default:
-      return state;
-  }
-};
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     userOrgs: [],
     userProjects: [],
-    currentOrgId: null,
     currentProject: {},
     userData: {},
   });
@@ -63,14 +51,6 @@ export const UserProvider = ({ children }) => {
     };
     getUserInfo();
   }, []);
-
-  const [store, dispatch] = useReducer(reducer, {
-    currentOrgId: null,
-    userOrgs: null,
-    userProjects: null,
-    currentProject: null,
-    userData: null,
-  });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

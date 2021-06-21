@@ -14,8 +14,9 @@ import "./CreateProjectForm.css";
 import ArrayInput from "./ArrayInput";
 import DropzoneLogo from "components/DropzoneLogo";
 import DropzoneBanner from "components/DropzoneBanner";
+import ArrayFieldError from "../ArrayFieldError";
 
-export default function CreateProjectForm({ setup }) {
+export default function CreateProjectForm({ setup, orgId }) {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
   const { getAccessTokenSilently } = useAuth0();
@@ -34,14 +35,18 @@ export default function CreateProjectForm({ setup }) {
     beneficiaries: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required("Required"),
-        lifeChange: Yup.array().of(Yup.string().required("Required")),
-        demographics: Yup.array().of(
-          Yup.object().shape({
-            name: Yup.string().required("Required"),
-            operator: Yup.string().required("Required"),
-            value: Yup.string().required("Required"),
-          })
-        ),
+        lifeChange: Yup.array()
+          .of(Yup.string().required("Required"))
+          .min(1, "Add at least one change"),
+        demographics: Yup.array()
+          .of(
+            Yup.object().shape({
+              name: Yup.string().required("Required"),
+              operator: Yup.string().required("Required"),
+              value: Yup.string().required("Required"),
+            })
+          )
+          .min(1, "Add at least one demographic"),
       })
     ),
     // geolocation: Yup.string(),
@@ -52,16 +57,20 @@ export default function CreateProjectForm({ setup }) {
   const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      console.log(token);
-      const res = await ProjectService.createProject(values, token);
-      console.log(res);
+      const projectRes = await ProjectService.createProject(values, token);
+      await setUser((state) => {
+        const newUserProjects = state.userOrgs;
+        newUserProjects.push(projectRes.data);
+        return { ...state, userProjects: newUserProjects };
+      });
       if (setup) {
         methods.resetForm();
         // move to next project form page
-        history.push("/home/myprojects");
+        history.push(`/home/myprojects/${projectRes.data.project_id}`);
       } else {
         methods.resetForm();
-        window.location.reload();
+        // window.location.reload();
+        history.push(`/home/myprojects/${projectRes.data.project_id}`);
       }
     } catch (err) {
       console.log(err.response.data);
@@ -90,7 +99,7 @@ export default function CreateProjectForm({ setup }) {
         </legend>
         <Formik
           initialValues={{
-            orgId: user.currentOrgId,
+            orgId: user.userData.user_metadata.lastOrg,
             projectLogo: null,
             projectBanner: null,
             projectName: "",
@@ -201,6 +210,7 @@ export default function CreateProjectForm({ setup }) {
                             </div>
                           ) : null} */}
                         </Form.Group>
+                        <ArrayFieldError name="impacts" />
                       </>
                     );
                   }}
@@ -228,6 +238,7 @@ export default function CreateProjectForm({ setup }) {
                             />
                           ))}
                         </Form.Group>
+                        <ArrayFieldError name="outcomes" />
                       </>
                     );
                   }}
