@@ -1,0 +1,222 @@
+import React, { useContext, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import * as Yup from "yup";
+
+import { Button, Form } from "react-bootstrap";
+import { Formik, FieldArray } from "formik";
+import ProjectService from "services/projectService";
+// import "../../CreateProjectForm";
+// import ArrayFieldPatch from "../../FieldArrays/ArrayFieldPatch";
+// import ArrayInputPatch from "../../ArrayInputPatch";
+import UserContext from "context/UserContext";
+import ModalContainer from "../../ModalContainer";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
+import ArrayFieldError from "components/Forms/ArrayFieldError";
+import BeneficiaryGroupChangeEdit from "./BeneficiaryGroupChangeEdit";
+import BeneficiaryGroupDemographicsEdit from "./BeneficiaryGroupDemographicsEdit";
+
+export default function BeneficiaryGroupsEdit({ project }) {
+  const [serverMessage, setServerMessage] = useState();
+  const [deleteIds, setdeleteIds] = useState([]);
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
+
+  const validationSchema = Yup.object().shape({
+    beneficiaries: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().required("Required"),
+        lifeChange: Yup.array()
+          .of(
+            Yup.object()
+              .shape({
+                life_change_id: Yup.string().required("Required"),
+                description: Yup.string().required("Required"),
+              })
+              .required("Required")
+          )
+          .min(1, "Add at least one change"),
+        demographics: Yup.array()
+          .of(
+            Yup.object().shape({
+              name: Yup.string().required("Required"),
+              operator: Yup.string().required("Required"),
+              value: Yup.string().required("Required"),
+              demographic_id: Yup.string().required("Required"),
+            })
+          )
+          .min(1, "Add at least one demographic"),
+        beneficairy_id: Yup.string().required(),
+      })
+    ),
+    orgId: Yup.string().required(),
+  });
+
+  const onSubmit = async (values, methods) => {
+    try {
+      const token = await getAccessTokenSilently();
+      const res = await ProjectService.updateImpacts(
+        token,
+        values.orgId,
+        project.project_id,
+        values.impacts,
+        token
+      );
+      const res2 = await ProjectService.deleteImpacts(
+        token,
+        values.orgId,
+        project.project_id,
+        deleteIds
+      );
+      await setUser((state) => {
+        const newImpacts = res2.data;
+        const newCurrentProject = state.currentProject;
+        newCurrentProject.outcomes = newImpacts;
+
+        return { ...state, currentProject: newCurrentProject };
+      });
+    } catch (err) {
+      console.log(err.response);
+      if (err.response.data.message) {
+        const errMessage = err.response.data.message;
+        setServerMessage(errMessage);
+      } else {
+        setServerMessage("There was a problem please try again later");
+      }
+    }
+  };
+  console.log(project);
+  return (
+    <div className="d-flex flex-column align-items-center">
+      {serverMessage ? (
+        <div
+          className="alert alert-danger d-flex justify-content-center w-25"
+          role="alert"
+        >
+          {serverMessage}
+        </div>
+      ) : null}
+      <fieldset className="container-fluid border p-3 rounded w-100">
+        <legend className="w-50 bg-light border rounded p-1 text-center">
+          Impacts
+        </legend>
+        <Formik
+          initialValues={{
+            orgId: project.org_id,
+            beneficiaries: project.beneficiaries,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+        >
+          {(formik) => {
+            console.log(formik);
+            return (
+              <Form onSubmit={formik.handleSubmit} className="mx-auto">
+                <FieldArray name="beneficiaries">
+                  {({ form, insert, remove }) => (
+                    <>
+                      <Form.Label>Beneficiary Groups</Form.Label>
+                      <div className="d-flex justify-content-center my-2">
+                        <Button
+                          onClick={() =>
+                            insert(form.values.beneficiaries.length, {
+                              name: "",
+                              lifeChange: [],
+                              demographics: [
+                                {
+                                  name: "",
+                                  operator: "",
+                                  value: "",
+                                  demographic_id: "",
+                                  id: "",
+                                },
+                              ],
+                            })
+                          }
+                        >
+                          + Add Beneficary Group
+                        </Button>
+                      </div>
+                      {form.values.beneficiaries.map(
+                        (beneficiary, beneficiaryIndex) => (
+                          <div
+                            key={beneficiaryIndex}
+                            className="d-flex my-2 justify-content-center"
+                          >
+                            <div className="w-50 border d-flex align-items-center">
+                              <div className="mx-2">
+                                {
+                                  form.values.beneficiaries[beneficiaryIndex]
+                                    .name
+                                }
+                              </div>
+                            </div>
+                            <ModalContainer
+                              remove={remove}
+                              index={beneficiaryIndex}
+                              formik={form}
+                              field="beneficiaries"
+                            >
+                              <>
+                                <Form.Group
+                                  controlId={`beneficiaries[${beneficiaryIndex}].name`}
+                                >
+                                  <Form.Label>Name</Form.Label>
+                                  <Form.Control
+                                    autoFocus
+                                    placeholder=""
+                                    name={`beneficiaries[${beneficiaryIndex}].name`}
+                                    type="text"
+                                    onChange={form.handleChange}
+                                    onBlur={form.handleBlur}
+                                    value={beneficiary.name}
+                                  />
+
+                                  <FormErrorMessage
+                                    name={`beneficiaries[${beneficiaryIndex}].name`}
+                                  />
+                                </Form.Group>
+                                <FieldArray
+                                  name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
+                                >
+                                  {(changeArrayHelpers) => (
+                                    <BeneficiaryGroupChangeEdit
+                                      changeArrayHelpers={changeArrayHelpers}
+                                      beneficiaryIndex={beneficiaryIndex}
+                                    />
+                                  )}
+                                </FieldArray>
+                                <ArrayFieldError
+                                  name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
+                                />
+                                <FieldArray
+                                  name={`beneficiaries[${beneficiaryIndex}].demographics`}
+                                >
+                                  {(demographicArrayHelpers) => (
+                                    <BeneficiaryGroupDemographicsEdit
+                                      demographicArrayHelpers={
+                                        demographicArrayHelpers
+                                      }
+                                      beneficiaryIndex={beneficiaryIndex}
+                                    />
+                                  )}
+                                </FieldArray>
+                              </>
+                            </ModalContainer>
+                          </div>
+                        )
+                      )}
+                    </>
+                  )}
+                </FieldArray>
+
+                <Button block size="lg" type="submit">
+                  Save
+                </Button>
+              </Form>
+            );
+          }}
+        </Formik>
+      </fieldset>
+    </div>
+  );
+}

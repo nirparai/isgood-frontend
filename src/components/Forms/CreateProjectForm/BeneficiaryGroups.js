@@ -2,8 +2,8 @@ import React from "react";
 
 import { Button, Form } from "react-bootstrap";
 import { FieldArray } from "formik";
-import BenerficiaryGroupChange from "./BenerficiaryGroupChange";
-import BenerficiaryGroupDemographics from "./BenerficiaryGroupDemographics";
+import BenerficiaryGroupChange from "./BeneficiaryGroupChange";
+import BenerficiaryGroupDemographics from "./BeneficiaryGroupDemographics";
 import ModalContainer from "./ModalContainer";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import ArrayFieldError from "../ArrayFieldError";
@@ -32,9 +32,7 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
           className="d-flex my-2 justify-content-center"
         >
           <div className="w-50 border d-flex align-items-center">
-            <div className="mx-2">
-              {form.values.beneficiaries[beneficiaryIndex].name}
-            </div>
+            <div className="mx-2">{beneficiary.name}</div>
           </div>
           <ModalContainer
             remove={remove}
@@ -52,7 +50,7 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
                   type="text"
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
-                  value={form.values.beneficiaries[beneficiaryIndex].name}
+                  value={beneficiary.name}
                 />
 
                 <FormErrorMessage

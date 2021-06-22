@@ -23,7 +23,6 @@ export default function ModalContainer({
     formik.validateForm();
 
     if (formik.errors[field]) {
-      console.log("missing fields");
       formik.setFieldTouched(`${field}[${index}].name`, true);
       if (
         typeof formik.errors[`${field}`][`${index}`].lifeChange === "string"

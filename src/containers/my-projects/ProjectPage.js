@@ -58,7 +58,6 @@ const ProjectPage = () => {
           currentProject.org_id,
           token
         );
-        console.log(res.data);
         setUser((prev) => ({ ...prev, userData: res.data }));
       } catch (err) {
         console.log(err);

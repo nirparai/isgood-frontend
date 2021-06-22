@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 
-export default function BenerficiaryGroupDemographics({
+export default function BeneficiaryGroupDemographics({
   beneficiaryIndex,
   demographicArrayHelpers,
 }) {
