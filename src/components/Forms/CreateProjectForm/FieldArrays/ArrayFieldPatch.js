@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
-import FieldArrayEdit from "./FieldArrayEdit";
+import FieldArrayEditBtn from "./FieldArrayEditBtn";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import { Form } from "react-bootstrap";
-import FieldArrayDelete from "./FieldArrayDelete";
+import FieldArrayDeleteBtn from "./FieldArrayDeleteBtn";
 
 export default function ArrayFieldPatch({
   index,
@@ -14,6 +14,7 @@ export default function ArrayFieldPatch({
   placeholder,
   setdeleteIds,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef();
   return (
     <>
@@ -29,12 +30,12 @@ export default function ArrayFieldPatch({
           ref={inputRef}
         />
 
-        <FieldArrayEdit
-          arrayHelpers={arrayHelpers}
-          index={index}
+        <FieldArrayEditBtn
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
           inputRef={inputRef}
         />
-        <FieldArrayDelete
+        <FieldArrayDeleteBtn
           arrayHelpers={arrayHelpers}
           index={index}
           setdeleteIds={setdeleteIds}

@@ -25,7 +25,7 @@ export default function OrganisationPage() {
   }
   let currentOrg = {};
   if (user.userOrgs) {
-    currentOrg = user.userOrgs.find((org, index) => org.org_id === orgId);
+    currentOrg = user.userOrgs.find((org, index) => org.id === orgId);
   }
   //set last org
   useEffect(() => {

@@ -34,7 +34,7 @@ export default function ProjectsLayout() {
       <Row className="d-flex justify-content-center py-5">
         {user.userProjects &&
           user.userProjects.map((project, index) => (
-            <ProjectCard project={project} key={project.project_id} />
+            <ProjectCard project={project} key={project.id} />
           ))}
       </Row>
     </Container>

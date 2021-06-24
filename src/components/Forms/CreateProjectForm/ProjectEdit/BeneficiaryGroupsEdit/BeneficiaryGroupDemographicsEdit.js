@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Button, Form } from "react-bootstrap";
-import FormErrorMessage from "components/Forms/FormErrorMessage";
 import ArrayFieldDemographic from "../../FieldArrays/ArrayFieldDemographic";
-
+import DemographicArrayInput from "../../FieldArrays/DemographicArrayInput";
 export default function BeneficiaryGroupDemographicsEdit({
   beneficiaryIndex,
   demographicArrayHelpers,
+  setDeleteDemographicIds,
 }) {
-  const [serverMessage, setServerMessage] = useState();
   const { form, insert, remove } = demographicArrayHelpers;
   return (
     <>
       <Form.Label>Demographics</Form.Label>
+      <DemographicArrayInput
+        arrayHelpers={demographicArrayHelpers}
+        placeholder="Choose..."
+      />
       {form.values.beneficiaries[beneficiaryIndex].demographics.map(
         (demographic, demographicIndex) => (
           <ArrayFieldDemographic
@@ -24,21 +27,10 @@ export default function BeneficiaryGroupDemographicsEdit({
             beneficiaryIndex={beneficiaryIndex}
             value={demographic}
             placeholder="Choose ..."
+            setDeleteDemographicIds={setDeleteDemographicIds}
           />
         )
       )}
-      <div className="d-flex justify-content-center my-2">
-        <Button
-          onClick={() =>
-            insert(
-              form.values.beneficiaries[beneficiaryIndex].demographics.length,
-              { name: "", operator: "", value: "", id: "" }
-            )
-          }
-        >
-          + Add Field
-        </Button>
-      </div>
     </>
   );
 }

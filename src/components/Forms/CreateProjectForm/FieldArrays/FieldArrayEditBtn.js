@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiSquareEditOutline, mdiCheckBold } from "@mdi/js";
 
-export default function FieldArrayEdit({ arrayHelpers, index, inputRef }) {
-  const [isEditing, setIsEditing] = useState(false);
+// This component is for toggling the isEditing state for an ArrayField component
+export default function FieldArrayEditBtn({
+  inputRef,
+  isEditing,
+  setIsEditing,
+}) {
   const handleClick = () => {
-    inputRef.current.classList.toggle("disabled");
-    setIsEditing(() => !isEditing);
-    if (!inputRef.current.classList.contains("disabled")) {
+    // Simple toggle of isEditing state
+    setIsEditing((prev) => !prev);
+    // focuses the cursor on the input the inputRef is put on
+    if (isEditing) {
       inputRef.current.focus();
     }
   };

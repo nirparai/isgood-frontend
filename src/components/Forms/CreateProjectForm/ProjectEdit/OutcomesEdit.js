@@ -6,8 +6,8 @@ import { Button, Form } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import ProjectService from "services/projectService";
 import "../CreateProjectForm.css";
-import ArrayFieldPatch from "../FieldArrays/ArrayFieldPatch";
-import ArrayInputPatch from "../ArrayInputPatch";
+import ArrayField from "../FieldArrays/ArrayField";
+import ArrayInput from "../FieldArrays/ArrayInput";
 import UserContext from "context/UserContext";
 
 export default function OutcomesEdit({ project }) {
@@ -27,14 +27,14 @@ export default function OutcomesEdit({ project }) {
       const res = await ProjectService.updateOutcomes(
         token,
         values.orgId,
-        project.project_id,
+        project.id,
         values.outcomes,
         token
       );
       const res2 = await ProjectService.deleteOutcomes(
         token,
         values.orgId,
-        project.project_id,
+        project.id,
         deleteIds
       );
       await setUser((state) => {
@@ -88,30 +88,29 @@ export default function OutcomesEdit({ project }) {
                     // console.log(arrayHelpers);
                     return (
                       <>
-                        <ArrayInputPatch
+                        <ArrayInput
                           arrayHelpers={arrayHelpers}
                           label="Outcomes"
                           placeholder="Input project outcomes here ..."
                         />
-                        <Form.Group controlId="outcomes" size="lg">
-                          {formik.values.outcomes.map((outcome, index) => (
-                            <ArrayFieldPatch
-                              name="outcomes"
-                              key={index}
-                              formik={formik}
-                              arrayHelpers={arrayHelpers}
-                              index={index}
-                              value={outcome}
-                              placeholder="Input project outcomes here ..."
-                              setdeleteIds={setdeleteIds}
-                            />
-                          ))}
-                          {/* {typeof formik.error.outcomes == "string" ? (
+
+                        {formik.values.outcomes.map((outcome, index) => (
+                          <ArrayField
+                            name="outcomes"
+                            key={index}
+                            formik={formik}
+                            arrayHelpers={arrayHelpers}
+                            index={index}
+                            value={outcome}
+                            placeholder="Input project outcomes here ..."
+                            setdeleteIds={setdeleteIds}
+                          />
+                        ))}
+                        {/* {typeof formik.error.outcomes == "string" ? (
                             <div className="text-danger">
                               {formik.errors.outcomes}
                             </div>
                           ) : null} */}
-                        </Form.Group>
                       </>
                     );
                   }}

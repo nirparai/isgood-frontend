@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
-import FieldArrayEdit from "./FieldArrayEdit";
+import FieldArrayEditBtn from "./FieldArrayEditBtn";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import { Form } from "react-bootstrap";
-import FieldArrayDelete from "./FieldArrayDelete";
+import FieldArrayDeleteBtn from "./FieldArrayDeleteBtn";
 
 export default function ArrayField({
   index,
@@ -12,30 +12,36 @@ export default function ArrayField({
   value,
   name,
   placeholder,
+  setdeleteIds,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef();
   return (
     <>
       <div className="d-flex my-2">
         <Form.Control
-          name={`${name}[${index}]`}
+          name={`${name}[${index}].description`}
           type="text"
           placeholder={placeholder}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={value}
+          value={value.description}
           className="disabled"
           ref={inputRef}
         />
 
-        <FieldArrayEdit
-          arrayHelpers={arrayHelpers}
-          index={index}
+        <FieldArrayEditBtn
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
           inputRef={inputRef}
         />
-        <FieldArrayDelete arrayHelpers={arrayHelpers} index={index} />
+        <FieldArrayDeleteBtn
+          arrayHelpers={arrayHelpers}
+          index={index}
+          setdeleteIds={setdeleteIds}
+        />
       </div>
-      <FormErrorMessage name={`${name}[${index}]`} />
+      <FormErrorMessage name={`${name}[${index}].description`} />
     </>
   );
 }

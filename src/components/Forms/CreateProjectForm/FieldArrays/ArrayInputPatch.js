@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 
-export default function ArrayInput({ arrayHelpers, label, placeholder }) {
+export default function ArrayInputPatch({ arrayHelpers, label, placeholder }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const inputRef = useRef();
@@ -20,7 +20,7 @@ export default function ArrayInput({ arrayHelpers, label, placeholder }) {
     if (value === "") {
       setError("Required");
     } else {
-      arrayHelpers.insert(0, value);
+      arrayHelpers.insert(0, { id: "", description: value });
       setValue("");
     }
     inputRef.current.focus();

@@ -28,7 +28,7 @@ export default function ProjectInfoEdit({ project }) {
       const token = await getAccessTokenSilently();
       const res = await ProjectService.updateProjectInfo(
         token,
-        project.project_id,
+        project.id,
         values
       );
       setUser((state) => {

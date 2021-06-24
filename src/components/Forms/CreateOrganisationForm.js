@@ -41,10 +41,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
         return { ...state, userOrgs: newUserOrgs };
       });
       console.log(orgRes);
-      const userRes = await userService.updateLastOrg(
-        orgRes.data.org_id,
-        token
-      );
+      const userRes = await userService.updateLastOrg(orgRes.data.id, token);
       console.log(userRes);
       await setUser((prev) => ({ ...prev, userData: userRes.data }));
 
@@ -52,7 +49,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
         history.push("/setup/createproject");
       } else {
         // window.location.reload();
-        history.push(`/home/myorganisations/${orgRes.data.org_id}`);
+        history.push(`/home/myorganisations/${orgRes.data.id}`);
       }
     } catch (err) {
       console.log(err.response);

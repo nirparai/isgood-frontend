@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "react-bootstrap";
-import UserContext from "context/UserContext";
 
 export default function GetTokenPage() {
-  const { user, setUser } = useContext(UserContext);
   const { getAccessTokenSilently } = useAuth0();
   const [token, setToken] = useState("Click Button for Token");
 

@@ -6,16 +6,15 @@ import { Button, Form } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import ProjectService from "services/projectService";
 import "../CreateProjectForm.css";
-import ArrayFieldPatch from "../FieldArrays/ArrayFieldPatch";
-import ArrayInputPatch from "../ArrayInputPatch";
-import userService from "services/userService";
+import ArrayField from "../FieldArrays/ArrayField";
+import ArrayInput from "../FieldArrays/ArrayInput";
 import UserContext from "context/UserContext";
 
 export default function ImpactsEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
   const [deleteIds, setdeleteIds] = useState([]);
   const { getAccessTokenSilently } = useAuth0();
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     impacts: Yup.array().of(Yup.object()),
@@ -28,14 +27,14 @@ export default function ImpactsEdit({ project }) {
       const res = await ProjectService.updateImpacts(
         token,
         values.orgId,
-        project.project_id,
+        project.id,
         values.impacts,
         token
       );
       const res2 = await ProjectService.deleteImpacts(
         token,
         values.orgId,
-        project.project_id,
+        project.id,
         deleteIds
       );
       await setUser((state) => {
@@ -88,30 +87,29 @@ export default function ImpactsEdit({ project }) {
                     // console.log(arrayHelpers);
                     return (
                       <>
-                        <ArrayInputPatch
+                        <ArrayInput
                           arrayHelpers={arrayHelpers}
                           label="Impacts"
                           placeholder="Input project impacts here ..."
                         />
-                        <Form.Group controlId="impacts" size="lg">
-                          {formik.values.impacts.map((impact, index) => (
-                            <ArrayFieldPatch
-                              name="impacts"
-                              key={index}
-                              formik={formik}
-                              arrayHelpers={arrayHelpers}
-                              index={index}
-                              value={impact}
-                              placeholder="Input project impacts here ..."
-                              setdeleteIds={setdeleteIds}
-                            />
-                          ))}
-                          {/* {typeof formik.error.impacts == "string" ? (
+
+                        {formik.values.impacts.map((impact, index) => (
+                          <ArrayField
+                            name="impacts"
+                            key={index}
+                            formik={formik}
+                            arrayHelpers={arrayHelpers}
+                            index={index}
+                            value={impact}
+                            placeholder="Input project impacts here ..."
+                            setdeleteIds={setdeleteIds}
+                          />
+                        ))}
+                        {/* {typeof formik.error.impacts == "string" ? (
                             <div className="text-danger">
                               {formik.errors.impacts}
                             </div>
                           ) : null} */}
-                        </Form.Group>
                       </>
                     );
                   }}

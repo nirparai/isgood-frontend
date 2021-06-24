@@ -2,13 +2,11 @@ import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as Yup from "yup";
 
+import ProjectService from "services/projectService";
+import UserContext from "context/UserContext";
+
 import { Button, Form } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
-import ProjectService from "services/projectService";
-// import "../../CreateProjectForm";
-// import ArrayFieldPatch from "../../FieldArrays/ArrayFieldPatch";
-// import ArrayInputPatch from "../../ArrayInputPatch";
-import UserContext from "context/UserContext";
 import ModalContainer from "../../ModalContainer";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import ArrayFieldError from "components/Forms/ArrayFieldError";
@@ -17,7 +15,11 @@ import BeneficiaryGroupDemographicsEdit from "./BeneficiaryGroupDemographicsEdit
 
 export default function BeneficiaryGroupsEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
-  const [deleteIds, setdeleteIds] = useState([]);
+  // for storing the Id's of the fields that need to be deleted from the database
+  const [deleteBeneficiaryIds, setDeleteBeneficiaryIds] = useState([]);
+  const [deleteLifeChangeIds, setDeleteLifeChangeIds] = useState([]);
+  const [deleteDemographicIds, setDeleteDemographicIds] = useState([]);
+
   const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
 
@@ -57,15 +59,21 @@ export default function BeneficiaryGroupsEdit({ project }) {
       const res = await ProjectService.updateImpacts(
         token,
         values.orgId,
-        project.project_id,
+        project.id,
         values.impacts,
         token
       );
-      const res2 = await ProjectService.deleteImpacts(
+      const res2 = await ProjectService.deleteDemographics(
         token,
         values.orgId,
-        project.project_id,
-        deleteIds
+        project.id,
+        deleteDemographicIds
+      );
+      const res3 = await ProjectService.deleteLifeChange(
+        token,
+        values.orgId,
+        project.id,
+        deleteLifeChangeIds
       );
       await setUser((state) => {
         const newImpacts = res2.data;
@@ -121,15 +129,7 @@ export default function BeneficiaryGroupsEdit({ project }) {
                             insert(form.values.beneficiaries.length, {
                               name: "",
                               lifeChange: [],
-                              demographics: [
-                                {
-                                  name: "",
-                                  operator: "",
-                                  value: "",
-                                  demographic_id: "",
-                                  id: "",
-                                },
-                              ],
+                              demographics: [],
                             })
                           }
                         >
@@ -157,24 +157,21 @@ export default function BeneficiaryGroupsEdit({ project }) {
                               field="beneficiaries"
                             >
                               <>
-                                <Form.Group
-                                  controlId={`beneficiaries[${beneficiaryIndex}].name`}
-                                >
-                                  <Form.Label>Name</Form.Label>
-                                  <Form.Control
-                                    autoFocus
-                                    placeholder=""
-                                    name={`beneficiaries[${beneficiaryIndex}].name`}
-                                    type="text"
-                                    onChange={form.handleChange}
-                                    onBlur={form.handleBlur}
-                                    value={beneficiary.name}
-                                  />
+                                <Form.Label>Name</Form.Label>
+                                <Form.Control
+                                  autoFocus
+                                  placeholder=""
+                                  name={`beneficiaries[${beneficiaryIndex}].name`}
+                                  type="text"
+                                  onChange={form.handleChange}
+                                  onBlur={form.handleBlur}
+                                  value={beneficiary.name}
+                                />
 
-                                  <FormErrorMessage
-                                    name={`beneficiaries[${beneficiaryIndex}].name`}
-                                  />
-                                </Form.Group>
+                                <FormErrorMessage
+                                  name={`beneficiaries[${beneficiaryIndex}].name`}
+                                />
+
                                 <FieldArray
                                   name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
                                 >
@@ -182,6 +179,9 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                     <BeneficiaryGroupChangeEdit
                                       changeArrayHelpers={changeArrayHelpers}
                                       beneficiaryIndex={beneficiaryIndex}
+                                      setDeleteLifeChangeIds={
+                                        setDeleteLifeChangeIds
+                                      }
                                     />
                                   )}
                                 </FieldArray>
@@ -197,6 +197,9 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                         demographicArrayHelpers
                                       }
                                       beneficiaryIndex={beneficiaryIndex}
+                                      setDeleteDemographicIds={
+                                        setDeleteDemographicIds
+                                      }
                                     />
                                   )}
                                 </FieldArray>

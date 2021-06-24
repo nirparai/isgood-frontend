@@ -19,7 +19,7 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
             insert(form.values.beneficiaries.length, {
               name: "",
               lifeChange: [],
-              demographics: [{ name: "", operator: "", value: "" }],
+              demographics: [],
             })
           }
         >

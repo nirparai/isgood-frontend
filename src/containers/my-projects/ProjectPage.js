@@ -31,7 +31,7 @@ const ProjectPage = () => {
   let currentProject = {};
   if (user.userProjects) {
     currentProject = user.userProjects.find(
-      (project, index) => projectId === project.project_id
+      (project, index) => projectId === project.id
     );
   }
 
@@ -93,7 +93,7 @@ const ProjectPage = () => {
                   <Col className=" col-12 d-flex justify-content-end">
                     <Icon path={mdiShareVariant} size={1.5} className="p-1" />
                     <LinkContainer
-                      to={`/home/myprojects/edit/${user.currentProject.project_id}`}
+                      to={`/home/myprojects/edit/${user.currentProject.id}`}
                     >
                       <Icon path={mdiCog} size={1.5} className="p-1" />
                     </LinkContainer>
