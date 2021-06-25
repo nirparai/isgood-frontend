@@ -12,7 +12,7 @@ export default function Redirect() {
         `/home/myorganisations/${user.userData.user_metadata.lastOrg}`
       );
     } else {
-      history.push("/setup/welcome");
+      history.push("/home/myorganisations");
     }
   }, []);
 

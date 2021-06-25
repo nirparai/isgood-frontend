@@ -8,6 +8,7 @@ import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import ProjectCard from "components/ProjectCard";
 import OrgBanner from "components/OrgBanner";
+import OrgHeader from "components/OrgHeader";
 import userService from "services/userService";
 import CreateProjectModalButton from "containers/my-projects/CreateProjectModalButton";
 import CreateProjectForm from "components/Forms/CreateProjectForm/CreateProjectForm";
@@ -49,6 +50,7 @@ export default function OrganisationPage() {
   return (
     <div>
       <OrgBanner org={currentOrg} />
+      <OrgHeader org={currentOrg} />
       <Container>
         <Row>
           <Col className="col mt-3">
