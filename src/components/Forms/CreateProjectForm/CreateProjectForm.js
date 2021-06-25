@@ -8,7 +8,7 @@ import { Formik, FieldArray } from "formik";
 import ProjectService from "services/projectService";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
-import BeneficiaryGroups from "./BeneficiaryGroups";
+import BeneficiaryGroups from "./BeneficiaryGroups/BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";
 import ArrayInput from "./FieldArrays/ArrayInput";
 import DropzoneLogo from "components/DropzoneLogo";

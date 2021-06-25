@@ -4,12 +4,12 @@ import * as Yup from "yup";
 import { useFormik, FieldArray, FormikProvider } from "formik";
 
 import FormErrorMessage from "components/Forms/FormErrorMessage";
-import ArrayFieldError from "components/Forms/CreateProjectForm/FieldArrays/ArrayFieldError";
+import ArrayFieldError from "../FieldArrays/ArrayFieldError";
 import { Form, Modal, Button } from "react-bootstrap";
-import ArrayInput from "./FieldArrays/ArrayInput";
-import ArrayField from "./FieldArrays/ArrayField";
-import DemographicArrayInput from "./FieldArrays/DemographicArrayInput";
-import ArrayFieldDemographic from "./FieldArrays/ArrayFieldDemographic";
+import ArrayInput from "../FieldArrays/ArrayInput";
+import ArrayField from "../FieldArrays/ArrayField";
+import DemographicArrayInput from "../FieldArrays/DemographicArrayInput";
+import ArrayFieldDemographic from "../FieldArrays/ArrayFieldDemographic";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Required"),

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 export default function AddBeneficiaryModalWrapper({
   children,

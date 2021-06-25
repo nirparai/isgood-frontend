@@ -3,11 +3,11 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import { FieldArray } from "formik";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
-import ArrayFieldError from "./FieldArrays/ArrayFieldError";
-import ArrayField from "./FieldArrays/ArrayField";
-import ArrayInput from "./FieldArrays/ArrayInput";
-import DemographicArrayInput from "./FieldArrays/DemographicArrayInput";
-import ArrayFieldDemographic from "./FieldArrays/ArrayFieldDemographic";
+import ArrayFieldError from "../FieldArrays/ArrayFieldError";
+import ArrayField from "../FieldArrays/ArrayField";
+import ArrayInput from "../FieldArrays/ArrayInput";
+import DemographicArrayInput from "../FieldArrays/DemographicArrayInput";
+import ArrayFieldDemographic from "../FieldArrays/ArrayFieldDemographic";
 
 export default function EditBeneficiaryForm({
   beneficiaryIndex,

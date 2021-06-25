@@ -9,7 +9,7 @@ export default function EditBeneficiaryModalWrapper({
   formik,
 }) {
   const [show, setShow] = useState(false);
-
+  console.log(formik.getFieldMeta(`beneficiaries[${index}]`));
   const handleClose = () => {
     //clear fields of modal
 
@@ -20,35 +20,36 @@ export default function EditBeneficiaryModalWrapper({
   const handleSave = () => {
     //Check Validation
     formik.validateForm();
+    const fieldErrors = formik.getFieldMeta(`beneficiaries[${index}]`).error;
+    console.log(fieldErrors);
+
     // if beneficiary errors exist set all fields in form to touched so the errors will show
-    if (formik.errors.beneficiaries[`${index}`]) {
+    if (fieldErrors) {
       formik.setFieldTouched(`beneficiaries[${index}].name`, true);
 
       // if there is no life changes the error will be type string. if it is set the touched value to an empty array
       if (
-        typeof formik.errors[`beneficiaries`][`${index}`].lifeChange ===
-        "string"
+        fieldErrors.lifeChange &&
+        typeof fieldErrors.lifeChange === "string"
       ) {
         formik.setFieldTouched(`beneficiaries[${index}].lifeChange`, []);
         // check if there is life changes then touch each field if there is to show errors
-      } else if (formik.errors[`beneficiaries`][`${index}`].lifeChange) {
-        formik.errors[`beneficiaries`][`${index}`].lifeChange.forEach(
-          (change, cindex) => {
-            formik.setFieldTouched(
-              `beneficiaries[${index}].lifeChange[${cindex}].description`,
-              true
-            );
-          }
-        );
+      } else if (fieldErrors.lifeChange) {
+        fieldErrors.lifeChange.forEach((change, cindex) => {
+          formik.setFieldTouched(
+            `beneficiaries[${index}].lifeChange[${cindex}].description`,
+            true
+          );
+        });
       }
       // if there is no demographics the error will be type string. if it is set the touched value to an empty array
       if (
-        typeof formik.errors[`beneficiaries`][`${index}`].demographics ===
-        "string"
+        fieldErrors.demographics &&
+        typeof fieldErrors.demographics === "string"
       ) {
         formik.setFieldTouched(`beneficiaries[${index}].demographics`, []);
         // check if there is demographics then touch each field if there is to show errors
-      } else if (formik.errors[`beneficiaries`][`${index}`].demographics) {
+      } else if (fieldErrors.demographics) {
         formik.errors[`beneficiaries`][`${index}`].demographics.forEach(
           (change, cindex) => {
             formik.setFieldTouched(

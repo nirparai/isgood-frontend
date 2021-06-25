@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Form } from "react-bootstrap";
-import EditBeneficiaryModalWrapper from "./EditBeneficiaryModalWrapper";
-import EditBeneficiaryForm from "./EditBeneficiaryForm";
-import AddBeneficiaryForm from "./AddBeneficiaryForm";
+import EditBeneficiaryModalWrapper from "../BeneficiaryGroups/EditBeneficiaryModalWrapper";
+import EditBeneficiaryForm from "../BeneficiaryGroups/EditBeneficiaryForm";
+import AddBeneficiaryForm from "../BeneficiaryGroups/AddBeneficiaryForm";
 
 export default function BeneficiaryGroups({ arrayHelpers }) {
-  const { form: formik, insert, remove } = arrayHelpers;
+  const { form: formik, remove } = arrayHelpers;
   return (
     <>
       <Form.Label>Beneficiary Groups</Form.Label>
