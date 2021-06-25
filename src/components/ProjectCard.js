@@ -1,3 +1,6 @@
+// Card component for displaying a Project in the ProjectsLayout.js page
+// Also handles directing to the specific project route "/myprojects/:projectId"
+
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -9,14 +12,12 @@ export default function ProjectCard({ project }) {
   return (
     <Col xs={12} md={6} xl={4} className="my-3">
       <Card className="h-100">
-        <LinkContainer to={`/home/myprojects/${project.project_id}`}>
+        <LinkContainer to={`/home/myprojects/${project.id}`}>
           <Card.Body>
             <Row>
               <Col xs={2}>
                 <AWSImage
-                  location={
-                    project.project_logo && project.project_logo.location
-                  }
+                  location={project.logo && project.logo.location}
                   alt="Organisation Logo"
                   width={35}
                 />
@@ -34,7 +35,7 @@ export default function ProjectCard({ project }) {
         </LinkContainer>
         <Card.Footer className="d-flex justify-content-end">
           <Icon path={mdiShareVariant} size={1.5} className="p-1" />
-          {/* <LinkContainer to={`/home/myprojects/edit/${project.project_id}`}>
+          {/* <LinkContainer to={`/home/myprojects/edit/${project.id}`}>
             <Icon path={mdiDotsVertical} size={1.5} className="p-1" />
           </LinkContainer> */}
         </Card.Footer>

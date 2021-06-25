@@ -1,3 +1,6 @@
+// Card component for displaying a Org in the OrganisationsLayout.js page
+// Also handles directing to the specific org route "/myorganisations/:orgId"
+
 import React from "react";
 import { Card, Col, Row, Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -14,7 +17,7 @@ export default function OrgCard({ org }) {
   return (
     <Col xs={12} md={6} xl={4} className="my-3">
       <Card className="justify-content-center">
-        <LinkContainer to={`myorganisations/${org.org_id}`}>
+        <LinkContainer to={`myorganisations/${org.id}`}>
           <Card.Body className="p-0 d-flex justify-content-center">
             <AWSImage
               location={org.logo && org.logo.location}
@@ -36,7 +39,7 @@ export default function OrgCard({ org }) {
                 ></Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <LinkContainer to={`myorganisations/${org.org_id}`}>
+                  <LinkContainer to={`myorganisations/${org.id}`}>
                     <Dropdown.Item href="#/action-1">
                       <div className="d-flex">
                         <Icon path={mdiViewGridOutline} size={1} />
@@ -44,7 +47,7 @@ export default function OrgCard({ org }) {
                       </div>
                     </Dropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to={`myorganisations/${org.org_id}`}>
+                  <LinkContainer to={`myorganisations/${org.id}`}>
                     <Dropdown.Item href="#/action-2">
                       <div className="d-flex">
                         <Icon path={mdiClipboardTextOutline} size={1} />
@@ -52,7 +55,7 @@ export default function OrgCard({ org }) {
                       </div>
                     </Dropdown.Item>
                   </LinkContainer>
-                  <LinkContainer to={`myorganisations/edit/${org.org_id}`}>
+                  <LinkContainer to={`myorganisations/edit/${org.id}`}>
                     <Dropdown.Item href="#/action-3">
                       <div className="d-flex">
                         <Icon path={mdiCogOutline} size={1} />

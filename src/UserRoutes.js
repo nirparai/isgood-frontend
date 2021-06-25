@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import UserContext from "./context/UserContext";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Switch, Route } from "react-router";
 import SideNav from "./components/SideNav";
 import TopNav from "./components/TopNav";
@@ -14,7 +14,7 @@ import NotFound from "./containers/NotFound";
 import EditProjectPage from "containers/my-projects/EditProjectPage";
 
 export default function UserRoutes() {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <>

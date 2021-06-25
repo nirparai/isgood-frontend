@@ -12,6 +12,7 @@ import ProfileModalButton from "containers/my-profile/ProfileModalButton";
 import UserProfilePage from "containers/my-profile/UserProfilePage";
 import EditProfilePage from "containers/my-profile/EditProfilePage";
 import AWSImage from "./AWSImage";
+import PersonaliseForm from "./Forms/PersonaliseForm";
 
 export default function TopNav({ user }) {
   const { logout } = useAuth0();
@@ -76,7 +77,7 @@ export default function TopNav({ user }) {
                 </Dropdown.Item>
                 <Dropdown.Item>
                   <UpdateProfileModalButton>
-                    <EditProfilePage />
+                    <PersonaliseForm userData={user.userData} setup={false} />
                   </UpdateProfileModalButton>
                 </Dropdown.Item>
                 <Dropdown.Item

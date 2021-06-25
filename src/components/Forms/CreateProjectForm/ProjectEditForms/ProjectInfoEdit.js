@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as Yup from "yup";
 
 import { Button, Form, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import ProjectService from "services/projectService";
-import "../CreateProjectForm.css";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
+import UserContext from "context/UserContext";
 
 export default function ProjectInfoEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
   const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     orgId: Yup.string().required("Required"),
@@ -26,9 +27,18 @@ export default function ProjectInfoEdit({ project }) {
       const token = await getAccessTokenSilently();
       const res = await ProjectService.updateProjectInfo(
         token,
-        project.project_id,
+        project.id,
         values
       );
+      setUser((state) => {
+        const newCurrentProject = state.currentProject;
+        newCurrentProject.name = res.data.name;
+        newCurrentProject.description = res.data.description;
+        newCurrentProject.geolocation = res.data.geolocation;
+        newCurrentProject.start_date = res.data.start_date;
+        newCurrentProject.end = res.data.end;
+        return { ...state, currentProject: newCurrentProject };
+      });
       window.location.reload();
     } catch (err) {
       console.log(err.response);
@@ -70,7 +80,7 @@ export default function ProjectInfoEdit({ project }) {
           onSubmit={onSubmit}
         >
           {(formik) => {
-            console.log(formik);
+            // console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <Form.Group controlId="projectName">
@@ -85,7 +95,7 @@ export default function ProjectInfoEdit({ project }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.projectName}
                   />
-                  <FormErrorMessage name="projectName" />
+                  <FormErrorMessage name="projectName" formik={formik} />
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -99,7 +109,7 @@ export default function ProjectInfoEdit({ project }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.description}
                   />
-                  <FormErrorMessage name="description" />
+                  <FormErrorMessage name="description" formik={formik} />
                 </Form.Group>
 
                 <Form.Row>
@@ -118,7 +128,7 @@ export default function ProjectInfoEdit({ project }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.startDate}
                     />
-                    <FormErrorMessage name="startDate" />
+                    <FormErrorMessage name="startDate" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="endDate" size="lg">
@@ -131,7 +141,7 @@ export default function ProjectInfoEdit({ project }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.endDate}
                     />
-                    <FormErrorMessage name="endDate" />
+                    <FormErrorMessage name="endDate" formik={formik} />
                   </Form.Group>
                 </Form.Row>
 

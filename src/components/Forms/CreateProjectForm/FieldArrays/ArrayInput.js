@@ -1,7 +1,11 @@
+// Form input component for adding values to a Formik FieldArray
+// with structure of [{description: "", id: ""}, {description: "", id: ""} ... ]
+// Needs to be updated to take advantage of useFormik
+
 import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 
-export default function ArrayInputPatch({ arrayHelpers, label, placeholder }) {
+export default function ArrayInput({ arrayHelpers, label, placeholder }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const inputRef = useRef();
@@ -20,10 +24,15 @@ export default function ArrayInputPatch({ arrayHelpers, label, placeholder }) {
     if (value === "") {
       setError("Required");
     } else {
-      arrayHelpers.insert(0, { id: null, description: value });
+      arrayHelpers.insert(0, { id: "", description: value });
       setValue("");
     }
     inputRef.current.focus();
+  };
+  const handleBlur = () => {
+    if (error) {
+      setError("");
+    }
   };
 
   return (
@@ -35,6 +44,7 @@ export default function ArrayInputPatch({ arrayHelpers, label, placeholder }) {
           name="value"
           type="text"
           onChange={handleChange}
+          onBlur={handleBlur}
           value={value}
           ref={inputRef}
         />

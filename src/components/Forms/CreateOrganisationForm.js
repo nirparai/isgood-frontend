@@ -10,12 +10,13 @@ import OrgService from "services/orgService";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import DropzoneLogo from "components/DropzoneLogo";
 import DropzoneBanner from "../DropzoneBanner";
+import userService from "services/userService";
 
 export default function CreateOrganisationForm({ setup, orgValues }) {
   const [serverMessage, setServerMessage] = useState();
   const history = useHistory();
   const { getAccessTokenSilently } = useAuth0();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const validationSchema = Yup.object().shape({
     organisationName: Yup.string().required("Required"),
@@ -30,19 +31,25 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
     try {
       const token = await getAccessTokenSilently();
 
-      const res = await OrgService.createOrg(values, token);
+      const orgRes = await OrgService.createOrg(values, token);
       // This is for keeping track of the orgId as it needs to be submitted in the create project request which is the next page
       // Possibility is using Auth0 to track the last accessed orgId otherwise a more robust UserContext needs to be made that handles this
-      console.log(res.data);
+      console.log(orgRes.data);
+      await setUser((state) => {
+        const newUserOrgs = state.userOrgs;
+        newUserOrgs.push(orgRes.data);
+        return { ...state, userOrgs: newUserOrgs };
+      });
+      console.log(orgRes);
+      const userRes = await userService.updateLastOrg(orgRes.data.id, token);
+      console.log(userRes);
+      await setUser((prev) => ({ ...prev, userData: userRes.data }));
+
       if (setup) {
-        setUser((prev) => {
-          return { ...prev, currentOrgId: res.data.org_id };
-        });
-        methods.resetForm();
         history.push("/setup/createproject");
       } else {
-        methods.resetForm();
-        window.location.reload();
+        // window.location.reload();
+        history.push(`/home/myorganisations/${orgRes.data.id}`);
       }
     } catch (err) {
       console.log(err.response);
@@ -110,7 +117,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.organisationName}
                   />
-                  <FormErrorMessage name="organisationName" />
+                  <FormErrorMessage name="organisationName" formik={formik} />
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -124,7 +131,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.description}
                   />
-                  <FormErrorMessage name="description" />
+                  <FormErrorMessage name="description" formik={formik} />
                 </Form.Group>
                 <Form.Row>
                   <Form.Group as={Col} controlId="handle" size="lg">
@@ -137,7 +144,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.handle}
                     />
-                    <FormErrorMessage name="handle" />
+                    <FormErrorMessage name="handle" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="url" size="lg">
@@ -150,7 +157,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.url}
                     />
-                    <FormErrorMessage name="url" />
+                    <FormErrorMessage name="url" formik={formik} />
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
@@ -168,7 +175,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       <option value="Region1">Region1</option>
                       <option value="Region2">Region2</option>
                     </Form.Control>
-                    <FormErrorMessage name="region" />
+                    <FormErrorMessage name="region" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="sector" size="lg">
@@ -186,7 +193,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       <option>Sectors</option>
                     </Form.Control>
 
-                    <FormErrorMessage name="sector" />
+                    <FormErrorMessage name="sector" formik={formik} />
                   </Form.Group>
                 </Form.Row>
 

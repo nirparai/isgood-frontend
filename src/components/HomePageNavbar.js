@@ -1,3 +1,5 @@
+// Navbar for the "/" route before a user has logged in
+
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import Navbar from "react-bootstrap/Navbar";
