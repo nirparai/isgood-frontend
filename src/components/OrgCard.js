@@ -14,7 +14,7 @@ export default function OrgCard({ org }) {
   return (
     <Col xs={12} md={6} xl={4} className="my-3">
       <Card className="justify-content-center">
-        <LinkContainer to={`myorganisations/${org.org_id}`}>
+        <LinkContainer to={`myorganisations/${org.id}`}>
           <Card.Body className="p-0 d-flex justify-content-center">
             <AWSImage
               location={org.logo && org.logo.location}
