@@ -107,7 +107,7 @@ export default function PersonaliseForm({ userData, setup }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.firstName}
                     />
-                    <FormErrorMessage name="firstName" />
+                    <FormErrorMessage name="firstName" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="lastName">
@@ -121,7 +121,7 @@ export default function PersonaliseForm({ userData, setup }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.lastName}
                     />
-                    <FormErrorMessage name="lastName" />
+                    <FormErrorMessage name="lastName" formik={formik} />
                   </Form.Group>
                 </Form.Row>
                 <Form.Group controlId="email" size="lg">

@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Button, Form, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import ProjectService from "services/projectService";
-import "../CreateProjectForm.css";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
 
@@ -28,7 +27,7 @@ export default function ProjectInfoEdit({ project }) {
       const token = await getAccessTokenSilently();
       const res = await ProjectService.updateProjectInfo(
         token,
-        project.project_id,
+        project.id,
         values
       );
       setUser((state) => {
@@ -81,7 +80,7 @@ export default function ProjectInfoEdit({ project }) {
           onSubmit={onSubmit}
         >
           {(formik) => {
-            console.log(formik);
+            // console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <Form.Group controlId="projectName">
@@ -96,7 +95,7 @@ export default function ProjectInfoEdit({ project }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.projectName}
                   />
-                  <FormErrorMessage name="projectName" />
+                  <FormErrorMessage name="projectName" formik={formik} />
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -110,7 +109,7 @@ export default function ProjectInfoEdit({ project }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.description}
                   />
-                  <FormErrorMessage name="description" />
+                  <FormErrorMessage name="description" formik={formik} />
                 </Form.Group>
 
                 <Form.Row>
@@ -129,7 +128,7 @@ export default function ProjectInfoEdit({ project }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.startDate}
                     />
-                    <FormErrorMessage name="startDate" />
+                    <FormErrorMessage name="startDate" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="endDate" size="lg">
@@ -142,7 +141,7 @@ export default function ProjectInfoEdit({ project }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.endDate}
                     />
-                    <FormErrorMessage name="endDate" />
+                    <FormErrorMessage name="endDate" formik={formik} />
                   </Form.Group>
                 </Form.Row>
 

@@ -1,9 +1,14 @@
-import React, { useRef } from "react";
+// Custom form input field component made for use with Formik FieldArray for any form value
+// that has [{description: "", id: ""}, {description: "", id: ""} ... ] structure. Includes edit and delete buttons
 
-import FieldArrayEdit from "./FieldArrayEdit";
+// rendered by any component that needs editable FieldArray form inputs
+
+import React, { useRef, useState } from "react";
+
+import FieldArrayEditBtn from "./FieldArrayEditBtn";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import { Form } from "react-bootstrap";
-import FieldArrayDelete from "./FieldArrayDelete";
+import FieldArrayDeleteBtn from "./FieldArrayDeleteBtn";
 
 export default function ArrayField({
   index,
@@ -12,30 +17,41 @@ export default function ArrayField({
   value,
   name,
   placeholder,
+  setdeleteIds,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef();
   return (
     <>
-      <div className="d-flex my-2">
-        <Form.Control
-          name={`${name}[${index}]`}
-          type="text"
-          placeholder={placeholder}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={value}
-          className="disabled"
-          ref={inputRef}
-        />
-
-        <FieldArrayEdit
-          arrayHelpers={arrayHelpers}
-          index={index}
+      <div className="d-flex my-2 justify-content-center">
+        {isEditing ? (
+          <Form.Control
+            name={`${name}[${index}].description`}
+            type="text"
+            placeholder={placeholder}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={value.description}
+            ref={inputRef}
+          />
+        ) : (
+          <div className="border p-2">{value.description}</div>
+        )}
+        <FieldArrayEditBtn
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
           inputRef={inputRef}
         />
-        <FieldArrayDelete arrayHelpers={arrayHelpers} index={index} />
+        <FieldArrayDeleteBtn
+          arrayHelpers={arrayHelpers}
+          index={index}
+          setdeleteIds={setdeleteIds}
+        />
       </div>
-      <FormErrorMessage name={`${name}[${index}]`} />
+      <FormErrorMessage
+        name={`${name}[${index}].description`}
+        formik={formik}
+      />
     </>
   );
 }

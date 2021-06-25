@@ -1,3 +1,6 @@
+// Component for showing the error for whole FieldArray there is a
+// seperate component for individual input errors (see FormErrorMessage.js)
+
 import React from "react";
 import { Field, getIn } from "formik";
 

@@ -64,7 +64,7 @@ const img = {
   marginLeft: "50%",
   transform: "translateX(-50%)",
 };
-// type is for "org" or "project"
+
 export default function DropzoneProfile({ formik, name, type }) {
   const [file, setFile] = useState(null);
   const { getAccessTokenSilently } = useAuth0();

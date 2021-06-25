@@ -3,16 +3,7 @@ import { useParams } from "react-router-dom";
 import ProjectService from "services/projectService";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { LinkContainer } from "react-router-bootstrap";
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
-import Icon from "@mdi/react";
-import {
-  mdiShareVariant,
-  mdiAccountCircle,
-  mdiAccountMultiple,
-  mdiPlus,
-  mdiCog,
-} from "@mdi/js";
 import Overview from "./projects-pages/Overview";
 import Indicators from "./projects-pages/Indicators";
 import Team from "./projects-pages/Team";
@@ -21,7 +12,6 @@ import { Loading } from "components/Loading";
 import ProjectBanner from "components/ProjectBanner";
 import ProjectHeader from "components/ProjectHeader";
 import userService from "services/userService";
-import AWSImage from "components/AWSImage";
 
 const ProjectPage = () => {
   const { user, setUser } = useContext(UserContext);
@@ -59,7 +49,6 @@ const ProjectPage = () => {
           currentProject.org_id,
           token
         );
-        console.log(res.data);
         setUser((prev) => ({ ...prev, userData: res.data }));
       } catch (err) {
         console.log(err);
@@ -67,7 +56,7 @@ const ProjectPage = () => {
     };
     updateLastOrg();
     getProject();
-  }, []);
+  }, [setUser, getAccessTokenSilently, projectId, currentProject.org_id]);
 
   console.log(user.currentProject);
   return (

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
 import AWSImage from "./AWSImage";
 import {
@@ -13,16 +13,12 @@ import { LinkContainer } from "react-router-bootstrap";
 import EditProjectModalButton from "containers/my-projects/EditProjectModalButton";
 import EditProjectPage from "containers/my-projects/EditProjectPage";
 
-
-export default function ProjectHeader({project}) {
+export default function ProjectHeader({ project }) {
   return (
     <Row className="bg-light">
       <Col className="col-lg-2 col-12 d-flex justify-content-center">
         <AWSImage
-          location={
-            project.logo &&
-            project.logo.location
-          }
+          location={project.logo && project.logo.location}
           width={150}
           height={150}
         />
@@ -46,31 +42,11 @@ export default function ProjectHeader({project}) {
         </Row>
         <Row>
           <Col className=" col-12 d-flex align-items-end justify-content-end mt-3">
-            <Icon
-              path={mdiAccountMultiple}
-              className="mr-2 mb-3"
-              size={1}
-            />
-            <Icon
-              path={mdiAccountMultiple}
-              className="mr-2 mb-3"
-              size={1}
-            />
-            <Icon
-              path={mdiAccountMultiple}
-              className="mr-2 mb-3"
-              size={1}
-            />
-            <Icon
-              path={mdiAccountMultiple}
-              className="mr-2 mb-3"
-              size={1}
-            />
-            <Icon
-              path={mdiAccountMultiple}
-              className="mr-2 mb-3"
-              size={1}
-            />
+            <Icon path={mdiAccountMultiple} className="mr-2 mb-3" size={1} />
+            <Icon path={mdiAccountMultiple} className="mr-2 mb-3" size={1} />
+            <Icon path={mdiAccountMultiple} className="mr-2 mb-3" size={1} />
+            <Icon path={mdiAccountMultiple} className="mr-2 mb-3" size={1} />
+            <Icon path={mdiAccountMultiple} className="mr-2 mb-3" size={1} />
 
             <Icon path={mdiPlus} className="mr-2 mb-3" size={1} />
           </Col>

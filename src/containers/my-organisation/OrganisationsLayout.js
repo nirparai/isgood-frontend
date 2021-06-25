@@ -31,9 +31,7 @@ export default function OrganisationsLayout() {
       </Row>
       <Row className="d-flex justify-content-center py-5">
         {user.userOrgs &&
-          user.userOrgs.map((org, index) => (
-            <OrgCard key={org.org_id} org={org} />
-          ))}
+          user.userOrgs.map((org, index) => <OrgCard key={org.id} org={org} />)}
       </Row>
     </Container>
   );
