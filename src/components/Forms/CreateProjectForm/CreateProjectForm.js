@@ -10,7 +10,6 @@ import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
 import BeneficiaryGroups from "./BeneficiaryGroups";
 import ArrayField from "./FieldArrays/ArrayField";
-import "./CreateProjectForm.css";
 import ArrayInput from "./FieldArrays/ArrayInput";
 import DropzoneLogo from "components/DropzoneLogo";
 import DropzoneBanner from "components/DropzoneBanner";

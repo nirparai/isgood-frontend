@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Button, Form } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
 import ProjectService from "services/projectService";
-import "../CreateProjectForm.css";
 import ArrayField from "../FieldArrays/ArrayField";
 import ArrayInput from "../FieldArrays/ArrayInput";
 import UserContext from "context/UserContext";

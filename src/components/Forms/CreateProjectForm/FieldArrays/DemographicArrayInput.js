@@ -41,7 +41,7 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
       value: false,
     });
   };
-  console.log(formik);
+
   return (
     <div className="d-flex mx-2">
       <Form.Group className="w-25">

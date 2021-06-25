@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Button, Form, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import ProjectService from "services/projectService";
-import "../CreateProjectForm.css";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
 

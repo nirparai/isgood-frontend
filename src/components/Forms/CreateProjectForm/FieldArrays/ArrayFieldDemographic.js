@@ -7,7 +7,6 @@ import FieldArrayEditBtn from "./FieldArrayEditBtn";
 
 export default function ArrayFieldDemographic({
   demographicIndex,
-  beneficiaryIndex,
   formik,
   arrayHelpers,
   value,

@@ -1,7 +1,7 @@
 import React from "react";
 
-import ArrayInput from "../../FieldArrays/ArrayInput";
-import ArrayField from "../../FieldArrays/ArrayField";
+import ArrayInput from "../components/Forms/CreateProjectForm/FieldArrays/ArrayInput";
+import ArrayField from "../components/Forms/CreateProjectForm/FieldArrays/ArrayField";
 
 export default function BeneficiaryGroupChangeEdit({
   beneficiaryIndex,

@@ -10,8 +10,7 @@ export default function BeneficiaryGroupDemographics({
   beneficiaryIndex,
   demographicArrayHelpers,
 }) {
-  const [serverMessage, setServerMessage] = useState();
-  const { form, insert, remove } = demographicArrayHelpers;
+  const { form: formik } = demographicArrayHelpers;
   return (
     <>
       <Form.Label>Demographics</Form.Label>
@@ -19,12 +18,12 @@ export default function BeneficiaryGroupDemographics({
         arrayHelpers={demographicArrayHelpers}
         placeholder="Choose..."
       />
-      {form.values.beneficiaries[beneficiaryIndex].demographics.map(
+      {formik.values.beneficiaries[beneficiaryIndex].demographics.map(
         (demographic, demographicIndex) => (
           <ArrayFieldDemographic
             name={`beneficiaries[${beneficiaryIndex}].demographics`}
             key={demographicIndex}
-            formik={form}
+            formik={formik}
             arrayHelpers={demographicArrayHelpers}
             demographicIndex={demographicIndex}
             beneficiaryIndex={beneficiaryIndex}

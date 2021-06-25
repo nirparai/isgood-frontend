@@ -10,8 +10,10 @@ import { Formik, FieldArray } from "formik";
 import EditBeneficiaryModalWrapper from "../../EditBeneficiaryModalWrapper";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import ArrayFieldError from "components/Forms/CreateProjectForm/FieldArrays/ArrayFieldError";
-import BeneficiaryGroupChangeEdit from "./BeneficiaryGroupChangeEdit";
-import BeneficiaryGroupDemographicsEdit from "./BeneficiaryGroupDemographicsEdit";
+import ArrayInput from "../../FieldArrays/ArrayInput";
+import ArrayField from "../../FieldArrays/ArrayField";
+import DemographicArrayInput from "../../FieldArrays/DemographicArrayInput";
+import ArrayFieldDemographic from "../../FieldArrays/ArrayFieldDemographic";
 
 export default function BeneficiaryGroupsEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
@@ -177,13 +179,32 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                   name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
                                 >
                                   {(changeArrayHelpers) => (
-                                    <BeneficiaryGroupChangeEdit
-                                      changeArrayHelpers={changeArrayHelpers}
-                                      beneficiaryIndex={beneficiaryIndex}
-                                      setDeleteLifeChangeIds={
-                                        setDeleteLifeChangeIds
-                                      }
-                                    />
+                                    <>
+                                      <ArrayInput
+                                        arrayHelpers={changeArrayHelpers}
+                                        label="How does the life of this beneficiary group change?"
+                                        placeholder="Ex Support & Resources"
+                                      />
+
+                                      {form.values.beneficiaries[
+                                        beneficiaryIndex
+                                      ].lifeChange.map(
+                                        (change, changeIndex) => (
+                                          <ArrayField
+                                            name={`beneficiaries[${beneficiaryIndex}].lifeChange`}
+                                            key={changeIndex}
+                                            formik={form}
+                                            arrayHelpers={changeArrayHelpers}
+                                            index={changeIndex}
+                                            value={change}
+                                            placeholder="Input change here ..."
+                                            setdeleteIds={
+                                              setDeleteLifeChangeIds
+                                            }
+                                          />
+                                        )
+                                      )}
+                                    </>
                                   )}
                                 </FieldArray>
                                 <ArrayFieldError
@@ -193,15 +214,37 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                   name={`beneficiaries[${beneficiaryIndex}].demographics`}
                                 >
                                   {(demographicArrayHelpers) => (
-                                    <BeneficiaryGroupDemographicsEdit
-                                      demographicArrayHelpers={
-                                        demographicArrayHelpers
-                                      }
-                                      beneficiaryIndex={beneficiaryIndex}
-                                      setDeleteDemographicIds={
-                                        setDeleteDemographicIds
-                                      }
-                                    />
+                                    <>
+                                      <Form.Label>Demographics</Form.Label>
+                                      <DemographicArrayInput
+                                        arrayHelpers={demographicArrayHelpers}
+                                        placeholder="Choose..."
+                                      />
+                                      {form.values.beneficiaries[
+                                        beneficiaryIndex
+                                      ].demographics.map(
+                                        (demographic, demographicIndex) => (
+                                          <ArrayFieldDemographic
+                                            name={`beneficiaries[${beneficiaryIndex}].demographics`}
+                                            key={demographicIndex}
+                                            formik={form}
+                                            arrayHelpers={
+                                              demographicArrayHelpers
+                                            }
+                                            demographicIndex={demographicIndex}
+                                            beneficiaryIndex={beneficiaryIndex}
+                                            value={demographic}
+                                            placeholder="Choose ..."
+                                            setDeleteDemographicIds={
+                                              setDeleteDemographicIds
+                                            }
+                                          />
+                                        )
+                                      )}
+                                      <ArrayFieldError
+                                        name={`beneficiaries[${beneficiaryIndex}].demographics`}
+                                      />
+                                    </>
                                   )}
                                 </FieldArray>
                               </>
