@@ -1,3 +1,6 @@
+// Card component for displaying a Org in the OrganisationsLayout.js page
+// Also handles directing to the specific org route "/myorganisations/:orgId"
+
 import React from "react";
 import { Card, Col, Row, Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";

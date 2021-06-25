@@ -1,3 +1,5 @@
+// component for deleting a value/input in a FieldArray
+
 import React from "react";
 import { Button, Popover, OverlayTrigger } from "react-bootstrap";
 import Icon from "@mdi/react";

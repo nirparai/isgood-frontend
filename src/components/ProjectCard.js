@@ -1,3 +1,6 @@
+// Card component for displaying a Project in the ProjectsLayout.js page
+// Also handles directing to the specific project route "/myprojects/:projectId"
+
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";

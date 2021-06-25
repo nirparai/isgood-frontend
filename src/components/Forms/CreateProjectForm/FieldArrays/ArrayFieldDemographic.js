@@ -1,3 +1,8 @@
+// Specific component made for use with the Demographics FieldArray in CreateProjectForm and BeneficiaryEditForm
+// The FieldArray should have the structure of
+// [{name: "", operator: "", value: "", id: ""}, {name: "", operator: "", value: "", id: ""}, ...].
+// Includes edit and delete buttons
+
 import React, { useRef, useState } from "react";
 
 import { Form } from "react-bootstrap";

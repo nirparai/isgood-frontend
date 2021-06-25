@@ -1,3 +1,8 @@
+// This form is used for adding a beneficiary group to the main CreateProjectForm
+// It works by adding its values to the Formik FieldArray with arrayHelpers
+
+// rendered by BeneficiaryGroups.js
+
 import React, { useState } from "react";
 
 import * as Yup from "yup";
@@ -66,8 +71,8 @@ export default function AddBeneficiaryForm({ arrayHelpers }) {
     setShow(false);
   };
   const handleShow = () => setShow(true);
-  const handleSave = async () => {
-    await formik.submitForm();
+  const handleSave = () => {
+    formik.submitForm();
   };
   console.log(formik);
   return (

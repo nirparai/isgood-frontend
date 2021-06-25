@@ -1,3 +1,8 @@
+// This component maps through all the beneficiary groups and renders
+// the required components for editing and adding beneficiary groups
+
+// rendered by CreateProjectForm.js
+
 import React from "react";
 
 import { Form } from "react-bootstrap";

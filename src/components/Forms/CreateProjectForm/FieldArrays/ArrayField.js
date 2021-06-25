@@ -1,3 +1,8 @@
+// Custom form input field component made for use with Formik FieldArray for any form value
+// that has [{description: "", id: ""}, {description: "", id: ""} ... ] structure. Includes edit and delete buttons
+
+// rendered by any component that needs editable FieldArray form inputs
+
 import React, { useRef, useState } from "react";
 
 import FieldArrayEditBtn from "./FieldArrayEditBtn";

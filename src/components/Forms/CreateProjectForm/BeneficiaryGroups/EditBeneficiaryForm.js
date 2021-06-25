@@ -1,3 +1,10 @@
+// This form is used for editing a beneficiary single group that has already been added
+// to the main CreateProjectForm. It works by getting its values from the from
+// the main CreateProjectForm Formik object and then allows editing directly through
+// formiks handlers
+
+// rendered by BeneficiaryGroups.js
+
 import React from "react";
 
 import { Form } from "react-bootstrap";

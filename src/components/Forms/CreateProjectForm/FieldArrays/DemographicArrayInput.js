@@ -1,3 +1,6 @@
+// Specific set of Form inputs for adding values to a Demographics FieldArray
+// used in CreateProjectForm and BeneficiaryEditForm
+
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";

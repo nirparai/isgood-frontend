@@ -1,3 +1,8 @@
+// Modal Wrapper for EditBeneficaryForm that renders the children element
+// handles opening and closing of Modal aswell as deleting BeneficaryGroup
+
+// rendered by BeneficiaryGroups.js
+
 import React, { useState } from "react";
 
 import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
@@ -9,7 +14,7 @@ export default function EditBeneficiaryModalWrapper({
   formik,
 }) {
   const [show, setShow] = useState(false);
-  console.log(formik.getFieldMeta(`beneficiaries[${index}]`));
+
   const handleClose = () => {
     //clear fields of modal
 
@@ -17,11 +22,12 @@ export default function EditBeneficiaryModalWrapper({
     setShow(false);
   };
   const handleShow = () => setShow(true);
+
   const handleSave = () => {
     //Check Validation
     formik.validateForm();
+    //get fieldErrors
     const fieldErrors = formik.getFieldMeta(`beneficiaries[${index}]`).error;
-    console.log(fieldErrors);
 
     // if beneficiary errors exist set all fields in form to touched so the errors will show
     if (fieldErrors) {
@@ -67,8 +73,6 @@ export default function EditBeneficiaryModalWrapper({
           }
         );
       }
-
-      //Save Data to database or somewhere local ??
     } else {
       //Close Modal if validation and save is successfull
       setShow(false);
@@ -118,9 +122,9 @@ export default function EditBeneficiaryModalWrapper({
             <Button variant="danger">Delete</Button>
           </OverlayTrigger>
 
-          {/* <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button> */}
+          </Button>
           <Button variant="primary" onClick={handleSave}>
             Save Changes
           </Button>
