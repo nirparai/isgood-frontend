@@ -18,18 +18,20 @@ export default function ArrayField({
   const inputRef = useRef();
   return (
     <>
-      <div className="d-flex my-2">
-        <Form.Control
-          name={`${name}[${index}].description`}
-          type="text"
-          placeholder={placeholder}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={value.description}
-          className="disabled"
-          ref={inputRef}
-        />
-
+      <div className="d-flex my-2 justify-content-center">
+        {isEditing ? (
+          <Form.Control
+            name={`${name}[${index}].description`}
+            type="text"
+            placeholder={placeholder}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={value.description}
+            ref={inputRef}
+          />
+        ) : (
+          <div className="border p-2">{value.description}</div>
+        )}
         <FieldArrayEditBtn
           isEditing={isEditing}
           setIsEditing={setIsEditing}
@@ -41,7 +43,10 @@ export default function ArrayField({
           setdeleteIds={setdeleteIds}
         />
       </div>
-      <FormErrorMessage name={`${name}[${index}].description`} />
+      <FormErrorMessage
+        name={`${name}[${index}].description`}
+        formik={formik}
+      />
     </>
   );
 }

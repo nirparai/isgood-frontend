@@ -117,7 +117,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.organisationName}
                   />
-                  <FormErrorMessage name="organisationName" />
+                  <FormErrorMessage name="organisationName" formik={formik} />
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -131,7 +131,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.description}
                   />
-                  <FormErrorMessage name="description" />
+                  <FormErrorMessage name="description" formik={formik} />
                 </Form.Group>
                 <Form.Row>
                   <Form.Group as={Col} controlId="handle" size="lg">
@@ -144,7 +144,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.handle}
                     />
-                    <FormErrorMessage name="handle" />
+                    <FormErrorMessage name="handle" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="url" size="lg">
@@ -157,7 +157,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.url}
                     />
-                    <FormErrorMessage name="url" />
+                    <FormErrorMessage name="url" formik={formik} />
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
@@ -175,7 +175,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       <option value="Region1">Region1</option>
                       <option value="Region2">Region2</option>
                     </Form.Control>
-                    <FormErrorMessage name="region" />
+                    <FormErrorMessage name="region" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="sector" size="lg">
@@ -193,7 +193,7 @@ export default function CreateOrganisationForm({ setup, orgValues }) {
                       <option>Sectors</option>
                     </Form.Control>
 
-                    <FormErrorMessage name="sector" />
+                    <FormErrorMessage name="sector" formik={formik} />
                   </Form.Group>
                 </Form.Row>
 

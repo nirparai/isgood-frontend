@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
 
-export default function ModalContainer({
+export default function AddBeneficiaryModalWrapper({
   children,
   remove,
   index,
   formik,
   field,
 }) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => {
     //clear fields of modal

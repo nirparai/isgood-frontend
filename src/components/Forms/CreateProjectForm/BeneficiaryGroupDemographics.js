@@ -4,6 +4,7 @@ import { Button, Form } from "react-bootstrap";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import DemographicArrayInput from "./FieldArrays/DemographicArrayInput";
 import ArrayFieldDemographic from "./FieldArrays/ArrayFieldDemographic";
+import ArrayFieldError from "./FieldArrays/ArrayFieldError";
 
 export default function BeneficiaryGroupDemographics({
   beneficiaryIndex,
@@ -32,6 +33,9 @@ export default function BeneficiaryGroupDemographics({
           />
         )
       )}
+      <ArrayFieldError
+        name={`beneficiaries[${beneficiaryIndex}].demographics`}
+      />
     </>
   );
 }

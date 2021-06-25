@@ -14,7 +14,7 @@ import "./CreateProjectForm.css";
 import ArrayInput from "./FieldArrays/ArrayInput";
 import DropzoneLogo from "components/DropzoneLogo";
 import DropzoneBanner from "components/DropzoneBanner";
-import ArrayFieldError from "../ArrayFieldError";
+import ArrayFieldError from "./FieldArrays/ArrayFieldError";
 
 export default function CreateProjectForm({ setup, orgId }) {
   const [serverMessage, setServerMessage] = useState();
@@ -45,7 +45,7 @@ export default function CreateProjectForm({ setup, orgId }) {
     beneficiaries: Yup.array().of(
       Yup.object().shape({
         name: Yup.string().required("Required"),
-        impacts: Yup.array()
+        lifeChange: Yup.array()
           .of(
             Yup.object().shape({
               description: Yup.string().required("Required"),
@@ -154,7 +154,7 @@ export default function CreateProjectForm({ setup, orgId }) {
                         );
                       })}
                     </Form.Control>
-                    <FormErrorMessage name="orgId" />
+                    <FormErrorMessage name="orgId" formik={formik} />
                   </Form.Group>
                 ) : null}
 
@@ -180,7 +180,7 @@ export default function CreateProjectForm({ setup, orgId }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.projectName}
                   />
-                  <FormErrorMessage name="projectName" />
+                  <FormErrorMessage name="projectName" formik={formik} />
                 </Form.Group>
 
                 <Form.Group controlId="description">
@@ -194,7 +194,7 @@ export default function CreateProjectForm({ setup, orgId }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.description}
                   />
-                  <FormErrorMessage name="description" />
+                  <FormErrorMessage name="description" formik={formik} />
                 </Form.Group>
 
                 <FieldArray name="impacts">
@@ -288,7 +288,10 @@ export default function CreateProjectForm({ setup, orgId }) {
                               onBlur={formik.handleBlur}
                               value={formik.values.startDate}
                             />
-                            <FormErrorMessage name="startDate" />
+                            <FormErrorMessage
+                              name="startDate"
+                              formik={formik}
+                            />
                           </Form.Group>
 
                           <Form.Group as={Col} controlId="endDate" size="lg">
@@ -301,7 +304,7 @@ export default function CreateProjectForm({ setup, orgId }) {
                               onBlur={formik.handleBlur}
                               value={formik.values.endDate}
                             />
-                            <FormErrorMessage name="endDate" />
+                            <FormErrorMessage name="endDate" formik={formik} />
                           </Form.Group>
                         </Form.Row>
                       </Card.Body>

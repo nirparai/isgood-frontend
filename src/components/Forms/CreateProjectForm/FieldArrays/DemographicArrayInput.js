@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import FormErrorMessage from "components/Forms/FormErrorMessage";
 
 export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
   const formik = useFormik({
@@ -11,7 +12,12 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
       value: "",
       id: "",
     },
-    validationSchema: Yup.object().shape({}),
+    validationSchema: Yup.object().shape({
+      name: Yup.string().required("Required"),
+      operator: Yup.string().required("Required"),
+      value: Yup.string().required("Required"),
+      id: Yup.string(),
+    }),
     onSubmit: (values, methods) => {
       // insert values into the field array
       arrayHelpers.insert(0, {
@@ -26,6 +32,14 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
 
   const handleClick = () => {
     formik.submitForm();
+  };
+  const handleBlur = () => {
+    formik.setTouched({
+      id: false,
+      name: false,
+      operator: false,
+      value: false,
+    });
   };
   console.log(formik);
   return (
@@ -44,6 +58,7 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
           <option value="gender">Gender</option>
           <option value="age">Age</option>
         </Form.Control>
+        <FormErrorMessage name="name" formik={formik} />
       </Form.Group>
       <Form.Group className="w-25">
         <Form.Label>Operator</Form.Label>
@@ -63,6 +78,7 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
           <option>equal to</option>
           <option>greater than</option>
         </Form.Control>
+        <FormErrorMessage name="operator" formik={formik} />
       </Form.Group>
       <Form.Group className="w-25">
         <Form.Label>Value</Form.Label>
@@ -83,9 +99,10 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
           <option>65</option>
           <option>10</option>
         </Form.Control>
+        <FormErrorMessage name="value" formik={formik} />
       </Form.Group>
 
-      <Button onClick={handleClick} className="w-25">
+      <Button onClick={handleClick} className="w-25" onBlur={handleBlur}>
         Add
       </Button>
 

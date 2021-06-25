@@ -79,7 +79,6 @@ export default function OutcomesEdit({ project }) {
           enableReinitialize={true}
         >
           {(formik) => {
-            console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <FieldArray name="outcomes">

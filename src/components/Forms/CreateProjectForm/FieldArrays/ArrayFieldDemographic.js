@@ -38,7 +38,10 @@ export default function ArrayFieldDemographic({
                 <option value="gender">Gender</option>
                 <option value="age">Age</option>
               </Form.Control>
-              <FormErrorMessage name={`${name}[${demographicIndex}.name]`} />
+              <FormErrorMessage
+                name={`${name}[${demographicIndex}.name]`}
+                formik={formik}
+              />
             </Form.Group>
             <Form.Group controlId={`${name}[${demographicIndex}.operator]`}>
               <Form.Label>Operator</Form.Label>
@@ -60,6 +63,7 @@ export default function ArrayFieldDemographic({
               </Form.Control>
               <FormErrorMessage
                 name={`${name}[${demographicIndex}.operator]`}
+                formik={formik}
               />
             </Form.Group>
             <Form.Group controlId={`${name}[${demographicIndex}.value]`}>
@@ -82,11 +86,14 @@ export default function ArrayFieldDemographic({
                 <option>10</option>
               </Form.Control>
 
-              <FormErrorMessage name={`${name}[${demographicIndex}.value]`} />
+              <FormErrorMessage
+                name={`${name}[${demographicIndex}.value]`}
+                formik={formik}
+              />
             </Form.Group>
           </>
         ) : (
-          <div className="border rounded bg-light">
+          <div className="border rounded bg-light p-2">
             {value.name + " / " + value.operator + " / " + value.value}
           </div>
         )}

@@ -54,7 +54,6 @@ export default function ImpactsEdit({ project }) {
       }
     }
   };
-  console.log(project);
   return (
     <div className="d-flex flex-column align-items-center">
       {serverMessage ? (

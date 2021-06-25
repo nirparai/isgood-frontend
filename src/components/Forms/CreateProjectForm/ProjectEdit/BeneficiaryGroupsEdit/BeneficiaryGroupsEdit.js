@@ -7,9 +7,9 @@ import UserContext from "context/UserContext";
 
 import { Button, Form } from "react-bootstrap";
 import { Formik, FieldArray } from "formik";
-import ModalContainer from "../../ModalContainer";
+import EditBeneficiaryModalWrapper from "../../EditBeneficiaryModalWrapper";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
-import ArrayFieldError from "components/Forms/ArrayFieldError";
+import ArrayFieldError from "components/Forms/CreateProjectForm/FieldArrays/ArrayFieldError";
 import BeneficiaryGroupChangeEdit from "./BeneficiaryGroupChangeEdit";
 import BeneficiaryGroupDemographicsEdit from "./BeneficiaryGroupDemographicsEdit";
 
@@ -150,7 +150,7 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                 }
                               </div>
                             </div>
-                            <ModalContainer
+                            <EditBeneficiaryModalWrapper
                               remove={remove}
                               index={beneficiaryIndex}
                               formik={form}
@@ -170,6 +170,7 @@ export default function BeneficiaryGroupsEdit({ project }) {
 
                                 <FormErrorMessage
                                   name={`beneficiaries[${beneficiaryIndex}].name`}
+                                  formik={formik}
                                 />
 
                                 <FieldArray
@@ -204,7 +205,7 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                   )}
                                 </FieldArray>
                               </>
-                            </ModalContainer>
+                            </EditBeneficiaryModalWrapper>
                           </div>
                         )
                       )}

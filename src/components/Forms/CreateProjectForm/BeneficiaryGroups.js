@@ -4,19 +4,19 @@ import { Button, Form } from "react-bootstrap";
 import { FieldArray } from "formik";
 import BenerficiaryGroupChange from "./BeneficiaryGroupChange";
 import BenerficiaryGroupDemographics from "./BeneficiaryGroupDemographics";
-import ModalContainer from "./ModalContainer";
+import EditBeneficiaryModalWrapper from "./EditBeneficiaryModalWrapper";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
-import ArrayFieldError from "../ArrayFieldError";
+import ArrayFieldError from "./FieldArrays/ArrayFieldError";
 
 export default function BeneficiaryGroups({ arrayHelpers }) {
-  const { form, insert, remove } = arrayHelpers;
+  const { form: formik, insert, remove } = arrayHelpers;
   return (
     <>
       <Form.Label>Beneficiary Groups</Form.Label>
       <div className="d-flex justify-content-center my-2">
         <Button
           onClick={() =>
-            insert(form.values.beneficiaries.length, {
+            insert(formik.values.beneficiaries.length, {
               name: "",
               lifeChange: [],
               demographics: [],
@@ -26,7 +26,7 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
           + Add Beneficary Group
         </Button>
       </div>
-      {form.values.beneficiaries.map((beneficiary, beneficiaryIndex) => (
+      {formik.values.beneficiaries.map((beneficiary, beneficiaryIndex) => (
         <div
           key={beneficiaryIndex}
           className="d-flex my-2 justify-content-center"
@@ -34,11 +34,10 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
           <div className="w-50 border d-flex align-items-center">
             <div className="mx-2">{beneficiary.name}</div>
           </div>
-          <ModalContainer
+          <EditBeneficiaryModalWrapper
             remove={remove}
             index={beneficiaryIndex}
-            formik={form}
-            field="beneficiaries"
+            formik={formik}
           >
             <>
               <Form.Group controlId={`beneficiaries[${beneficiaryIndex}].name`}>
@@ -48,13 +47,14 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
                   placeholder=""
                   name={`beneficiaries[${beneficiaryIndex}].name`}
                   type="text"
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   value={beneficiary.name}
                 />
 
                 <FormErrorMessage
                   name={`beneficiaries[${beneficiaryIndex}].name`}
+                  formik={formik}
                 />
               </Form.Group>
 
@@ -83,7 +83,7 @@ export default function BeneficiaryGroups({ arrayHelpers }) {
                 )}
               </FieldArray>
             </>
-          </ModalContainer>
+          </EditBeneficiaryModalWrapper>
         </div>
       ))}
     </>

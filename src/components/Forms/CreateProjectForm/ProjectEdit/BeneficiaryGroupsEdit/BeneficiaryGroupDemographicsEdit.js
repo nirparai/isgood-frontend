@@ -1,3 +1,4 @@
+import ArrayFieldError from "components/Forms/CreateProjectForm/FieldArrays/ArrayFieldError";
 import React from "react";
 
 import { Button, Form } from "react-bootstrap";
@@ -31,6 +32,9 @@ export default function BeneficiaryGroupDemographicsEdit({
           />
         )
       )}
+      <ArrayFieldError
+        name={`beneficiaries[${beneficiaryIndex}].demographics`}
+      />
     </>
   );
 }
