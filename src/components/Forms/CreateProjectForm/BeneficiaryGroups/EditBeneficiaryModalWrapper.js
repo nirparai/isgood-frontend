@@ -3,17 +3,23 @@
 
 // rendered by BeneficiaryGroups.js
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import UserContext from "context/UserContext";
 
 import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import ProjectService from "services/projectService";
 
 export default function EditBeneficiaryModalWrapper({
   children,
   remove,
   index,
   formik,
+  project,
 }) {
   const [show, setShow] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const handleClose = () => {
     //clear fields of modal
@@ -23,12 +29,11 @@ export default function EditBeneficiaryModalWrapper({
   };
   const handleShow = () => setShow(true);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     //Check Validation
-    formik.validateForm();
+    await formik.validateForm();
     //get fieldErrors
     const fieldErrors = formik.getFieldMeta(`beneficiaries[${index}]`).error;
-
     // if beneficiary errors exist set all fields in form to touched so the errors will show
     if (fieldErrors) {
       formik.setFieldTouched(`beneficiaries[${index}].name`, true);
@@ -74,8 +79,42 @@ export default function EditBeneficiaryModalWrapper({
         );
       }
     } else {
-      //Close Modal if validation and save is successfull
-      setShow(false);
+      //Close Modal if validation and save is successful
+      try {
+        const token = await getAccessTokenSilently();
+        const res = await ProjectService.updateBeneficiaryGroup(
+          token,
+          project.id,
+          project.org_id,
+          formik.values.beneficiaries[`${index}`]
+        );
+        console.log(res.data);
+        await setUser((state) => {
+          const newBeneficiary = res.data;
+          let newCurrentProject = state.currentProject;
+
+          const beneficiaryIndex = newCurrentProject.beneficiaries.findIndex(
+            (beneficiary, index) => beneficiary.id === newBeneficiary.id
+          );
+          if (beneficiaryIndex === -1) {
+            newCurrentProject.beneficiaries.push(newBeneficiary);
+          } else {
+            newCurrentProject.beneficiaries.splice(
+              beneficiaryIndex,
+              1,
+              newBeneficiary
+            );
+          }
+
+          return { ...state, currentProject: newCurrentProject };
+        });
+
+        // setShow(false);
+      } catch (err) {
+        console.log(err);
+      }
+
+      // setShow(false);
     }
   };
 

@@ -90,6 +90,7 @@ class ProjectService {
       data: data,
     });
   }
+
   updateProjectInfo(token, projectId, projectInfo) {
     const data = {
       name: projectInfo.projectName,
@@ -103,6 +104,37 @@ class ProjectService {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  }
+
+  updateBeneficiaryGroup(token, projectId, orgId, beneficiaryGroup) {
+    const data = {
+      beneficiary: {
+        name: beneficiaryGroup.name,
+        lifeChanges: beneficiaryGroup.lifeChange,
+        demographics: beneficiaryGroup.demographics,
+        id: beneficiaryGroup.id,
+      },
+      orgId: orgId,
+    };
+    return axios.patch(API_URL + "beneficiary/update/" + projectId, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  deleteLifeChanges(token, orgId, projectId, deleteIds) {
+    const data = {
+      orgId: orgId,
+      deleteOutcomeIds: deleteIds,
+    };
+
+    return axios.delete(API_URL + "outcome/delete/" + projectId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
     });
   }
 }

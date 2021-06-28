@@ -74,6 +74,7 @@ export default function ImpactsEdit({ project }) {
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          enableReinitialize={true}
         >
           {(formik) => {
             console.log(formik);
