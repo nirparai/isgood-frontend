@@ -78,6 +78,7 @@ export default function ProjectInfoEdit({ project }) {
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          enableReinitialize={true}
         >
           {(formik) => {
             // console.log(formik);

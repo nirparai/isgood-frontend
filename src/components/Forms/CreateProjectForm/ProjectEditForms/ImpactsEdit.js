@@ -39,7 +39,7 @@ export default function ImpactsEdit({ project }) {
       await setUser((state) => {
         const newImpacts = res2.data;
         const newCurrentProject = state.currentProject;
-        newCurrentProject.outcomes = newImpacts;
+        newCurrentProject.impacts = newImpacts;
 
         return { ...state, currentProject: newCurrentProject };
       });
@@ -74,6 +74,7 @@ export default function ImpactsEdit({ project }) {
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          enableReinitialize={true}
         >
           {(formik) => {
             console.log(formik);

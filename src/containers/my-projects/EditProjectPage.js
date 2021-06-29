@@ -82,7 +82,11 @@ export default function EditProjectPage() {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="3">
                   <Card.Body>
-                    <BeneficiaryGroupsEdit project={user.currentProject} />
+                    <BeneficiaryGroupsEdit
+                      project={user.currentProject}
+                      beneficiaries={user.currentProject.beneficiaries}
+                      orgId={user.currentProject.org_id}
+                    />
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>

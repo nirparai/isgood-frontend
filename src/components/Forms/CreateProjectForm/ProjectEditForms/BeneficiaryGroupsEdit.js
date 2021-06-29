@@ -16,7 +16,11 @@ import DemographicArrayInput from "../FieldArrays/DemographicArrayInput";
 import ArrayFieldDemographic from "../FieldArrays/ArrayFieldDemographic";
 import AddBeneficiaryForm from "../BeneficiaryGroups/AddBeneficiaryForm";
 
-export default function BeneficiaryGroupsEdit({ project }) {
+export default function BeneficiaryGroupsEdit({
+  beneficiaries,
+  orgId,
+  project,
+}) {
   const [serverMessage, setServerMessage] = useState();
   // for storing the Id's of the fields that need to be deleted from the database
   const [deleteBeneficiaryIds, setDeleteBeneficiaryIds] = useState([]);
@@ -34,7 +38,7 @@ export default function BeneficiaryGroupsEdit({ project }) {
           .of(
             Yup.object()
               .shape({
-                life_change_id: Yup.string().required("Required"),
+                id: Yup.string(),
                 description: Yup.string().required("Required"),
               })
               .required("Required")
@@ -46,11 +50,11 @@ export default function BeneficiaryGroupsEdit({ project }) {
               name: Yup.string().required("Required"),
               operator: Yup.string().required("Required"),
               value: Yup.string().required("Required"),
-              demographic_id: Yup.string().required("Required"),
+              id: Yup.string(),
             })
           )
           .min(1, "Add at least one demographic"),
-        beneficairy_id: Yup.string().required(),
+        id: Yup.string(),
       })
     ),
     orgId: Yup.string().required(),
@@ -59,32 +63,30 @@ export default function BeneficiaryGroupsEdit({ project }) {
   const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      const res = await ProjectService.updateBeneficiary(
+      const res = await ProjectService.updateBeneficiaryGroup(
         token,
-        values.orgId,
         project.id,
-        values.impacts,
-        token
+        values.beneficiaries
       );
-      const res2 = await ProjectService.deleteDemographics(
-        token,
-        values.orgId,
-        project.id,
-        deleteDemographicIds
-      );
-      const res3 = await ProjectService.deleteLifeChange(
-        token,
-        values.orgId,
-        project.id,
-        deleteLifeChangeIds
-      );
-      await setUser((state) => {
-        const newImpacts = res2.data;
-        const newCurrentProject = state.currentProject;
-        newCurrentProject.outcomes = newImpacts;
+      // const res2 = await ProjectService.deleteDemographics(
+      //   token,
+      //   values.orgId,
+      //   project.id,
+      //   deleteDemographicIds
+      // );
+      // const res3 = await ProjectService.deleteLifeChange(
+      //   token,
+      //   values.orgId,
+      //   project.id,
+      //   deleteLifeChangeIds
+      // );
+      // await setUser((state) => {
+      //   const newImpacts = res2.data;
+      //   const newCurrentProject = state.currentProject;
+      //   newCurrentProject.outcomes = newImpacts;
 
-        return { ...state, currentProject: newCurrentProject };
-      });
+      //   return { ...state, currentProject: newCurrentProject };
+      // });
     } catch (err) {
       console.log(err.response);
       if (err.response.data.message) {
@@ -112,11 +114,13 @@ export default function BeneficiaryGroupsEdit({ project }) {
         </legend>
         <Formik
           initialValues={{
-            orgId: project.org_id,
-            beneficiaries: project.beneficiaries,
+            orgId: orgId,
+            beneficiaries: beneficiaries,
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          validateOnMount={true}
+          enableReinitialize={true}
         >
           {(formik) => {
             console.log(formik);
@@ -150,6 +154,7 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                 index={beneficiaryIndex}
                                 formik={form}
                                 field="beneficiaries"
+                                project={project}
                               >
                                 <>
                                   <Form.Label>Name</Form.Label>

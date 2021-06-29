@@ -3,34 +3,40 @@
 
 // rendered by BeneficiaryGroups.js
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import UserContext from "context/UserContext";
 
 import { Button, Modal, Popover, OverlayTrigger } from "react-bootstrap";
+import ProjectService from "services/projectService";
 
 export default function EditBeneficiaryModalWrapper({
   children,
   remove,
   index,
   formik,
+  project,
 }) {
   const [show, setShow] = useState(false);
+  const { getAccessTokenSilently } = useAuth0();
+  const { user, setUser } = useContext(UserContext);
 
   const handleClose = () => {
-    //clear fields of modal
+    // clear fields of modal
 
     // close modal
     setShow(false);
   };
   const handleShow = () => setShow(true);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     //Check Validation
-    formik.validateForm();
+    await formik.validateForm();
     //get fieldErrors
     const fieldErrors = formik.getFieldMeta(`beneficiaries[${index}]`).error;
-
     // if beneficiary errors exist set all fields in form to touched so the errors will show
     if (fieldErrors) {
+      // If there are errors touch all fields with errors so they show
       formik.setFieldTouched(`beneficiaries[${index}].name`, true);
 
       // if there is no life changes the error will be type string. if it is set the touched value to an empty array
@@ -74,8 +80,44 @@ export default function EditBeneficiaryModalWrapper({
         );
       }
     } else {
-      //Close Modal if validation and save is successfull
-      setShow(false);
+      //Close Modal if validation passes and save is successful
+
+      // Try send update beneficiary request
+      try {
+        const token = await getAccessTokenSilently();
+        const res = await ProjectService.updateBeneficiaryGroup(
+          token,
+          project.id,
+          project.org_id,
+          formik.values.beneficiaries[`${index}`]
+        );
+        console.log(res.data);
+        await setUser((state) => {
+          const newBeneficiary = res.data;
+          let newCurrentProject = state.currentProject;
+          // check if there is a beneficiary group with the same id already in state (for if beneficiary is updated)
+          const beneficiaryIndex = newCurrentProject.beneficiaries.findIndex(
+            (beneficiary, index) => beneficiary.id === newBeneficiary.id
+          );
+          // array.findIndex() return -1 if no element meets condition so we can just push the new beneficiary group in
+          if (beneficiaryIndex === -1) {
+            newCurrentProject.beneficiaries.push(newBeneficiary);
+          } else {
+            // splice in the new updated project otherwise
+            newCurrentProject.beneficiaries.splice(
+              beneficiaryIndex,
+              1,
+              newBeneficiary
+            );
+          }
+
+          return { ...state, currentProject: newCurrentProject };
+        });
+
+        setShow(false);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
