@@ -124,13 +124,34 @@ class ProjectService {
     });
   }
 
-  deleteLifeChanges(token, orgId, projectId, deleteIds) {
+  deleteBeneficiarys(token, orgId, projectId, deleteIds) {
     const data = {
       orgId: orgId,
-      deleteOutcomeIds: deleteIds,
+      deleteBeneficiaryIds: deleteIds,
     };
 
-    return axios.delete(API_URL + "outcome/delete/" + projectId, {
+    return axios.delete(API_URL + "beneficiary/delete/" + projectId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
+    });
+  }
+
+  deleteBeneficiaryFields(
+    token,
+    orgId,
+    projectId,
+    deleteLifeChangeIds,
+    deleteDemographicIds
+  ) {
+    const data = {
+      orgId: orgId,
+      deleteLifeChangeIds: deleteLifeChangeIds,
+      deleteDemographicIds: deleteDemographicIds,
+    };
+
+    return axios.delete(API_URL + "beneficiary/deletefields/" + projectId, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
