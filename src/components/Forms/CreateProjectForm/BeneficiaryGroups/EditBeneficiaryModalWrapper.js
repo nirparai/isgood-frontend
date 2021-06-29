@@ -22,7 +22,7 @@ export default function EditBeneficiaryModalWrapper({
   const { user, setUser } = useContext(UserContext);
 
   const handleClose = () => {
-    //clear fields of modal
+    // clear fields of modal
 
     // close modal
     setShow(false);
@@ -36,6 +36,7 @@ export default function EditBeneficiaryModalWrapper({
     const fieldErrors = formik.getFieldMeta(`beneficiaries[${index}]`).error;
     // if beneficiary errors exist set all fields in form to touched so the errors will show
     if (fieldErrors) {
+      // If there are errors touch all fields with errors so they show
       formik.setFieldTouched(`beneficiaries[${index}].name`, true);
 
       // if there is no life changes the error will be type string. if it is set the touched value to an empty array
@@ -79,7 +80,9 @@ export default function EditBeneficiaryModalWrapper({
         );
       }
     } else {
-      //Close Modal if validation and save is successful
+      //Close Modal if validation passes and save is successful
+
+      // Try send update beneficiary request
       try {
         const token = await getAccessTokenSilently();
         const res = await ProjectService.updateBeneficiaryGroup(
@@ -92,13 +95,15 @@ export default function EditBeneficiaryModalWrapper({
         await setUser((state) => {
           const newBeneficiary = res.data;
           let newCurrentProject = state.currentProject;
-
+          // check if there is a beneficiary group with the same id already in state (for if beneficiary is updated)
           const beneficiaryIndex = newCurrentProject.beneficiaries.findIndex(
             (beneficiary, index) => beneficiary.id === newBeneficiary.id
           );
+          // array.findIndex() return -1 if no element meets condition so we can just push the new beneficiary group in
           if (beneficiaryIndex === -1) {
             newCurrentProject.beneficiaries.push(newBeneficiary);
           } else {
+            // splice in the new updated project otherwise
             newCurrentProject.beneficiaries.splice(
               beneficiaryIndex,
               1,
@@ -109,12 +114,10 @@ export default function EditBeneficiaryModalWrapper({
           return { ...state, currentProject: newCurrentProject };
         });
 
-        // setShow(false);
+        setShow(false);
       } catch (err) {
         console.log(err);
       }
-
-      // setShow(false);
     }
   };
 

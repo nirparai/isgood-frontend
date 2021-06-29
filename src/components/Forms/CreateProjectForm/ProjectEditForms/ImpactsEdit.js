@@ -39,7 +39,7 @@ export default function ImpactsEdit({ project }) {
       await setUser((state) => {
         const newImpacts = res2.data;
         const newCurrentProject = state.currentProject;
-        newCurrentProject.outcomes = newImpacts;
+        newCurrentProject.impacts = newImpacts;
 
         return { ...state, currentProject: newCurrentProject };
       });

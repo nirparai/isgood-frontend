@@ -16,7 +16,11 @@ import DemographicArrayInput from "../FieldArrays/DemographicArrayInput";
 import ArrayFieldDemographic from "../FieldArrays/ArrayFieldDemographic";
 import AddBeneficiaryForm from "../BeneficiaryGroups/AddBeneficiaryForm";
 
-export default function BeneficiaryGroupsEdit({ project }) {
+export default function BeneficiaryGroupsEdit({
+  beneficiaries,
+  orgId,
+  project,
+}) {
   const [serverMessage, setServerMessage] = useState();
   // for storing the Id's of the fields that need to be deleted from the database
   const [deleteBeneficiaryIds, setDeleteBeneficiaryIds] = useState([]);
@@ -110,8 +114,8 @@ export default function BeneficiaryGroupsEdit({ project }) {
         </legend>
         <Formik
           initialValues={{
-            orgId: project.org_id,
-            beneficiaries: project.beneficiaries,
+            orgId: orgId,
+            beneficiaries: beneficiaries,
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
