@@ -20,7 +20,7 @@ const OrgDetails = ({ org }) => {
               <p><b>Handle</b></p>
             </div>
             <div className="col-md-4">
-              {(org.handle==='')?'N/A':org.handle===''}
+              {(org.handle === '')?'N/A':org.handle}
             </div>
           </div>
           <div className="row">
@@ -28,13 +28,13 @@ const OrgDetails = ({ org }) => {
               <p><b>Region</b></p>
             </div>
             <div className="col-md-4">
-              {org.region}
+              {(org.region === '')?'N/A':org.region}
             </div>
             <div className="col-md-2">
               <p><b>Sector</b></p>
             </div>
             <div className="col-md-4">
-              {org.sector}
+              {(org.sector === '')?'N/A':org.sector}
             </div>
           </div>
           <h5 className="font-weight-bold my-4 p-2 bg-primary text-light">
