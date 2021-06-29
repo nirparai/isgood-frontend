@@ -38,7 +38,7 @@ const OrgDetails = ({ org }) => {
             </div>
           </div>
           <h5 className="font-weight-bold my-4 p-2 bg-primary text-light">
-            Description Details
+            Description
           </h5>
           <p>{org.description}</p>
         </div>

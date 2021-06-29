@@ -4,15 +4,11 @@ import UserContext from "context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
-import Icon from "@mdi/react";
-import { mdiMenu, mdiDotsGrid } from "@mdi/js";
 import OrgBanner from "components/OrgBanner";
 import OrgHeader from "components/OrgHeader";
 import OrgDetails from "./organisation-pages/OrgDetails";
 import OrgProjects from "./organisation-pages/OrgProjects";
 import userService from "services/userService";
-import CreateProjectModalButton from "containers/my-projects/CreateProjectModalButton";
-import CreateProjectForm from "components/Forms/CreateProjectForm/CreateProjectForm";
 
 export default function OrganisationPage() {
   const { orgId } = useParams();
@@ -82,21 +78,7 @@ export default function OrganisationPage() {
                   <OrgDetails org={currentOrg} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="org-projects">
-                <Row>
-                  <Col className="col mt-3">
-                    <input placeholder="Filter (future release)" disabled />
-                  </Col>
-                  <Col className="col mt-3 d-flex justify-content-end">
-                    <CreateProjectModalButton>
-                      <CreateProjectForm setup={false} orgId={orgId} />
-                    </CreateProjectModalButton>
-                  </Col>
-                  <Col className=" col-2 mt-3 d-flex justify-content-end">
-                    <Icon path={mdiMenu} size={1.3} className="p-1" />
-                    <Icon path={mdiDotsGrid} size={1.3} className="p-1" />
-                  </Col>
-                </Row>
-                <OrgProjects projectsByOrg={projectsByOrg} />
+                  <OrgProjects orgId={ orgId } projectsByOrg={ projectsByOrg } />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
