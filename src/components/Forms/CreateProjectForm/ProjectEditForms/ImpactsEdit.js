@@ -64,9 +64,6 @@ export default function ImpactsEdit({ project }) {
         </div>
       ) : null}
       <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Impacts
-        </legend>
         <Formik
           initialValues={{
             orgId: project.org_id,

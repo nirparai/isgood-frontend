@@ -4,7 +4,7 @@ import UserContext from "context/UserContext";
 import ProjectService from "services/projectService";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { Container, Col, Row, Accordion, Card, Button } from "react-bootstrap";
+import { Container, Col, Row, Nav, Tab } from "react-bootstrap";
 import ImpactsEdit from "components/Forms/CreateProjectForm/ProjectEditForms/ImpactsEdit";
 import OutcomesEdit from "components/Forms/CreateProjectForm/ProjectEditForms/OutcomesEdit";
 import ProjectInfoEdit from "components/Forms/CreateProjectForm/ProjectEditForms/ProjectInfoEdit";
@@ -45,53 +45,62 @@ export default function EditProjectPage() {
             <h1 className="text-center py-5 border">PROJECT BANNER</h1>
           </div>
           <Container>
-            <Accordion defaultActiveKey="0">
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
-                  Project Info
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    <ProjectInfoEdit project={user.currentProject} />
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="1">
-                  Impacts
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>
-                    <ImpactsEdit project={user.currentProject} />
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
-                  Outcomes
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                  <Card.Body>
-                    <OutcomesEdit project={user.currentProject} />
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="3">
-                  Beneficiary Groups
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="3">
-                  <Card.Body>
-                    <BeneficiaryGroupsEdit
-                      project={user.currentProject}
-                      beneficiaries={user.currentProject.beneficiaries}
-                      orgId={user.currentProject.org_id}
-                    />
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-            <Button>Update</Button>
+          <Tab.Container id="left-tabs" defaultActiveKey="project-details">
+              <Row className="mt-4">
+                <Col lg={3} sm={12}>
+                  <Nav variant="pills" className="sticky-top flex-column pt-2">
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="project-details"
+                        className="d-flex"
+                      >
+                        Project Details
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="impacts"
+                        className="d-flex"
+                      >
+                        Impacts
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="outcomes"
+                        className="d-flex"
+                      >
+                        Outcomes
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link
+                        eventKey="beneficiary-groups"
+                        className="d-flex"
+                      >
+                        Beneficiary Groups
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Col>
+                <Col sm={12} lg={9}>
+                  <Tab.Content>
+                    <Tab.Pane eventKey="project-details">
+                      <ProjectInfoEdit project={user.currentProject} />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="impacts">
+                      <ImpactsEdit project={user.currentProject} />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="outcomes">
+                      <OutcomesEdit project={user.currentProject} />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="beneficiary-groups">
+                      {/* <BeneficiaryGroupsEdit project={user.currentProject} /> */}
+                    </Tab.Pane>
+                  </Tab.Content>
+                </Col>
+              </Row>
+            </Tab.Container>
           </Container>
         </>
       ) : null}

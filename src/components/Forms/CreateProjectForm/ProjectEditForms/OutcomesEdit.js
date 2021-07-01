@@ -65,9 +65,6 @@ export default function OutcomesEdit({ project }) {
         </div>
       ) : null}
       <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Outcomes
-        </legend>
         <Formik
           initialValues={{
             orgId: project.org_id,

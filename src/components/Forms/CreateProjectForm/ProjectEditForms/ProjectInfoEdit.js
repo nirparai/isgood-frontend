@@ -62,9 +62,6 @@ export default function ProjectInfoEdit({ project }) {
         </div>
       ) : null}
       <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Project Info
-        </legend>
         <Formik
           initialValues={{
             orgId: project.org_id,
