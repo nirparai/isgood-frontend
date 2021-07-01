@@ -19,6 +19,36 @@ const ProjectPage = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
 
+  //sample Indicators
+
+  const indicators = [
+    {
+      name: "Indicator1",
+      description: "Indicator description",
+      code: "IRIS50-FP2321",
+    },
+    {
+      name: "Indicator2",
+      description: "Indicator description",
+      code: "IRIS50-FP2321",
+    },
+    {
+      name: "Indicator3",
+      description: "Indicator description",
+      code: "IRIS50-FP2321",
+    },
+    {
+      name: "Indicator4",
+      description: "Indicator description",
+      code: "IRIS50-FP2321",
+    },
+    {
+      name: "Indicator5",
+      description: "Indicator description",
+      code: "IRIS50-FP2321",
+    },
+  ];
+
   let currentProject = {};
   if (user.userProjects) {
     currentProject = user.userProjects.find(
@@ -123,7 +153,8 @@ const ProjectPage = () => {
                       <Overview project={user.currentProject} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="Indicators">
-                      <Indicators indicators={user.currentProject.indicators} />
+                      {/* <Indicators indicators={user.currentProject.indicators} />                        Previous iteration*/}
+                      <Indicators indicators={indicators} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="Team">
                       <Team />
