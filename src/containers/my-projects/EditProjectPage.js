@@ -92,7 +92,11 @@ export default function EditProjectPage() {
                       <OutcomesEdit project={user.currentProject} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="beneficiary-groups">
-                      <BeneficiaryGroupsEdit project={user.currentProject} />
+                      <BeneficiaryGroupsEdit
+                        project={user.currentProject}
+                        beneficiaries={user.currentProject.beneficiaries}
+                        orgId={user.currentProject.org_id}
+                       />
                     </Tab.Pane>
                   </Tab.Content>
                 </Col>
