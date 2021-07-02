@@ -66,6 +66,8 @@ export default function ProjectInfoEdit({ project }) {
           initialValues={{
             orgId: project.org_id,
             projectName: project.name,
+            projectLogo: project.logo?project.logo.location:"",
+            projectBanner: project.banner?project.banner.location:"",
             description: project.description,
             geolocation: project.geolocation || [],
             startDate: project.start_date
