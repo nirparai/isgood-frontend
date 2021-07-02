@@ -41,9 +41,6 @@ export default function EditProjectPage() {
     <>
       {!isLoading ? (
         <>
-          <div>
-            <h1 className="text-center py-5 border">PROJECT BANNER</h1>
-          </div>
           <Container>
           <Tab.Container id="left-tabs" defaultActiveKey="project-details">
               <Row className="mt-4">

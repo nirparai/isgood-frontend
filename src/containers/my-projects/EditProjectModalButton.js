@@ -17,7 +17,7 @@ export default function EditProjectModalButton({ children }) {
   const handleShow = () => setShow(true);
   return (
     <>
-      <Modal show={show} onHide={handleClose} size="lg">
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Project Settings</Modal.Title>
         </Modal.Header>
