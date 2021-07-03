@@ -186,7 +186,7 @@ export default function ProjectInfoEdit({ project }) {
 
                 <Form.Row>
                   <Form.Group as={Col} className="col-lg-12">
-                    <Button block type="submit">
+                    <Button type="submit" className="">
                       Save
                     </Button>
                   </Form.Group>
