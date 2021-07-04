@@ -119,7 +119,7 @@ export default function ProjectInfoEdit({ project }) {
                 <Form.Row>
                   <Form.Group as={Col} controlId="projectBanner" className="col-lg-12 col-sm-12">
                   <Form.Label>Project Banner</Form.Label>
-                  <Row>
+                  <Row className="align-items-center">
                     <Col className="col-lg-10">
                       {/* TODO: PROJECT BANNER COMPONENT HERE */}
                       <div className="bg-dark" style={{height: 120}}>
