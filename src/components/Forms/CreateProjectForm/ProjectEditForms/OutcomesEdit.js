@@ -110,10 +110,11 @@ export default function OutcomesEdit({ project }) {
                     );
                   }}
                 </FieldArray>
-
-                <Button type="submit">
-                  Save
-                </Button>
+                <div className="d-flex justify-content-center mt-5">
+                  <Button type="submit">
+                    Save
+                  </Button>
+                </div>
               </Form>
             );
           }}

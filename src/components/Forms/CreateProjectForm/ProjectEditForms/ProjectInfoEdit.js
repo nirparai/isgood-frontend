@@ -184,8 +184,8 @@ export default function ProjectInfoEdit({ project }) {
                   </Form.Group>
                 </Form.Row>
 
-                <Form.Row>
-                  <Form.Group as={Col} className="col-lg-12">
+                <Form.Row className="align-items-center mt-5">
+                  <Form.Group as={Col} className="col-lg-12" align="center">
                     <Button type="submit" className="">
                       Save
                     </Button>
