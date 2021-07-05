@@ -63,10 +63,7 @@ export default function ImpactsEdit({ project }) {
           {serverMessage}
         </div>
       ) : null}
-      <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Impacts
-        </legend>
+      <fieldset className="container-fluid p-3 rounded w-100">
         <Formik
           initialValues={{
             orgId: project.org_id,
@@ -88,7 +85,7 @@ export default function ImpactsEdit({ project }) {
                       <>
                         <ArrayInput
                           arrayHelpers={arrayHelpers}
-                          label="Impacts"
+                          label="Project Impacts"
                           placeholder="Input project impacts here ..."
                         />
 
@@ -113,10 +110,11 @@ export default function ImpactsEdit({ project }) {
                     );
                   }}
                 </FieldArray>
-
-                <Button block size="lg" type="submit">
-                  Save
-                </Button>
+                <div className="d-flex justify-content-center mt-5">
+                  <Button type="submit">
+                    Save
+                  </Button>
+                </div>
               </Form>
             );
           }}

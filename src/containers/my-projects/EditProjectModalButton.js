@@ -15,30 +15,13 @@ export default function EditProjectModalButton({ children }) {
     setShow(false);
   };
   const handleShow = () => setShow(true);
-  const handleSave = () => {
-    //Check Validation
-
-    //Save Data to database or somewhere local ??
-
-    //Close Modal if validation and save is successful
-    setShow(false);
-  };
-
   return (
     <>
-      <Modal show={show} onHide={handleClose} size="lg">
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
-          <Modal.Title>Edit your project</Modal.Title>
+          <Modal.Title>Project Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
-        <Modal.Footer className="justify-content-evenly">
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
       <Button variant="secondary" onClick={handleShow}>
         <Icon path={mdiCog} size={1.5} className="p-1" />

@@ -108,10 +108,7 @@ export default function BeneficiaryGroupsEdit({
           {serverMessage}
         </div>
       ) : null}
-      <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Beneficiary Groups
-        </legend>
+      <fieldset className="container-fluid p-3 rounded w-100">
         <Formik
           initialValues={{
             orgId: orgId,
@@ -258,10 +255,11 @@ export default function BeneficiaryGroupsEdit({
                     );
                   }}
                 </FieldArray>
-
-                <Button block size="lg" type="submit">
-                  Save
-                </Button>
+                <div className="d-flex justify-content-center mt-5">
+                  <Button type="submit">
+                    Save
+                  </Button>
+                </div>
               </Form>
             );
           }}
