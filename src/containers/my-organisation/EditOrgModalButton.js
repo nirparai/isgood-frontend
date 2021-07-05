@@ -28,17 +28,9 @@ export default function EditOrgModalButton({ children }) {
     <>
       <Modal show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Edit your organisation</Modal.Title>
+          <Modal.Title>Organisation Details Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
-        <Modal.Footer className="justify-content-evenly">
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
       <Button variant="secondary" onClick={handleShow}>
         <Icon path={mdiCog} size={1.5} className="p-1" />

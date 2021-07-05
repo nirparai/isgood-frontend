@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import UserContext from "context/UserContext";
 
 import { Container, Col, Row } from "react-bootstrap";
-import CreateOrganisationForm from "components/Forms/CreateOrganisationForm";
+import EditOrganisationForm from "components/Forms/EditOrganisationForm";
 
 export default function EditOrganisationPage() {
   const { orgId } = useParams();
@@ -13,7 +13,7 @@ export default function EditOrganisationPage() {
   if (user.userOrgs) {
     orgbyId = user.userOrgs.filter((org, index) => org.id == orgId);
   }
-  // to be passed to the CreateOrganisationForm to prefill the form fields
+  // to be passed to the EditOrganisationForm to prefill the form fields
   const [orgValues] = orgbyId;
 
   return (
@@ -22,7 +22,7 @@ export default function EditOrganisationPage() {
         <h1 className="text-center py-5 border">ORG BANNER</h1>
       </div>
       <Container>
-        <CreateOrganisationForm orgValues={orgValues} />
+        <EditOrganisationForm orgValues={orgValues} />
       </Container>
     </div>
   );
