@@ -30,7 +30,6 @@ export default function EditOrganisationForm({orgValues }) {
       const token = await getAccessTokenSilently();
       const orgRes = await OrgService.editOrg(values, token, orgValues.id);
       await setUser((state) => {
-        console.log(state);
         //map the userOrgs & find the orgId
         //update the org with response data from API  
         state.userOrgs.map((orgs, index)=>{
@@ -41,10 +40,11 @@ export default function EditOrganisationForm({orgValues }) {
         return { ...state };
       });
 
+      // TODO: find an clean way to close modal
+      document.getElementsByClassName('close')[0].click();
+
       const userRes = await userService.updateLastOrg(orgRes.data.id, token);
       await setUser((prev) => ({ ...prev, userData: userRes.data }));
-      // TODO: find an clean way to close modal, maybe create a resuable modal
-
     } catch (err) {
       console.log(err.response);
       if (err.response.data.message) {
