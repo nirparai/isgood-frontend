@@ -26,9 +26,9 @@ export default function EditOrgModalButton({ children }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Organisation Details Settings</Modal.Title>
+      <Modal show={show} onHide={handleClose} size="xl">
+        <Modal.Header closeButton className="border-0">
+          <Modal.Title className="w-100 text-center">Organisation Details Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
       </Modal>

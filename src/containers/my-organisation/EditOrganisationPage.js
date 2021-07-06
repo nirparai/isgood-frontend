@@ -18,9 +18,6 @@ export default function EditOrganisationPage() {
 
   return (
     <div>
-      <div>
-        <h1 className="text-center py-5 border">ORG BANNER</h1>
-      </div>
       <Container>
         <EditOrganisationForm orgValues={orgValues} />
       </Container>
