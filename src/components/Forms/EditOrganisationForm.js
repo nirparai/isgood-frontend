@@ -39,11 +39,12 @@ export default function EditOrganisationForm({orgValues }) {
           }
         })
         return { ...state };
-      });     
+      });
 
       const userRes = await userService.updateLastOrg(orgRes.data.id, token);
-      console.log(userRes);
-      await setUser((prev) => ({ ...prev, userData: userRes.data }));      
+      await setUser((prev) => ({ ...prev, userData: userRes.data }));
+      // TODO: find an clean way to close modal, maybe create a resuable modal
+
     } catch (err) {
       console.log(err.response);
       if (err.response.data.message) {
@@ -200,14 +201,3 @@ export default function EditOrganisationForm({orgValues }) {
     </div>
   );
 }
-//setting default props for if the values arent passed
-EditOrganisationForm.defaultProps = {
-  orgValues: {
-    name: "",
-    description: "",
-    handle: "",
-    url: "",
-    region: "Choose....",
-    sector: "Choose....",
-  },
-};

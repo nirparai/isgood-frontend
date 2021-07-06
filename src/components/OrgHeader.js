@@ -5,7 +5,6 @@ import {
   mdiShareVariant
 } from "@mdi/js";
 import Icon from "@mdi/react";
-import { LinkContainer } from "react-router-bootstrap";
 import EditOrgModalButton from "containers/my-organisation/EditOrgModalButton";
 import EditOrganisationPage from "containers/my-organisation/EditOrganisationPage";
 
@@ -32,11 +31,6 @@ export default function OrgHeader({org}) {
             <EditOrgModalButton>
               <EditOrganisationPage />
             </EditOrgModalButton>
-            {/* <LinkContainer
-              to={`/home/myprojects/edit/${org.project_id}`}
-            >
-              <Icon path={mdiCog} size={1.5} className="p-1" />
-            </LinkContainer> */}
           </Col>
         </Row>
       </Col>
