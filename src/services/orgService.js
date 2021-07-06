@@ -28,6 +28,24 @@ class OrgService {
       },
     });
   }
+
+  editOrg(values, token, orgId) {
+    const data = {
+      logoId: values.organisationLogo,
+      bannerId: values.organisationBanner,
+      name: values.organisationName,
+      url: values.url,
+      description: values.description,
+      handle: values.handle,
+      sector: values.sector,
+      region: values.region,
+    };
+    return axios.patch(API_URL + "org/"+orgId, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
   getOrgByUser(token) {
     return axios.get(API_URL + "org", {
       headers: {
