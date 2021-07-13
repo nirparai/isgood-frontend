@@ -13,7 +13,8 @@ class ProjectService {
       projectImpacts: project.impacts,
       outcomesDesired: project.outcomes,
       beneficiaries: project.beneficiaries,
-      coordinates: project.geolocation,
+      coordinates: project.geolocation.coordinates,
+      location: project.geolocation.location,
       startDate: project.startDate,
       endDate: project.endDate,
     };
@@ -97,7 +98,8 @@ class ProjectService {
       name: projectInfo.projectName,
       orgId: projectInfo.orgId,
       description: projectInfo.description,
-      coordinates: projectInfo.geoLocation,
+      coordinates: projectInfo.geolocation.coordinates,
+      location: projectInfo.geolocation.location,
       startDate: projectInfo.startDate,
       endDate: projectInfo.endDate,
     };

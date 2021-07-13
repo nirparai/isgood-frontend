@@ -7,6 +7,7 @@ import { Formik } from "formik";
 import ProjectService from "services/projectService";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
+import GeolocationFormField from "components/GeolocationFormField";
 
 export default function ProjectInfoEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
@@ -17,7 +18,12 @@ export default function ProjectInfoEdit({ project }) {
     orgId: Yup.string().required("Required"),
     projectName: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
-    // geolocation: Yup.string(),
+    geolocation: Yup.object().shape({
+      coordinates: Yup.array()
+        .of(Yup.string())
+        .length(2, "Only two values expected"),
+      location: Yup.string(),
+    }),
     startDate: Yup.string(),
     endDate: Yup.string(),
   });
@@ -66,10 +72,14 @@ export default function ProjectInfoEdit({ project }) {
           initialValues={{
             orgId: project.org_id,
             projectName: project.name,
-            projectLogo: project.logo?project.logo.location:"",
-            projectBanner: project.banner?project.banner.location:"",
+            projectLogo: project.logo ? project.logo.location : "",
+            projectBanner: project.banner ? project.banner.location : "",
             description: project.description,
-            geolocation: project.geolocation || [],
+            geolocation:
+              {
+                coordinates: project.coordinates,
+                location: project.location,
+              } || {},
             startDate: project.start_date
               ? project.start_date.split("T")[0]
               : "",
@@ -84,13 +94,19 @@ export default function ProjectInfoEdit({ project }) {
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <Form.Row className="align-items-center">
-                  <Form.Group as={Col} controlId="projectLogo" className="col-lg-5 col-sm-12">
+                  <Form.Group
+                    as={Col}
+                    controlId="projectLogo"
+                    className="col-lg-5 col-sm-12"
+                  >
                     <Form.Label>Project Logo</Form.Label>
                     <Row className="align-items-center">
                       <Col className="col-lg-6">
                         {/* TODO: LOGO COMPONENT HERE*/}
-                        <div className="bg-dark" style={{height: 120, width: 120}}>
-                        </div>
+                        <div
+                          className="bg-dark"
+                          style={{ height: 120, width: 120 }}
+                        ></div>
                       </Col>
                       <Col className="col-lg-6">
                         <Button variant="outline-info">Upload</Button>
@@ -100,7 +116,11 @@ export default function ProjectInfoEdit({ project }) {
                     <FormErrorMessage name="projectLogo" formik={formik} />
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="projectName" className="col-lg-7 col-sm-12">
+                  <Form.Group
+                    as={Col}
+                    controlId="projectName"
+                    className="col-lg-7 col-sm-12"
+                  >
                     <Form.Label>Project Name</Form.Label>
                     <Form.Control
                       autoFocus
@@ -117,25 +137,31 @@ export default function ProjectInfoEdit({ project }) {
                 </Form.Row>
 
                 <Form.Row>
-                  <Form.Group as={Col} controlId="projectBanner" className="col-lg-12 col-sm-12">
-                  <Form.Label>Project Banner</Form.Label>
-                  <Row className="align-items-center">
-                    <Col className="col-lg-10">
-                      {/* TODO: PROJECT BANNER COMPONENT HERE */}
-                      <div className="bg-dark" style={{height: 120}}>
-
-                      </div>
-                    </Col>
-                    <Col className="col-lg-2">
-                      <Button variant="outline-info">Upload</Button>
-                      <Button variant="link">Remove</Button>
-                    </Col>
-                  </Row>
+                  <Form.Group
+                    as={Col}
+                    controlId="projectBanner"
+                    className="col-lg-12 col-sm-12"
+                  >
+                    <Form.Label>Project Banner</Form.Label>
+                    <Row className="align-items-center">
+                      <Col className="col-lg-10">
+                        {/* TODO: PROJECT BANNER COMPONENT HERE */}
+                        <div className="bg-dark" style={{ height: 120 }}></div>
+                      </Col>
+                      <Col className="col-lg-2">
+                        <Button variant="outline-info">Upload</Button>
+                        <Button variant="link">Remove</Button>
+                      </Col>
+                    </Row>
                   </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
-                  <Form.Group as={Col} controlId="description" className="col-lg-12 col-sm-12">
+                  <Form.Group
+                    as={Col}
+                    controlId="description"
+                    className="col-lg-12 col-sm-12"
+                  >
                     <Form.Label>Project Description</Form.Label>
                     <Form.Control
                       as="textarea"
@@ -152,9 +178,19 @@ export default function ProjectInfoEdit({ project }) {
                 </Form.Row>
 
                 <Form.Row>
-                  <Form.Group as={Col} controlId="geolocation" size="lg">
-                  <Form.Label>Geolocation</Form.Label>
-                    <div>GeolocationFormField</div>
+                  <Form.Group
+                    as={Col}
+                    controlId="geolocation"
+                    size="lg"
+                    className="w-100"
+                  >
+                    <Form.Label>Geolocation</Form.Label>
+                    <GeolocationFormField
+                      formik={formik}
+                      name="geolocation"
+                      placeholder="Input location query here"
+                      className="w-100"
+                    />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="startDate" size="lg">
@@ -170,7 +206,12 @@ export default function ProjectInfoEdit({ project }) {
                     <FormErrorMessage name="startDate" formik={formik} />
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="endDate" size="lg" className="align-self-end">
+                  <Form.Group
+                    as={Col}
+                    controlId="endDate"
+                    size="lg"
+                    className="align-self-end"
+                  >
                     {/* <Form.Label className="d-none"></Form.Label> */}
                     <Form.Control
                       name="endDate"
