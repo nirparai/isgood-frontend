@@ -16,18 +16,30 @@ export default function EditBeneficiaryModalWrapper({
   index,
   formik,
   project,
+  deleteLifeChangeIds,
+  setDeleteLifeChangeIds,
+  deleteDemographicIds,
+  setDeleteDemographicIds,
+  setDeleteBeneficiaryIds,
 }) {
   const [show, setShow] = useState(false);
   const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
 
   const handleClose = () => {
-    // clear fields of modal
-
     // close modal
     setShow(false);
   };
   const handleShow = () => setShow(true);
+
+  const handleDelete = () => {
+    setDeleteBeneficiaryIds((prev) => [
+      ...prev,
+      formik.values.beneficiaries[`${index}`].id,
+    ]);
+    remove(index);
+    setShow(false);
+  };
 
   const handleSave = async () => {
     //Check Validation
@@ -85,34 +97,68 @@ export default function EditBeneficiaryModalWrapper({
       // Try send update beneficiary request
       try {
         const token = await getAccessTokenSilently();
-        const res = await ProjectService.updateBeneficiaryGroup(
+        const updatedBeneficiary = await ProjectService.updateBeneficiaryGroup(
           token,
           project.id,
           project.org_id,
           formik.values.beneficiaries[`${index}`]
         );
-        console.log(res.data);
-        await setUser((state) => {
-          const newBeneficiary = res.data;
-          let newCurrentProject = state.currentProject;
-          // check if there is a beneficiary group with the same id already in state (for if beneficiary is updated)
-          const beneficiaryIndex = newCurrentProject.beneficiaries.findIndex(
-            (beneficiary, index) => beneficiary.id === newBeneficiary.id
-          );
-          // array.findIndex() return -1 if no element meets condition so we can just push the new beneficiary group in
-          if (beneficiaryIndex === -1) {
-            newCurrentProject.beneficiaries.push(newBeneficiary);
-          } else {
-            // splice in the new updated project otherwise
-            newCurrentProject.beneficiaries.splice(
-              beneficiaryIndex,
-              1,
-              newBeneficiary
-            );
-          }
 
-          return { ...state, currentProject: newCurrentProject };
-        });
+        if (deleteLifeChangeIds || deleteDemographicIds) {
+          const updatedBeneficiary2 =
+            await ProjectService.deleteBeneficiaryFields(
+              token,
+              project.org_id,
+              project.id,
+              deleteLifeChangeIds,
+              deleteDemographicIds
+            );
+          await setUser((state) => {
+            const newBeneficiary = updatedBeneficiary2.data;
+            let newCurrentProject = state.currentProject;
+            // check if there is a beneficiary group with the same id already in state (for if beneficiary is updated)
+            const beneficiaryIndex = newCurrentProject.beneficiaries.findIndex(
+              (beneficiary, index) => beneficiary.id === newBeneficiary.id
+            );
+            // array.findIndex() return -1 if no element meets condition so we can just push the new beneficiary group in
+            if (beneficiaryIndex === -1) {
+              newCurrentProject.beneficiaries.push(newBeneficiary);
+            } else {
+              // splice in the new updated project otherwise
+              newCurrentProject.beneficiaries.splice(
+                beneficiaryIndex,
+                1,
+                newBeneficiary
+              );
+            }
+
+            return { ...state, currentProject: newCurrentProject };
+          });
+          setDeleteLifeChangeIds([]);
+          setDeleteDemographicIds([]);
+        } else {
+          await setUser((state) => {
+            const newBeneficiary = updatedBeneficiary.data;
+            let newCurrentProject = state.currentProject;
+            // check if there is a beneficiary group with the same id already in state (for if beneficiary is updated)
+            const beneficiaryIndex = newCurrentProject.beneficiaries.findIndex(
+              (beneficiary, index) => beneficiary.id === newBeneficiary.id
+            );
+            // array.findIndex() return -1 if no element meets condition so we can just push the new beneficiary group in
+            if (beneficiaryIndex === -1) {
+              newCurrentProject.beneficiaries.push(newBeneficiary);
+            } else {
+              // splice in the new updated project otherwise
+              newCurrentProject.beneficiaries.splice(
+                beneficiaryIndex,
+                1,
+                newBeneficiary
+              );
+            }
+
+            return { ...state, currentProject: newCurrentProject };
+          });
+        }
 
         setShow(false);
       } catch (err) {
@@ -125,14 +171,7 @@ export default function EditBeneficiaryModalWrapper({
     <Popover id="popover-basic">
       <Popover.Title as="h3">Are you sure?</Popover.Title>
       <Popover.Content>
-        <Button
-          variant="danger"
-          onClick={() => {
-            remove(index);
-            handleClose();
-          }}
-          className="mx-2"
-        >
+        <Button variant="danger" onClick={handleDelete} className="mx-2">
           Yes
         </Button>
         <Button
