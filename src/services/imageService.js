@@ -18,6 +18,17 @@ class ImageService {
       },
     });
   }
+
+  getImage(location, callback) {
+    axios
+      .get(API_URL + "images/" + location)
+      .then((res) => {
+        callback(res.data.body);
+      })
+      .catch(() => {
+        callback(null);
+      });
+  }
 }
 
 export default new ImageService();
