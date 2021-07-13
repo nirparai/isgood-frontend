@@ -39,6 +39,7 @@ export default function PersonaliseForm({ userData, setup }) {
       setUser((state) => {
         return { ...state, userData: userRes.data };
       });
+      document.getElementById('userProfileModalClose').click();
 
       // move to next setup page
       if (setup) {
@@ -72,10 +73,7 @@ export default function PersonaliseForm({ userData, setup }) {
           {serverMessage}
         </div>
       ) : null}
-      <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Personalise Profile
-        </legend>
+      <fieldset className="container-fluid p-3 rounded w-100">
         <Formik
           initialValues={{
             firstName: userData ? userData.given_name : "",
@@ -135,7 +133,7 @@ export default function PersonaliseForm({ userData, setup }) {
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
                   />
-                  <FormErrorMessage name="email" />
+                  <FormErrorMessage name="email" formik={formik} />
                 </Form.Group>
 
                 <Form.Row>
@@ -149,7 +147,7 @@ export default function PersonaliseForm({ userData, setup }) {
                       onBlur={formik.handleBlur}
                       value={formik.values.handle}
                     />
-                    <FormErrorMessage name="handle" />
+                    <FormErrorMessage name="handle" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="privacy" size="lg">
@@ -169,7 +167,7 @@ export default function PersonaliseForm({ userData, setup }) {
                       <option value="private">Private</option>
                       <option value="organisation">Organisation Only</option>
                     </Form.Control>
-                    <FormErrorMessage name="privacy" />
+                    <FormErrorMessage name="privacy" formik={formik} />
                   </Form.Group>
                 </Form.Row>
                 <Form.Row>
@@ -187,7 +185,7 @@ export default function PersonaliseForm({ userData, setup }) {
                       <option value="location1">Location1</option>
                       <option value="location2">Location2</option>
                     </Form.Control>
-                    <FormErrorMessage name="location" />
+                    <FormErrorMessage name="location" formik={formik} />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="timezone" size="lg">
@@ -206,11 +204,11 @@ export default function PersonaliseForm({ userData, setup }) {
                       <option value="UTC +3">UTC +3</option>
                     </Form.Control>
 
-                    <FormErrorMessage name="timezone" />
+                    <FormErrorMessage name="timezone" formik={formik} />
                   </Form.Group>
                 </Form.Row>
 
-                <Button block size="lg" type="submit">
+                <Button onClick={formik.handleSubmit}>
                   {setup ? "Step 2: Create Organisation" : "Submit"}
                 </Button>
               </Form>
