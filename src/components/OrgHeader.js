@@ -1,22 +1,27 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import AWSImage from "./AWSImage";
-import {
-  mdiShareVariant
-} from "@mdi/js";
+import { mdiShareVariant } from "@mdi/js";
 import Icon from "@mdi/react";
-import EditOrgModalButton from "containers/my-organisation/EditOrgModalButton";
 import EditOrganisationPage from "containers/my-organisation/EditOrganisationPage";
+import ModalContainer from "./ModalContainer";
+import { Button } from "react-bootstrap";
+import { mdiCog } from "@mdi/js";
 
-export default function OrgHeader({org}) {
- return (
+const OrgHeaderToggle = () => {
+  return (
+    <Button variant="secondary">
+      <Icon path={mdiCog} size={1.5} className="p-1" />
+    </Button>
+  );
+};
+
+export default function OrgHeader({ org }) {
+  return (
     <Row className="bg-light">
-      <Col className="col-lg-2 col-12 d-flex justify-content-center">       
+      <Col className="col-lg-2 col-12 d-flex justify-content-center">
         <AWSImage
-          location={
-            org.logo &&
-            org.logo.location
-          }
+          location={org.logo && org.logo.location}
           width={150}
           height={150}
         />
@@ -28,9 +33,11 @@ export default function OrgHeader({org}) {
         <Row className="">
           <Col className=" col-12 d-flex justify-content-end">
             <Icon path={mdiShareVariant} size={1.5} className="p-1" />
-            <EditOrgModalButton>
-              <EditOrganisationPage />
-            </EditOrgModalButton>
+            <ModalContainer
+              modalTitle="Organisation Details Settings"
+              toggleComponent={<OrgHeaderToggle />}
+              modal={<EditOrganisationPage />}
+            />
           </Col>
         </Row>
       </Col>

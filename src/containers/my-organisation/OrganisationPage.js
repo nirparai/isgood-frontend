@@ -78,7 +78,7 @@ export default function OrganisationPage() {
                   <OrgDetails org={currentOrg} />
                 </Tab.Pane>
                 <Tab.Pane eventKey="org-projects">
-                  <OrgProjects orgId={ orgId } projectsByOrg={ projectsByOrg } />
+                  <OrgProjects orgId={orgId} projectsByOrg={projectsByOrg} />
                 </Tab.Pane>
               </Tab.Content>
             </Col>
