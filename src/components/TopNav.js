@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
 
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
@@ -24,6 +25,7 @@ const ProfileBtn = ({ buttonName }) => {
 
 export default function TopNav({ user }) {
   const { logout } = useAuth0();
+  const history = useHistory();
 
   return (
     <>
@@ -102,7 +104,7 @@ export default function TopNav({ user }) {
                 <Dropdown.Item
                   onClick={() =>
                     logout({
-                      returnTo: window.location.origin,
+                      returnTo: history.push("/logout"),
                     })
                   }
                 >
