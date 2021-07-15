@@ -7,8 +7,7 @@ export default function LogoutSuccess() {
       <h1 className="my-4">isgood.ai</h1>
       <p className="my-4">
         <b>You have successfully logged out!</b>
-      </p>
-      {/* TODO: REPLACE WITH PROPER IMAGE */}
+      </p>      
       <img src={toStars} className="toStars" />
     </div>
   )
