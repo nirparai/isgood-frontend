@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as Yup from "yup";
 
-import { Button, Form, Col } from "react-bootstrap";
+import { Button, Form, Row, Col } from "react-bootstrap";
 import { Formik } from "formik";
 import ProjectService from "services/projectService";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
+import GeolocationFormField from "components/GeolocationFormField";
 
 export default function ProjectInfoEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
@@ -17,7 +18,12 @@ export default function ProjectInfoEdit({ project }) {
     orgId: Yup.string().required("Required"),
     projectName: Yup.string().required("Required"),
     description: Yup.string().required("Required"),
-    // geolocation: Yup.string(),
+    geolocation: Yup.object().shape({
+      coordinates: Yup.array()
+        .of(Yup.string())
+        .length(2, "Only two values expected"),
+      location: Yup.string(),
+    }),
     startDate: Yup.string(),
     endDate: Yup.string(),
   });
@@ -61,16 +67,19 @@ export default function ProjectInfoEdit({ project }) {
           {serverMessage}
         </div>
       ) : null}
-      <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Project Info
-        </legend>
+      <fieldset className="container-fluid p-3 rounded w-100">
         <Formik
           initialValues={{
             orgId: project.org_id,
             projectName: project.name,
+            projectLogo: project.logo ? project.logo.location : "",
+            projectBanner: project.banner ? project.banner.location : "",
             description: project.description,
-            geolocation: project.geolocation || [],
+            geolocation:
+              {
+                coordinates: project.coordinates,
+                location: project.location,
+              } || {},
             startDate: project.start_date
               ? project.start_date.split("T")[0]
               : "",
@@ -78,48 +87,114 @@ export default function ProjectInfoEdit({ project }) {
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          enableReinitialize={true}
         >
           {(formik) => {
             // console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
-                <Form.Group controlId="projectName">
-                  <Form.Label>Project Name</Form.Label>
-                  <Form.Control
-                    autoFocus
-                    placeholder="Project Name"
-                    name="projectName"
-                    type="text"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.projectName}
-                  />
-                  <FormErrorMessage name="projectName" formik={formik} />
-                </Form.Group>
+                <Form.Row className="align-items-center">
+                  <Form.Group
+                    as={Col}
+                    controlId="projectLogo"
+                    className="col-lg-5 col-sm-12"
+                  >
+                    <Form.Label>Project Logo</Form.Label>
+                    <Row className="align-items-center">
+                      <Col className="col-lg-6">
+                        {/* TODO: LOGO COMPONENT HERE*/}
+                        <div
+                          className="bg-dark"
+                          style={{ height: 120, width: 120 }}
+                        ></div>
+                      </Col>
+                      <Col className="col-lg-6">
+                        <Button variant="outline-info">Upload</Button>
+                        <Button variant="link">Remove</Button>
+                      </Col>
+                    </Row>
+                    <FormErrorMessage name="projectLogo" formik={formik} />
+                  </Form.Group>
 
-                <Form.Group controlId="description">
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    placeholder="Project Description"
-                    name="description"
-                    onClick={() => setServerMessage(null)}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.description}
-                  />
-                  <FormErrorMessage name="description" formik={formik} />
-                </Form.Group>
-
-                <Form.Row>
-                  <Form.Group controlId="geolocation" size="lg">
-                    <div>GeolocationFormField</div>
+                  <Form.Group
+                    as={Col}
+                    controlId="projectName"
+                    className="col-lg-7 col-sm-12"
+                  >
+                    <Form.Label>Project Name</Form.Label>
+                    <Form.Control
+                      autoFocus
+                      placeholder="Project Name"
+                      name="projectName"
+                      type="text"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.projectName}
+                    />
+                    <FormErrorMessage name="projectName" formik={formik} />
                   </Form.Group>
                 </Form.Row>
+
                 <Form.Row>
+                  <Form.Group
+                    as={Col}
+                    controlId="projectBanner"
+                    className="col-lg-12 col-sm-12"
+                  >
+                    <Form.Label>Project Banner</Form.Label>
+                    <Row className="align-items-center">
+                      <Col className="col-lg-10">
+                        {/* TODO: PROJECT BANNER COMPONENT HERE */}
+                        <div className="bg-dark" style={{ height: 120 }}></div>
+                      </Col>
+                      <Col className="col-lg-2">
+                        <Button variant="outline-info">Upload</Button>
+                        <Button variant="link">Remove</Button>
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group
+                    as={Col}
+                    controlId="description"
+                    className="col-lg-12 col-sm-12"
+                  >
+                    <Form.Label>Project Description</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      placeholder="Project Description"
+                      name="description"
+                      rows="4"
+                      onClick={() => setServerMessage(null)}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.description}
+                    />
+                    <FormErrorMessage name="description" formik={formik} />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group
+                    as={Col}
+                    controlId="geolocation"
+                    size="lg"
+                    className="w-100"
+                  >
+                    <Form.Label>Geolocation</Form.Label>
+                    <GeolocationFormField
+                      formik={formik}
+                      name="geolocation"
+                      placeholder="Input location query here"
+                      className="w-100"
+                    />
+                  </Form.Group>
+
                   <Form.Group as={Col} controlId="startDate" size="lg">
-                    <Form.Label>Start Date</Form.Label>
+                    <Form.Label>Project Timeframe</Form.Label>
                     <Form.Control
                       name="startDate"
                       type="date"
@@ -131,8 +206,13 @@ export default function ProjectInfoEdit({ project }) {
                     <FormErrorMessage name="startDate" formik={formik} />
                   </Form.Group>
 
-                  <Form.Group as={Col} controlId="endDate" size="lg">
-                    <Form.Label>End Date</Form.Label>
+                  <Form.Group
+                    as={Col}
+                    controlId="endDate"
+                    size="lg"
+                    className="align-self-end"
+                  >
+                    {/* <Form.Label className="d-none"></Form.Label> */}
                     <Form.Control
                       name="endDate"
                       type="date"
@@ -145,9 +225,13 @@ export default function ProjectInfoEdit({ project }) {
                   </Form.Group>
                 </Form.Row>
 
-                <Button block size="lg" type="submit">
-                  Save
-                </Button>
+                <Form.Row className="align-items-center mt-5">
+                  <Form.Group as={Col} className="col-lg-12" align="center">
+                    <Button type="submit" className="">
+                      Save
+                    </Button>
+                  </Form.Group>
+                </Form.Row>
               </Form>
             );
           }}

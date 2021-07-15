@@ -41,7 +41,11 @@ const validationSchema = Yup.object().shape({
   id: Yup.string(),
 });
 
-export default function AddBeneficiaryForm({ arrayHelpers }) {
+export default function AddBeneficiaryForm({
+  arrayHelpers,
+  edit,
+  setNewBeneficiarys,
+}) {
   const [show, setShow] = useState(false);
 
   const formik = useFormik({
@@ -59,6 +63,18 @@ export default function AddBeneficiaryForm({ arrayHelpers }) {
         demographics: values.demographics,
         id: values.id,
       });
+      if (edit && setNewBeneficiarys) {
+        // add new beneficiary to newBeneficiarys state
+        setNewBeneficiarys((prev) => [
+          ...prev,
+          {
+            name: values.name,
+            lifeChange: values.lifeChange,
+            demographics: values.demographics,
+            id: values.id,
+          },
+        ]);
+      }
       methods.resetForm();
       setShow(false);
     },

@@ -4,10 +4,13 @@ This repo contains the code for the frontend part of the isgood.ai webapp
 
 ## To contribute code to this Repo Please:
 
-- Create a task on clubhouse.io and assign yourself to it.
+- Fork the repository and add this repository as an upstream remote to fetch updates
+- Create a task on clubhouse.io and assign yourself to it or assign yourself to an existing task.
 - Create a new branch on your local machine. **Please give the branch a name corresponding to the functionality you are working on.**
-- Work on the functionality in the new branch you created and once done push it to this repo and do a merge request.
-- Once your code is reviewed it would be merged with the master branch of this repo.
+- Work on the functionality in the new branch you created and once ready for review push it to your forked copy then make a pull request to the main repo from the fork.
+- Please remember to pull any updates from the upstream repo that may have been made by others while you were working on the task and merge them in with your own changes before making a pull request.
+- Update the pull request by pushing new commits to the branch in the forked repo.
+- Once your code is reviewed and accepted it will be merged and you can begin again.
 
 ## Intructions
 

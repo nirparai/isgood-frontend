@@ -64,10 +64,7 @@ export default function OutcomesEdit({ project }) {
           {serverMessage}
         </div>
       ) : null}
-      <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Outcomes
-        </legend>
+      <fieldset className="container-fluid p-3 rounded w-100">
         <Formik
           initialValues={{
             orgId: project.org_id,
@@ -88,7 +85,7 @@ export default function OutcomesEdit({ project }) {
                       <>
                         <ArrayInput
                           arrayHelpers={arrayHelpers}
-                          label="Outcomes"
+                          label="Desired Outcomes"
                           placeholder="Input project outcomes here ..."
                         />
 
@@ -113,10 +110,11 @@ export default function OutcomesEdit({ project }) {
                     );
                   }}
                 </FieldArray>
-
-                <Button block size="lg" type="submit">
-                  Save
-                </Button>
+                <div className="d-flex justify-content-center mt-5">
+                  <Button type="submit">
+                    Save
+                  </Button>
+                </div>
               </Form>
             );
           }}

@@ -13,7 +13,8 @@ class ProjectService {
       projectImpacts: project.impacts,
       outcomesDesired: project.outcomes,
       beneficiaries: project.beneficiaries,
-      coordinates: project.geolocation,
+      coordinates: project.geolocation.coordinates,
+      location: project.geolocation.location,
       startDate: project.startDate,
       endDate: project.endDate,
     };
@@ -32,11 +33,12 @@ class ProjectService {
     });
   }
 
-  getProjectById(token, projectId) {
-    return axios.get(API_URL + "project/" + projectId, {
+  getProjectById(token, projectId, orgId) {
+    return axios.get(API_URL + "project/" + projectId + "", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: { orgId: orgId },
     });
   }
   updateImpacts(token, orgId, projectId, impacts) {
@@ -90,12 +92,14 @@ class ProjectService {
       data: data,
     });
   }
+
   updateProjectInfo(token, projectId, projectInfo) {
     const data = {
       name: projectInfo.projectName,
       orgId: projectInfo.orgId,
       description: projectInfo.description,
-      coordinates: projectInfo.geoLocation,
+      coordinates: projectInfo.geolocation.coordinates,
+      location: projectInfo.geolocation.location,
       startDate: projectInfo.startDate,
       endDate: projectInfo.endDate,
     };
@@ -103,6 +107,70 @@ class ProjectService {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  }
+
+  updateBeneficiaryGroup(token, projectId, orgId, beneficiaryGroup) {
+    const data = {
+      beneficiary: {
+        name: beneficiaryGroup.name,
+        lifeChange: beneficiaryGroup.lifeChange,
+        demographics: beneficiaryGroup.demographics,
+        id: beneficiaryGroup.id,
+      },
+      orgId: orgId,
+    };
+    return axios.patch(API_URL + "beneficiary/update/" + projectId, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  addBeneficiaryGroups(token, projectId, orgId, beneficiaries) {
+    const data = {
+      beneficiaries: beneficiaries,
+      orgId: orgId,
+    };
+    return axios.patch(API_URL + "beneficiary/add/" + projectId, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: { orgId: orgId },
+    });
+  }
+
+  deleteBeneficiarys(token, orgId, projectId, deleteIds) {
+    const data = {
+      orgId: orgId,
+      deleteBeneficiaryIds: deleteIds,
+    };
+
+    return axios.delete(API_URL + "beneficiary/delete/" + projectId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
+    });
+  }
+
+  deleteBeneficiaryFields(
+    token,
+    orgId,
+    projectId,
+    deleteLifeChangeIds,
+    deleteDemographicIds
+  ) {
+    const data = {
+      orgId: orgId,
+      deleteLifeChangeIds: deleteLifeChangeIds,
+      deleteDemographicIds: deleteDemographicIds,
+    };
+
+    return axios.delete(API_URL + "beneficiary/deletefields/" + projectId, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: data,
     });
   }
 }

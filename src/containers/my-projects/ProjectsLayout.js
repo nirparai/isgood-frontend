@@ -4,14 +4,21 @@ import UserContext from "context/UserContext";
 import { Container, Col, Row } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiMenu, mdiDotsGrid } from "@mdi/js";
+import { Button } from "react-bootstrap";
+
 import ProjectCard from "components/ProjectCard";
-import CreateProjectModalButton from "./CreateProjectModalButton";
 import CreateProjectForm from "components/Forms/CreateProjectForm/CreateProjectForm";
+import ModalContainer from "../../components/ModalContainer";
+
+const ToggleCreateProjectBtn = () => {
+  return <Button variant="primary"> + Create Project</Button>;
+};
 
 export default function ProjectsLayout() {
   const { user, setUser } = useContext(UserContext);
 
   console.log(user);
+
   return (
     <Container>
       <div className="my-5">
@@ -22,9 +29,11 @@ export default function ProjectsLayout() {
           <input placeholder="Filter (future release)" disabled />
         </Col>
         <Col className="col mt-3 d-flex justify-content-end">
-          <CreateProjectModalButton>
-            <CreateProjectForm setup={false} />
-          </CreateProjectModalButton>
+          <ModalContainer
+            modalTitle="Create Project"
+            toggleComponent={<ToggleCreateProjectBtn />}
+            modal={<CreateProjectForm setup={false} />}
+          />
         </Col>
         <Col className=" col-2 mt-3 d-flex justify-content-end">
           <Icon path={mdiMenu} size={1.3} className="p-1" />

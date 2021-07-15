@@ -3,15 +3,12 @@ import { useParams } from "react-router-dom";
 import UserContext from "context/UserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { Container, Col, Row } from "react-bootstrap";
-import Icon from "@mdi/react";
-import { mdiMenu, mdiDotsGrid } from "@mdi/js";
-import ProjectCard from "components/ProjectCard";
+import { Container, Col, Row, Tab, Nav } from "react-bootstrap";
 import OrgBanner from "components/OrgBanner";
 import OrgHeader from "components/OrgHeader";
+import OrgDetails from "./organisation-pages/OrgDetails";
+import OrgProjects from "./organisation-pages/OrgProjects";
 import userService from "services/userService";
-import CreateProjectModalButton from "containers/my-projects/CreateProjectModalButton";
-import CreateProjectForm from "components/Forms/CreateProjectForm/CreateProjectForm";
 
 export default function OrganisationPage() {
   const { orgId } = useParams();
@@ -52,29 +49,41 @@ export default function OrganisationPage() {
       <OrgBanner org={currentOrg} />
       <OrgHeader org={currentOrg} />
       <Container>
-        <Row>
-          <Col className="col mt-3">
-            <input placeholder="Filter (future release)" disabled />
-          </Col>
-          <Col className="col mt-3 d-flex justify-content-end">
-            <CreateProjectModalButton>
-              <CreateProjectForm setup={false} orgId={orgId} />
-            </CreateProjectModalButton>
-          </Col>
-          <Col className=" col-2 mt-3 d-flex justify-content-end">
-            <Icon path={mdiMenu} size={1.3} className="p-1" />
-            <Icon path={mdiDotsGrid} size={1.3} className="p-1" />
-          </Col>
-        </Row>
-        <Row className="d-flex justify-content-center py-5">
-          {projectsByOrg.length > 0 ? (
-            projectsByOrg.map((project, index) => (
-              <ProjectCard project={project} key={index} />
-            ))
-          ) : (
-            <h3>Looks like you have no projects</h3>
-          )}
-        </Row>
+        <Tab.Container id="left-tabs" defaultActiveKey="org-details">
+          <Row className="mt-4">
+            <Col lg={3} sm={12}>
+              <Nav variant="pills" className="sticky-top flex-column pt-2">
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="org-details"
+                    className="d-flex justify-content-center"
+                  >
+                    Org Details
+                  </Nav.Link>
+                </Nav.Item>
+
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="org-projects"
+                    className="d-flex justify-content-center my-2"
+                  >
+                    Org Projects
+                  </Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Col>
+            <Col sm={12} lg={9}>
+              <Tab.Content>
+                <Tab.Pane eventKey="org-details">
+                  <OrgDetails org={currentOrg} />
+                </Tab.Pane>
+                <Tab.Pane eventKey="org-projects">
+                  <OrgProjects orgId={orgId} projectsByOrg={projectsByOrg} />
+                </Tab.Pane>
+              </Tab.Content>
+            </Col>
+          </Row>
+        </Tab.Container>
       </Container>
     </div>
   );

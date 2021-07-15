@@ -1,21 +1,31 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
 
 import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiBellOutline, mdiLogout, mdiEmailOutline } from "@mdi/js";
 import logo from "assets/isgoodai-logo.png";
-import UpdateProfileModalButton from "containers/my-profile/UpdateProfileModalButton";
-
-import ProfileModalButton from "containers/my-profile/ProfileModalButton";
 import UserProfilePage from "containers/my-profile/UserProfilePage";
 import EditProfilePage from "containers/my-profile/EditProfilePage";
 import AWSImage from "./AWSImage";
 import PersonaliseForm from "./Forms/PersonaliseForm";
+import ModalContainer from "components/ModalContainer";
+import { mdiAccount } from "@mdi/js";
+
+const ProfileBtn = ({ buttonName }) => {
+  return (
+    <p>
+      <Icon path={mdiAccount} size={1} className="mx-2" />
+      {buttonName}
+    </p>
+  );
+};
 
 export default function TopNav({ user }) {
   const { logout } = useAuth0();
+  const history = useHistory();
 
   return (
     <>
@@ -71,19 +81,30 @@ export default function TopNav({ user }) {
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>
-                  <ProfileModalButton>
-                    <UserProfilePage />
-                  </ProfileModalButton>
+                  <ModalContainer
+                    modalTitle="Profile"
+                    toggleComponent={<ProfileBtn buttonName="Profile" />}
+                    modal={<UserProfilePage />}
+
+                    // footerComponent={ProfileFooter}
+                  />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <UpdateProfileModalButton>
-                    <PersonaliseForm userData={user.userData} setup={false} />
-                  </UpdateProfileModalButton>
+                  <ModalContainer
+                    modalTitle="Profile"
+                    toggleComponent={
+                      <ProfileBtn buttonName="Profile Settings" />
+                    }
+                    modal={
+                      <PersonaliseForm userData={user.userData} setup={false} />
+                    }
+                    // footerComponent={ProfileFooter}
+                  />
                 </Dropdown.Item>
                 <Dropdown.Item
                   onClick={() =>
                     logout({
-                      returnTo: window.location.origin,
+                      returnTo: history.push("/logout"),
                     })
                   }
                 >

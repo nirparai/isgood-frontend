@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-
+import Icon from "@mdi/react";
+import {
+  mdiCog,
+} from "@mdi/js";
 import { Button, Modal } from "react-bootstrap";
 
-export default function CreateOrgModalButton({ children }) {
+export default function EditOrgModalButton({ children }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
@@ -23,22 +26,14 @@ export default function CreateOrgModalButton({ children }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Form</Modal.Title>
+      <Modal show={show} onHide={handleClose} size="xl">
+        <Modal.Header closeButton className="border-0">
+          <Modal.Title className="w-100 text-center">Organisation Details Settings</Modal.Title>
         </Modal.Header>
         <Modal.Body>{children}</Modal.Body>
-        <Modal.Footer className="justify-content-evenly">
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
-      <Button variant="primary" onClick={handleShow}>
-        + Create Organisation
+      <Button variant="secondary" onClick={handleShow}>
+        <Icon path={mdiCog} size={1.5} className="p-1" />
       </Button>
     </>
   );

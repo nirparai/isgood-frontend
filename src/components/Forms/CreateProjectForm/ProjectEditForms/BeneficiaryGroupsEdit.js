@@ -16,75 +16,84 @@ import DemographicArrayInput from "../FieldArrays/DemographicArrayInput";
 import ArrayFieldDemographic from "../FieldArrays/ArrayFieldDemographic";
 import AddBeneficiaryForm from "../BeneficiaryGroups/AddBeneficiaryForm";
 
-export default function BeneficiaryGroupsEdit({ project }) {
+const validationSchema = Yup.object().shape({
+  beneficiaries: Yup.array().of(
+    Yup.object().shape({
+      name: Yup.string().required("Required"),
+      lifeChange: Yup.array()
+        .of(
+          Yup.object()
+            .shape({
+              id: Yup.string(),
+              description: Yup.string().required("Required"),
+            })
+            .required("Required")
+        )
+        .min(1, "Add at least one change"),
+      demographics: Yup.array()
+        .of(
+          Yup.object().shape({
+            name: Yup.string().required("Required"),
+            operator: Yup.string().required("Required"),
+            value: Yup.string().required("Required"),
+            id: Yup.string(),
+          })
+        )
+        .min(1, "Add at least one demographic"),
+      id: Yup.string(),
+    })
+  ),
+  orgId: Yup.string().required(),
+});
+
+export default function BeneficiaryGroupsEdit({
+  beneficiaries,
+  orgId,
+  project,
+}) {
   const [serverMessage, setServerMessage] = useState();
   // for storing the Id's of the fields that need to be deleted from the database
   const [deleteBeneficiaryIds, setDeleteBeneficiaryIds] = useState([]);
+  const [newBeneficiarys, setNewBeneficiarys] = useState([]);
   const [deleteLifeChangeIds, setDeleteLifeChangeIds] = useState([]);
   const [deleteDemographicIds, setDeleteDemographicIds] = useState([]);
 
   const { getAccessTokenSilently } = useAuth0();
   const { user, setUser } = useContext(UserContext);
 
-  const validationSchema = Yup.object().shape({
-    beneficiaries: Yup.array().of(
-      Yup.object().shape({
-        name: Yup.string().required("Required"),
-        lifeChange: Yup.array()
-          .of(
-            Yup.object()
-              .shape({
-                life_change_id: Yup.string().required("Required"),
-                description: Yup.string().required("Required"),
-              })
-              .required("Required")
-          )
-          .min(1, "Add at least one change"),
-        demographics: Yup.array()
-          .of(
-            Yup.object().shape({
-              name: Yup.string().required("Required"),
-              operator: Yup.string().required("Required"),
-              value: Yup.string().required("Required"),
-              demographic_id: Yup.string().required("Required"),
-            })
-          )
-          .min(1, "Add at least one demographic"),
-        beneficairy_id: Yup.string().required(),
-      })
-    ),
-    orgId: Yup.string().required(),
-  });
-
   const onSubmit = async (values, methods) => {
     try {
       const token = await getAccessTokenSilently();
-      const res = await ProjectService.updateBeneficiary(
+      const addRes = await ProjectService.addBeneficiaryGroups(
         token,
-        values.orgId,
         project.id,
-        values.impacts,
-        token
+        project.org_id,
+        newBeneficiarys
       );
-      const res2 = await ProjectService.deleteDemographics(
-        token,
-        values.orgId,
-        project.id,
-        deleteDemographicIds
-      );
-      const res3 = await ProjectService.deleteLifeChange(
-        token,
-        values.orgId,
-        project.id,
-        deleteLifeChangeIds
-      );
-      await setUser((state) => {
-        const newImpacts = res2.data;
-        const newCurrentProject = state.currentProject;
-        newCurrentProject.outcomes = newImpacts;
 
+      await setUser((state) => {
+        const newCurrentProject = state.currentProject;
+        newCurrentProject.beneficiaries = addRes.data;
         return { ...state, currentProject: newCurrentProject };
       });
+      if (deleteBeneficiaryIds.length > 0) {
+        const deleteRes = await ProjectService.deleteBeneficiarys(
+          token,
+          project.org_id,
+          project.id,
+          deleteBeneficiaryIds
+        );
+        // Need to loop through and delete all beneficiaries with the same Ids that were sent in the response
+        //   await setUser((state) => {
+        //     const deleteIds = deleteRes.data
+        //     const newCurrentProject = state.currentProject;
+        //     newCurrentProject.beneficiaries.filter(beneficiary => {
+        //       for(let i=0; i < deleteIds; i++) {
+        //           return deleteIds[i] === beneficiary.id
+        //       }
+        //     })
+        //     return { ...state, currentProject: newCurrentProject };
+      }
     } catch (err) {
       console.log(err.response);
       if (err.response.data.message) {
@@ -106,17 +115,16 @@ export default function BeneficiaryGroupsEdit({ project }) {
           {serverMessage}
         </div>
       ) : null}
-      <fieldset className="container-fluid border p-3 rounded w-100">
-        <legend className="w-50 bg-light border rounded p-1 text-center">
-          Beneficiary Groups
-        </legend>
+      <fieldset className="container-fluid p-3 rounded w-100">
         <Formik
           initialValues={{
-            orgId: project.org_id,
-            beneficiaries: project.beneficiaries,
+            orgId: orgId,
+            beneficiaries: beneficiaries,
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          validateOnMount={true}
+          enableReinitialize={true}
         >
           {(formik) => {
             console.log(formik);
@@ -129,7 +137,11 @@ export default function BeneficiaryGroupsEdit({ project }) {
                       <>
                         <Form.Label>Beneficiary Groups</Form.Label>
                         <div className="d-flex justify-content-center my-2">
-                          <AddBeneficiaryForm arrayHelpers={arrayHelpers} />
+                          <AddBeneficiaryForm
+                            arrayHelpers={arrayHelpers}
+                            edit={true}
+                            setNewBeneficiarys={setNewBeneficiarys}
+                          />
                         </div>
                         {form.values.beneficiaries.map(
                           (beneficiary, beneficiaryIndex) => (
@@ -150,6 +162,16 @@ export default function BeneficiaryGroupsEdit({ project }) {
                                 index={beneficiaryIndex}
                                 formik={form}
                                 field="beneficiaries"
+                                project={project}
+                                deleteLifeChangeIds={deleteLifeChangeIds}
+                                setDeleteLifeChangeIds={setDeleteLifeChangeIds}
+                                deleteDemographicIds={deleteDemographicIds}
+                                setDeleteDemographicIds={
+                                  setDeleteDemographicIds
+                                }
+                                setDeleteBeneficiaryIds={
+                                  setDeleteBeneficiaryIds
+                                }
                               >
                                 <>
                                   <Form.Label>Name</Form.Label>
@@ -253,10 +275,9 @@ export default function BeneficiaryGroupsEdit({ project }) {
                     );
                   }}
                 </FieldArray>
-
-                <Button block size="lg" type="submit">
-                  Save
-                </Button>
+                <div className="d-flex justify-content-center mt-5">
+                  <Button type="submit">Save</Button>
+                </div>
               </Form>
             );
           }}
