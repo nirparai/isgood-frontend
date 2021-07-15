@@ -4,6 +4,7 @@ import ProtectedRoute from "auth/protected-route";
 import { UserProvider } from "context/UserContext";
 
 import Home from "containers/Home";
+import LogoutSuccess from "containers/LogoutSuccess";
 // import ProjectForm from "containers/GeolocationFormField";
 import NotFound from "containers/NotFound";
 import UserRoutes from "UserRoutes";
@@ -15,6 +16,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route exact path="/logout/" component={LogoutSuccess} />
       {/* This route was for testing of the geolocation form */}
       {/* <Route exact path="/projectform" component={ProjectForm} /> */}
       {/* Not sure if the provider should be added here but currently is working */}
@@ -25,7 +27,6 @@ export default function Routes() {
         <ProtectedRoute path="/token" component={GetTokenPage} />
       </UserProvider>
       {/* The NotFound Route needs to stay in the bottom to work for 404 errors*/}
-
       <Route component={NotFound} />
     </Switch>
   );
