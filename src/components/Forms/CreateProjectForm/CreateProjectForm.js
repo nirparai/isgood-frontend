@@ -14,6 +14,7 @@ import ArrayInput from "./FieldArrays/ArrayInput";
 import DropzoneLogo from "components/DropzoneLogo";
 import DropzoneBanner from "components/DropzoneBanner";
 import ArrayFieldError from "./FieldArrays/ArrayFieldError";
+import GeolocationFormField from "components/GeolocationFormField";
 
 export default function CreateProjectForm({ setup, orgId }) {
   const [serverMessage, setServerMessage] = useState();
@@ -64,7 +65,12 @@ export default function CreateProjectForm({ setup, orgId }) {
           .min(1, "Add at least one demographic"),
       })
     ),
-    // geolocation: Yup.string(),
+    geolocation: Yup.object().shape({
+      coordinates: Yup.array()
+        .of(Yup.string())
+        .length(2, "Only two values expected"),
+      location: Yup.string(),
+    }),
     startDate: Yup.string(),
     endDate: Yup.string(),
   });
@@ -122,7 +128,7 @@ export default function CreateProjectForm({ setup, orgId }) {
             impacts: [],
             outcomes: [],
             beneficiaries: [],
-            geolocation: [],
+            geolocation: {},
             startDate: "",
             endDate: "",
           }}
@@ -272,8 +278,18 @@ export default function CreateProjectForm({ setup, orgId }) {
                           )}
                         </FieldArray>
                         <Form.Row>
-                          <Form.Group controlId="geolocation" size="lg">
-                            <div>GeolocationFormField</div>
+                          <Form.Group
+                            controlId="geolocation"
+                            size="lg"
+                            className="w-100"
+                          >
+                            <Form.Label>Geolocation</Form.Label>
+                            <GeolocationFormField
+                              formik={formik}
+                              name="geolocation"
+                              placeholder="Input location query here"
+                              className="w-100"
+                            />
                           </Form.Group>
                         </Form.Row>
                         <Form.Row>

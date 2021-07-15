@@ -13,7 +13,8 @@ class ProjectService {
       projectImpacts: project.impacts,
       outcomesDesired: project.outcomes,
       beneficiaries: project.beneficiaries,
-      coordinates: project.geolocation,
+      coordinates: project.geolocation.coordinates,
+      location: project.geolocation.location,
       startDate: project.startDate,
       endDate: project.endDate,
     };
@@ -32,11 +33,12 @@ class ProjectService {
     });
   }
 
-  getProjectById(token, projectId) {
-    return axios.get(API_URL + "project/" + projectId, {
+  getProjectById(token, projectId, orgId) {
+    return axios.get(API_URL + "project/" + projectId + "", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      params: { orgId: orgId },
     });
   }
   updateImpacts(token, orgId, projectId, impacts) {
@@ -96,7 +98,8 @@ class ProjectService {
       name: projectInfo.projectName,
       orgId: projectInfo.orgId,
       description: projectInfo.description,
-      coordinates: projectInfo.geoLocation,
+      coordinates: projectInfo.geolocation.coordinates,
+      location: projectInfo.geolocation.location,
       startDate: projectInfo.startDate,
       endDate: projectInfo.endDate,
     };
@@ -111,7 +114,7 @@ class ProjectService {
     const data = {
       beneficiary: {
         name: beneficiaryGroup.name,
-        lifeChanges: beneficiaryGroup.lifeChange,
+        lifeChange: beneficiaryGroup.lifeChange,
         demographics: beneficiaryGroup.demographics,
         id: beneficiaryGroup.id,
       },
@@ -121,6 +124,18 @@ class ProjectService {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  }
+  addBeneficiaryGroups(token, projectId, orgId, beneficiaries) {
+    const data = {
+      beneficiaries: beneficiaries,
+      orgId: orgId,
+    };
+    return axios.patch(API_URL + "beneficiary/add/" + projectId, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: { orgId: orgId },
     });
   }
 

@@ -61,8 +61,11 @@ const ProjectPage = () => {
       try {
         setIsLoading(true);
         const token = await getAccessTokenSilently();
-        const project = await ProjectService.getProjectById(token, projectId);
-        console.log(project.data);
+        const project = await ProjectService.getProjectById(
+          token,
+          projectId,
+          currentProject.org_id
+        );
         setUser((prev) => ({
           ...prev,
           currentProject: project.data,

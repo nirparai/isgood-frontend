@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { Button, Modal } from "react-bootstrap";
 
-export default function CreateOrgModalButton({ children }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => {

@@ -9,10 +9,6 @@ import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserService from "services/userService";
 import DropzoneProfile from "../DropzoneProfile";
 import UserContext from "context/UserContext";
-import UserRoutes from "UserRoutes";
-
-//This is not working and needs to be connected to auth0 management api so that the infomation is stored to the AUTH0 user meta-data
-//Timezone and Location options need to be filled
 
 export default function PersonaliseForm({ userData, setup }) {
   const [serverMessage, setServerMessage] = useState();

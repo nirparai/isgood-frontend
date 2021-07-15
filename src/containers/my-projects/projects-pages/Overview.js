@@ -31,7 +31,7 @@ const Overview = ({ project }) => {
           <h5 className="font-weight-bold my-4 p-2 bg-primary text-light">
             Location
           </h5>
-          <p>{project.geolocation}</p>
+          <p>{project.location}</p>
         </div>
       </div>
     </div>

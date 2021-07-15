@@ -1,22 +1,11 @@
-import React, { useRef } from "react";
+import React from "react";
 
 import { Container, Row, Media, Dropdown } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
 import tempImg from "../../../assets/isgoodai-logo.png";
-
-// const IconDropdown = () => {
-//   return (
-//     <Icon
-//       path={mdiDotsVertical}
-//       size={1.25}
-//       className="p-1"
-//       onClick={() => {
-//         console.log("log");
-//       }}
-//     />
-//   );
-// };
+import ModalContainer from "../../../components/ModalContainer";
+import IndicatorModal from "../../indicator-pages/indicatorModal";
 
 const Indicators = ({ indicators }) => {
   const IconDropdown = React.forwardRef(({ children, onClick }, ref) => (
@@ -27,11 +16,12 @@ const Indicators = ({ indicators }) => {
       className="p-1"
       onClick={(e) => {
         onClick(e);
-        console.log("working");
       }}
     />
   ));
+
   const MediaBody = () => {
+    const DropdownItemCustom = () => <div>Custom Item 1</div>;
     return (
       <div>
         {indicators.map((indicator, index) => {
@@ -58,20 +48,17 @@ const Indicators = ({ indicators }) => {
                   <Dropdown>
                     <Dropdown.Toggle as={IconDropdown} />
                     <Dropdown.Menu>
-                      <Dropdown.Item eventKey="1">Custom Item 1</Dropdown.Item>
+                      <Dropdown.Item eventKey="1">
+                        <ModalContainer
+                          modalTitle="Indicator Title"
+                          toggleComponent={<DropdownItemCustom />}
+                          modal={<IndicatorModal />}
+                        />
+                      </Dropdown.Item>
                       <Dropdown.Item eventKey="2">Custom Item 2</Dropdown.Item>
                       <Dropdown.Item eventKey="3">Custom Item 3</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
-
-                  {/* <Icon
-                    path={mdiDotsVertical}
-                    size={1.25}
-                    className="p-1"
-                    onClick={() => {
-                      console.log("log");
-                    }}
-                  /> */}
                 </Row>
                 <span>{indicator.description}</span>
               </Media.Body>

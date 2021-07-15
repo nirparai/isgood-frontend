@@ -10,8 +10,17 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import { LinkContainer } from "react-router-bootstrap";
-import EditProjectModalButton from "containers/my-projects/EditProjectModalButton";
+import ModalContainer from "components/ModalContainer";
 import EditProjectPage from "containers/my-projects/EditProjectPage";
+import { Button, Modal } from "react-bootstrap";
+
+const TriggerButton = () => {
+  return (
+    <Button variant="secondary">
+      <Icon path={mdiCog} size={1.5} className="p-1" />
+    </Button>
+  );
+};
 
 export default function ProjectHeader({ project }) {
   return (
@@ -35,9 +44,13 @@ export default function ProjectHeader({ project }) {
             >
               <Icon path={mdiCog} size={1.5} className="p-1" />
             </LinkContainer> */}
-            <EditProjectModalButton>
-              <EditProjectPage />
-            </EditProjectModalButton>
+            <ModalContainer
+              modalTitle="Project Settings"
+              toggleComponent={<TriggerButton />}
+              modal={<EditProjectPage />}
+            >
+              {/* iconReveal added to reuse component */}
+            </ModalContainer>
           </Col>
         </Row>
         <Row>
