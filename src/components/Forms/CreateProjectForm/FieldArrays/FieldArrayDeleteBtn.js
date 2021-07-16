@@ -3,7 +3,7 @@
 import React from "react";
 import { Button, Popover, OverlayTrigger } from "react-bootstrap";
 import Icon from "@mdi/react";
-import { mdiDelete, mdiCloseCircle } from "@mdi/js";
+import { mdiDelete } from "@mdi/js";
 
 export default function FieldArrayDeleteBtn({
   arrayHelpers,

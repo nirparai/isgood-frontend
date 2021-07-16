@@ -1,7 +1,7 @@
 // This component is for toggling the isEditing state for an ArrayField component
 // or an ArrayFieldDemographic component
 
-import React, { useState } from "react";
+import React from "react";
 import Icon from "@mdi/react";
 import { mdiSquareEditOutline, mdiCheckBold } from "@mdi/js";
 

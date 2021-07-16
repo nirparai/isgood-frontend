@@ -4,14 +4,14 @@ import * as Yup from "yup";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserContext from "context/UserContext";
 
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import OrgService from "services/orgService";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 import DropzoneLogo from "components/DropzoneLogo";
 import DropzoneBanner from "../DropzoneBanner";
 import userService from "services/userService";
 
-export default function EditOrganisationForm({orgValues }) {  
+export default function EditOrganisationForm({ orgValues }) {
   const [serverMessage, setServerMessage] = useState();
   const { getAccessTokenSilently } = useAuth0();
   const { setUser } = useContext(UserContext);
@@ -31,17 +31,17 @@ export default function EditOrganisationForm({orgValues }) {
       const orgRes = await OrgService.editOrg(values, token, orgValues.id);
       await setUser((state) => {
         //map the userOrgs & find the orgId
-        //update the org with response data from API  
-        state.userOrgs.map((orgs, index)=>{
-          if(orgs.id === orgValues.id){
+        //update the org with response data from API
+        state.userOrgs.map((orgs, index) => {
+          if (orgs.id === orgValues.id) {
             state.userOrgs[index] = orgRes.data;
           }
-        })
+        });
         return { ...state };
       });
 
       // TODO: find an clean way to close modal
-      document.getElementsByClassName('close')[0].click();
+      document.getElementsByClassName("close")[0].click();
 
       const userRes = await userService.updateLastOrg(orgRes.data.id, token);
       await setUser((prev) => ({ ...prev, userData: userRes.data }));
@@ -55,7 +55,7 @@ export default function EditOrganisationForm({orgValues }) {
       }
     }
   };
-  
+
   return (
     <div className="d-flex flex-column align-items-center">
       <Row>
@@ -74,8 +74,10 @@ export default function EditOrganisationForm({orgValues }) {
         <fieldset>
           <Formik
             initialValues={{
-              organisationBanner: orgValues.banner?orgValues.banner.location:"",
-              organisationLogo: orgValues.logo?orgValues.logo.location:"",
+              organisationBanner: orgValues.banner
+                ? orgValues.banner.location
+                : "",
+              organisationLogo: orgValues.logo ? orgValues.logo.location : "",
               organisationName: orgValues.name,
               description: orgValues.description || "",
               handle: orgValues.handle || "",
@@ -112,7 +114,10 @@ export default function EditOrganisationForm({orgValues }) {
                           onBlur={formik.handleBlur}
                           value={formik.values.organisationName}
                         />
-                        <FormErrorMessage name="organisationName" formik={formik} />
+                        <FormErrorMessage
+                          name="organisationName"
+                          formik={formik}
+                        />
                       </Form.Group>
                     </Col>
                   </Row>

@@ -36,22 +36,12 @@ export default function UserRoutes() {
               path={`/home/myorganisations/:orgId`}
               component={OrganisationPage}
             />
-            <Route
-              exact
-              path={`/home/myorganisations/edit/:orgId`}
-              component={EditOrganisationPage}
-            />
 
             <Route exact path="/home/myprojects" component={ProjectsLayout} />
             <Route
               exact
               path="/home/myprojects/:projectId"
               component={ProjectPage}
-            />
-            <Route
-              exact
-              path={`/home/myprojects/edit/:projectId`}
-              component={EditProjectPage}
             />
             <Route component={NotFound} />
           </Switch>

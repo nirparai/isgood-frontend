@@ -41,7 +41,7 @@ export default function OrganisationPage() {
       }
     };
     updateLastOrg();
-  }, [orgId]);
+  }, [orgId, getAccessTokenSilently, setUser]);
 
   console.log(currentOrg);
   return (

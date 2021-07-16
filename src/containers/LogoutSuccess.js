@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import toStars from "assets/to-the-stars.png";
 
 export default function LogoutSuccess() {
@@ -7,8 +7,8 @@ export default function LogoutSuccess() {
       <h1 className="my-4">isgood.ai</h1>
       <p className="my-4">
         <b>You have successfully logged out!</b>
-      </p>      
-      <img src={toStars} className="toStars" />
+      </p>
+      <img src={toStars} className="toStars" alt="stars" />
     </div>
-  )
+  );
 }

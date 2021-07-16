@@ -1,18 +1,11 @@
 import React, { useContext } from "react";
 import { Row, Col } from "react-bootstrap";
 import AWSImage from "./AWSImage";
-import {
-  mdiShareVariant,
-  mdiAccountCircle,
-  mdiAccountMultiple,
-  mdiPlus,
-  mdiCog,
-} from "@mdi/js";
+import { mdiShareVariant, mdiAccountMultiple, mdiPlus, mdiCog } from "@mdi/js";
 import Icon from "@mdi/react";
-import { LinkContainer } from "react-router-bootstrap";
 import ModalContainer from "components/ModalContainer";
 import EditProjectPage from "containers/my-projects/EditProjectPage";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 const TriggerButton = () => {
   return (
@@ -39,11 +32,6 @@ export default function ProjectHeader({ project }) {
         <Row className="">
           <Col className=" col-12 d-flex justify-content-end">
             <Icon path={mdiShareVariant} size={1.5} className="p-1" />
-            {/* <LinkContainer
-              to={`/home/myprojects/edit/${project.project_id}`}
-            >
-              <Icon path={mdiCog} size={1.5} className="p-1" />
-            </LinkContainer> */}
             <ModalContainer
               modalTitle="Project Settings"
               toggleComponent={<TriggerButton />}
