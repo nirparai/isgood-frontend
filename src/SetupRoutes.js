@@ -6,6 +6,7 @@ import Welcome from "containers/initial-setup-pages/Welcome";
 import NotFound from "containers/NotFound";
 import SetupCreateOrg from "containers/initial-setup-pages/SetupCreateOrg";
 import SetupCreateProject from "containers/initial-setup-pages/SetupCreateProject";
+
 export default function SetupRoutes() {
   return (
     <>

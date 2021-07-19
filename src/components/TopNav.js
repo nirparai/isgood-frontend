@@ -1,18 +1,34 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
 
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
+import { Navbar, Nav, Dropdown, Badge } from "react-bootstrap";
 import Icon from "@mdi/react";
-import { mdiBellOutline } from "@mdi/js";
-import { mdiEmailOutline } from "@mdi/js";
+import { mdiBellOutline, mdiLogout, mdiEmailOutline } from "@mdi/js";
 import logo from "assets/isgoodai-logo.png";
+import UserProfilePage from "containers/my-profile/UserProfilePage";
+import EditProfilePage from "containers/my-profile/EditProfilePage";
+import AWSImage from "./AWSImage";
+import PersonaliseForm from "./Forms/PersonaliseForm";
+import ModalContainer from "components/ModalContainer";
+import { mdiAccount } from "@mdi/js";
 
-export default function TopNav() {
+const ProfileBtn = ({ buttonName }) => {
+  return (
+    <p>
+      <Icon path={mdiAccount} size={1} className="mx-2" />
+      {buttonName}
+    </p>
+  );
+};
+
+export default function TopNav({ user }) {
   const { logout } = useAuth0();
+  const history = useHistory();
 
   return (
-    <Container>
+    <>
       <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
         <Navbar.Brand className="font-weight-bold text-muted">
           <LinkContainer to="/home">
@@ -27,11 +43,11 @@ export default function TopNav() {
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link count-indicator toggle-arrow-hide bg-transparent">
                 <Icon path={mdiBellOutline} size={1} />
-                <Badge variant="info">7</Badge>
+                <Badge variant="info">1</Badge>
               </Dropdown.Toggle>
               <Dropdown.Menu className="navbar-dropdown preview-list">
                 <Dropdown.Item>
-                  <p>You have 7 notifications </p>
+                  <p>You have 1 notifications </p>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -41,38 +57,67 @@ export default function TopNav() {
                 <Icon path={mdiEmailOutline} size={1} />
                 <Badge variant="info">1</Badge>
               </Dropdown.Toggle>
+              <Dropdown.Menu className="navbar-dropdown preview-list">
+                <Dropdown.Item>
+                  <p>You have 1 notifications </p>
+                </Dropdown.Item>
+              </Dropdown.Menu>
             </Dropdown>
 
             <Dropdown className="mx-2">
               <Dropdown.Toggle className="nav-link bg-transparent">
-                <img
-                  src="https://placeimg.com/24/24/people"
+                <AWSImage
+                  location={
+                    user.userData.user_metadata.profileImageLocation
+                      ? user.userData.user_metadata.profileImageLocation
+                      : null
+                  }
                   className="img-xs rounded-circle"
+                  width={24}
                   alt="profile"
                 />
-                <span className="mx-2">Profile Name</span>
+
+                <span className="mx-2">{user.userData.email}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item>
-                  <p>Home</p>
+                  <ModalContainer
+                    modalTitle="Profile"
+                    toggleComponent={<ProfileBtn buttonName="Profile" />}
+                    modal={<UserProfilePage />}
+
+                    // footerComponent={ProfileFooter}
+                  />
                 </Dropdown.Item>
                 <Dropdown.Item>
-                  <p>Account</p>
+                  <ModalContainer
+                    modalTitle="Profile"
+                    toggleComponent={
+                      <ProfileBtn buttonName="Profile Settings" />
+                    }
+                    modal={
+                      <PersonaliseForm userData={user.userData} setup={false} />
+                    }
+                    // footerComponent={ProfileFooter}
+                  />
                 </Dropdown.Item>
                 <Dropdown.Item
                   onClick={() =>
                     logout({
-                      returnTo: window.location.origin,
+                      returnTo: history.push("/logout"),
                     })
                   }
                 >
-                  <p>Logout</p>
+                  <div className="d-flex">
+                    <Icon path={mdiLogout} size={1} className="mx-2" />
+                    <p>Logout</p>
+                  </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    </Container>
+    </>
   );
 }
