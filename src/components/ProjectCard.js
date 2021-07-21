@@ -5,7 +5,7 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Icon from "@mdi/react";
-import { mdiShareVariant, mdiDotsVertical } from "@mdi/js";
+import { mdiShareVariant } from "@mdi/js";
 import AWSImage from "./AWSImage";
 
 export default function ProjectCard({ project }) {
@@ -35,9 +35,6 @@ export default function ProjectCard({ project }) {
         </LinkContainer>
         <Card.Footer className="d-flex justify-content-end">
           <Icon path={mdiShareVariant} size={1.5} className="p-1" />
-          {/* <LinkContainer to={`/home/myprojects/edit/${project.id}`}>
-            <Icon path={mdiDotsVertical} size={1.5} className="p-1" />
-          </LinkContainer> */}
         </Card.Footer>
       </Card>
     </Col>

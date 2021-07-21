@@ -14,7 +14,7 @@ export default function Redirect() {
     } else {
       history.push("/home/myorganisations");
     }
-  }, []);
+  }, [history, user.userData.user_metadata.lastOrg]);
 
   return (
     <div>

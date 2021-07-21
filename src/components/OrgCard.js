@@ -31,7 +31,8 @@ export default function OrgCard({ org }) {
             <Col>
               <h4>{org.name}</h4>
             </Col>
-            <Col className="align-items-center d-flex justify-content-end">
+            {/* Drop down from previous design should keep incase is needed again */}
+            {/* <Col className="align-items-center d-flex justify-content-end">
               <Dropdown>
                 <Dropdown.Toggle
                   as={DropdownIcon}
@@ -65,7 +66,7 @@ export default function OrgCard({ org }) {
                   </LinkContainer>
                 </Dropdown.Menu>
               </Dropdown>
-            </Col>
+            </Col> */}
           </Row>
         </Card.Footer>
       </Card>

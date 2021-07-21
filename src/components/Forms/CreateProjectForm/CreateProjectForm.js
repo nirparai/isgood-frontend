@@ -80,7 +80,7 @@ export default function CreateProjectForm({ setup, orgId }) {
       const token = await getAccessTokenSilently();
       const projectRes = await ProjectService.createProject(values, token);
       await setUser((state) => {
-        const newUserProjects = state.userOrgs;
+        const newUserProjects = state.userProjects;
         newUserProjects.push(projectRes.data);
         return { ...state, userProjects: newUserProjects };
       });
