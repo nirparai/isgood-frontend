@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Image } from "react-bootstrap";
 import ImageService from "services/imageService";
 export default function AWSImage({ location, alt, height, width, className }) {
   const [image, setImage] = useState(null);
@@ -23,10 +22,6 @@ export default function AWSImage({ location, alt, height, width, className }) {
         width={width}
         className={className}
       />
-      {/* <Image
-        src={location ? `http://localhost:8000/api/images/${location}` : null}
-        rounded
-      /> */}
     </>
   );
 }

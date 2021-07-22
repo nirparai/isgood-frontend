@@ -50,7 +50,7 @@ export const UserProvider = ({ children }) => {
       }
     };
     getUserInfo();
-  }, []);
+  }, [getAccessTokenSilently]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

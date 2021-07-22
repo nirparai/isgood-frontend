@@ -1,7 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "context/UserContext";
 
 import HomePageNavbar from "components/HomePageNavbar";
 
@@ -14,7 +13,7 @@ export default function Home() {
     if (isAuthenticated) {
       history.push(`/redirect`);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, history]);
 
   console.log(user);
   return (

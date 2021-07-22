@@ -8,7 +8,6 @@ import Icon from "@mdi/react";
 import { mdiBellOutline, mdiLogout, mdiEmailOutline } from "@mdi/js";
 import logo from "assets/isgoodai-logo.png";
 import UserProfilePage from "containers/my-profile/UserProfilePage";
-import EditProfilePage from "containers/my-profile/EditProfilePage";
 import AWSImage from "./AWSImage";
 import PersonaliseForm from "./Forms/PersonaliseForm";
 import ModalContainer from "components/ModalContainer";
