@@ -21,10 +21,10 @@ export default function UserRoutes() {
       <TopNav user={user} />
 
       <Row>
-        <Col className="col-md-3 p-0">
+        <Col className="col-md-3 col-sm-2 p-0">
           <SideNav />
         </Col>
-        <Col className="col-md-9 p-0">
+        <Col className="col-md-9 col-sm-10 p-0">
           <Switch>
             <Route
               exact
