@@ -20,7 +20,7 @@ export default function ProjectsLayout() {
   console.log(user);
 
   return (
-    <Container>
+    <Container className="mx-2">
       <div className="my-5">
         <h1>My Projects</h1>
       </div>
