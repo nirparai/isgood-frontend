@@ -19,12 +19,9 @@ export default function UserRoutes() {
   return (
     <>
       <TopNav user={user} />
-
-      <Row>
-        <Col className="col-3">
-          <SideNav />
-        </Col>
-        <Col className="col-9">
+      <div className="main-body">
+        <SideNav />
+        <div className="sidebar-content">
           <Switch>
             <Route
               exact
@@ -45,8 +42,8 @@ export default function UserRoutes() {
             />
             <Route component={NotFound} />
           </Switch>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </>
   );
 }

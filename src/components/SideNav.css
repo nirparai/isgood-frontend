@@ -52,3 +52,11 @@
   text-align: center;
   display: inline-block;
 }
+
+.main-body{display: flex;}
+.sidebar-content{width: 100%;}
+
+@media screen and (max-width: 1024px) {
+ .pro-sidebar{width: 80px !important; min-width: 80px !important; }
+ .pro-sidebar-footer{display: none;}
+}

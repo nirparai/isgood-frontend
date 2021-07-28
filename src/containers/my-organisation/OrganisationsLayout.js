@@ -17,7 +17,7 @@ export default function OrganisationsLayout() {
   const { user } = useContext(UserContext);
 
   return (
-    <Container>
+    <Container className="mx-2">
       <div className="my-5">
         <h1>My Organisations</h1>
       </div>
