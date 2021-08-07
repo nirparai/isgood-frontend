@@ -21,8 +21,9 @@ export default function ProjectInfoEdit({ project }) {
     geolocation: Yup.object().shape({
       coordinates: Yup.array()
         .of(Yup.string())
+        .required("Required")
         .length(2, "Only two values expected"),
-      location: Yup.string(),
+      location: Yup.string().required("Required"),
     }),
     startDate: Yup.string(),
     endDate: Yup.string(),
@@ -82,7 +83,7 @@ export default function ProjectInfoEdit({ project }) {
                     project.coordinates?project.coordinates.x:"",
                     project.coordinates?project.coordinates.y:""
                   ],
-                location: project.location,
+                location: project.location?project.location:"",
               } || {},
             startDate: project.start_date
               ? project.start_date.split("T")[0]
