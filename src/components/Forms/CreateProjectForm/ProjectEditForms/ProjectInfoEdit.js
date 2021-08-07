@@ -79,8 +79,8 @@ export default function ProjectInfoEdit({ project }) {
               {
                 coordinates:
                   [
-                    project.coordinates.x,
-                    project.coordinates.y
+                    project.coordinates?project.coordinates.x:"",
+                    project.coordinates?project.coordinates.y:""
                   ],
                 location: project.location,
               } || {},
