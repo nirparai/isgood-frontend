@@ -41,7 +41,12 @@ export default function GeolocationFormField({
       loadOptions={loadOptions}
       onInputChange={handleInputChange}
       onChange={handleChange}
-      value = {{value:'',label: formik.values.geolocation.location}}
+      value = {
+        {
+          value:'',
+          label: formik.values.geolocation.location?formik.values.geolocation.location:placeholder
+        }
+      }
     />
   );
 }
