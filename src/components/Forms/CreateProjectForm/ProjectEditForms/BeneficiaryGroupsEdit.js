@@ -127,7 +127,7 @@ export default function BeneficiaryGroupsEdit({
           enableReinitialize={true}
         >
           {(formik) => {
-            console.log(formik);
+            // console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <FieldArray name="beneficiaries">

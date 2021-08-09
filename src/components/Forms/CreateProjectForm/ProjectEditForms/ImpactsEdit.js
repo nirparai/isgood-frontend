@@ -74,7 +74,7 @@ export default function ImpactsEdit({ project }) {
           enableReinitialize={true}
         >
           {(formik) => {
-            console.log(formik);
+            // console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <FieldArray name="impacts">
@@ -111,9 +111,7 @@ export default function ImpactsEdit({ project }) {
                   }}
                 </FieldArray>
                 <div className="d-flex justify-content-center mt-5">
-                  <Button type="submit">
-                    Save
-                  </Button>
+                  <Button type="submit">Save</Button>
                 </div>
               </Form>
             );

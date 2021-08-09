@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import * as Yup from "yup";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 
 import { Button, Form, Row, Col } from "react-bootstrap";
 import { Formik } from "formik";
@@ -9,6 +11,7 @@ import FormErrorMessage from "components/Forms/FormErrorMessage";
 import UserContext from "context/UserContext";
 import GeolocationFormField from "components/GeolocationFormField";
 
+dayjs.extend(utc);
 export default function ProjectInfoEdit({ project }) {
   const [serverMessage, setServerMessage] = useState();
   const { getAccessTokenSilently } = useAuth0();
@@ -80,17 +83,19 @@ export default function ProjectInfoEdit({ project }) {
                 coordinates: project.coordinates,
                 location: project.location,
               } || {},
-            startDate: project.start_date
-              ? project.start_date.split("T")[0]
-              : "",
-            endDate: project.end_date ? project.end_date.split("T")[0] : "",
+            startDate:
+              project.start_date &&
+              dayjs(project.start_date).local().format("YYYY-MM-DD"),
+            endDate:
+              project.end_date &&
+              dayjs(project.end_date).local().format("YYYY-MM-DD"),
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
           enableReinitialize={true}
         >
           {(formik) => {
-            // console.log(formik);
+            console.log(formik);
             return (
               <Form onSubmit={formik.handleSubmit} className="mx-auto">
                 <Form.Row className="align-items-center">
