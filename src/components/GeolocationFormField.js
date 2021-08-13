@@ -10,7 +10,6 @@ export default function GeolocationFormField({
   formik,
 }) {
   const provider = new OpenStreetMapProvider();
-
   const loadOptions = async (inputValue, callback) => {
     const results = await provider.search({ query: inputValue });
 
@@ -42,6 +41,12 @@ export default function GeolocationFormField({
       loadOptions={loadOptions}
       onInputChange={handleInputChange}
       onChange={handleChange}
+      value = {
+        {
+          value:'',
+          label: formik.values.geolocation.location?formik.values.geolocation.location:placeholder
+        }
+      }
     />
   );
 }

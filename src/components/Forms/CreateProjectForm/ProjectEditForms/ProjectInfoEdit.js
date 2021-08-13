@@ -24,8 +24,9 @@ export default function ProjectInfoEdit({ project }) {
     geolocation: Yup.object().shape({
       coordinates: Yup.array()
         .of(Yup.string())
+        .required("Required")
         .length(2, "Only two values expected"),
-      location: Yup.string(),
+      location: Yup.string().required("Required"),
     }),
     startDate: Yup.string(),
     endDate: Yup.string(),
@@ -44,11 +45,12 @@ export default function ProjectInfoEdit({ project }) {
         newCurrentProject.name = res.data.name;
         newCurrentProject.description = res.data.description;
         newCurrentProject.geolocation = res.data.geolocation;
+        newCurrentProject.location = res.data.location;
         newCurrentProject.start_date = res.data.start_date;
         newCurrentProject.end = res.data.end;
         return { ...state, currentProject: newCurrentProject };
       });
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       console.log(err.response);
       if (err.response.data.message) {
@@ -59,7 +61,6 @@ export default function ProjectInfoEdit({ project }) {
       }
     }
   };
-  console.log(project);
   return (
     <div className="d-flex flex-column align-items-center">
       {serverMessage ? (
@@ -80,8 +81,12 @@ export default function ProjectInfoEdit({ project }) {
             description: project.description,
             geolocation:
               {
-                coordinates: project.coordinates,
-                location: project.location,
+                coordinates:
+                  [
+                    project.coordinates?project.coordinates.x:"",
+                    project.coordinates?project.coordinates.y:""
+                  ],
+                location: project.location?project.location:"",
               } || {},
             startDate:
               project.start_date &&
