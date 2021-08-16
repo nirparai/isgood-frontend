@@ -3,7 +3,7 @@
 // [{name: "", operator: "", value: "", id: ""}, {name: "", operator: "", value: "", id: ""}, ...].
 // Includes edit and delete buttons
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { Form } from "react-bootstrap";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
@@ -19,8 +19,28 @@ export default function ArrayFieldDemographic({
   placeholder,
   setDeleteDemographicIds,
 }) {
-  const inputRef = useRef();
+  const opt = {
+    sex: {
+      operator: ["includes", "not includes", "equal", "not equal"],
+      values: ["male", "female", "other"],
+    },
+    age: {
+      operator: [">", "<", "=", "!="],
+      values: ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],
+    },
+  };
+
+  const options = ["Choose...", "sex", "age"];
+
   const [isEditing, setIsEditing] = useState(false);
+  const [demographic, setDemographic] = useState("");
+
+  let inputRef = useRef();
+
+  useEffect(() => {
+    // if (demographic !== "") console.log(opt[demographic].operator);
+    console.log(Object.keys(opt).includes(demographic));
+  });
   return (
     <>
       <div className="d-flex my-2 justify-content-center">
@@ -36,11 +56,19 @@ export default function ArrayFieldDemographic({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={value.name}
-                ref={inputRef}
+                ref={(input) => {
+                  if (input != null) {
+                    console.log(input);
+                    console.log(input.value);
+                    setDemographic(input.value);
+                    inputRef.current = input;
+                  }
+                  inputRef = input;
+                }}
               >
-                <option value="">Choose...</option>
-                <option value="gender">Gender</option>
-                <option value="age">Age</option>
+                {options.map((option) => {
+                  return <option value={option}>{option}</option>;
+                })}
               </Form.Control>
               <FormErrorMessage
                 name={`${name}[${demographicIndex}.name]`}
@@ -57,13 +85,12 @@ export default function ArrayFieldDemographic({
                 onBlur={formik.handleBlur}
                 value={value.operator}
               >
-                <option value="">Choose...</option>
-                <option> &lt;</option>
-                <option> &gt;</option>
-                <option>=</option>
-                <option>!=</option>
-                <option>equal to</option>
-                <option>greater than</option>
+                <option value="">Choose ...</option>
+                {Object.keys(opt).includes(demographic)
+                  ? opt[demographic].operator.map((option) => {
+                      return <option value={option}>{option}</option>;
+                    })
+                  : null}
               </Form.Control>
               <FormErrorMessage
                 name={`${name}[${demographicIndex}.operator]`}
@@ -80,14 +107,12 @@ export default function ArrayFieldDemographic({
                 onBlur={formik.handleBlur}
                 value={value.value}
               >
-                <option value="">Choose...</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-                <option>18 to 25</option>
-                <option>25 to 40</option>
-                <option>65</option>
-                <option>10</option>
+                <option value="">Choose ...</option>
+                {Object.keys(opt).includes(demographic)
+                  ? opt[demographic].values.map((option) => {
+                      return <option value={option}>{option}</option>;
+                    })
+                  : null}
               </Form.Control>
 
               <FormErrorMessage

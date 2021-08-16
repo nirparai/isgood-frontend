@@ -3,7 +3,7 @@
 
 // rendered by BeneficiaryGroups.js
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import * as Yup from "yup";
 import { useFormik, FieldArray, FormikProvider } from "formik";
@@ -90,7 +90,7 @@ export default function AddBeneficiaryForm({
   const handleSave = () => {
     formik.submitForm();
   };
-  console.log(formik);
+
   return (
     <>
       <Modal show={show} onHide={handleClose} size="lg">

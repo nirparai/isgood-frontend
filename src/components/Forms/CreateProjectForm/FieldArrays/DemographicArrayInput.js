@@ -1,13 +1,26 @@
 // Specific set of Form inputs for adding values to a Demographics FieldArray
 // used in CreateProjectForm and BeneficiaryEditForm
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import FormErrorMessage from "components/Forms/FormErrorMessage";
 
 export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
+  const opt = {
+    sex: {
+      operator: ["includes", "not includes", "equal", "not equal"],
+      values: ["male", "female", "other"],
+    },
+    age: {
+      operator: [">", "<", "=", "!="],
+      values: ["10", "20", "30", "40", "50", "60", "70", "80", "90", "100"],
+    },
+  };
+
+  const options = ["Choose...", "sex", "age"];
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -23,6 +36,7 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
     }),
     onSubmit: (values, methods) => {
       // insert values into the field array
+      console.log(values);
       arrayHelpers.insert(0, {
         name: values.name,
         operator: values.operator,
@@ -31,6 +45,9 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
       });
       methods.resetForm();
     },
+  });
+  useEffect(() => {
+    // console.log(formik.values);
   });
 
   const handleClick = () => {
@@ -51,15 +68,16 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
         <Form.Label>Demographic</Form.Label>
         <Form.Control
           placeholder={placeholder}
+          options={options}
           name="name"
           as="select"
-          onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
+          onChange={formik.handleChange}
         >
-          <option value="">Choose...</option>
-          <option value="gender">Gender</option>
-          <option value="age">Age</option>
+          {options.map((option) => {
+            return <option value={option}>{option}</option>;
+          })}
         </Form.Control>
         <FormErrorMessage name="name" formik={formik} />
       </Form.Group>
@@ -73,13 +91,12 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
           onBlur={formik.handleBlur}
           value={formik.values.operator}
         >
-          <option value="">Choose...</option>
-          <option> &lt;</option>
-          <option> &gt;</option>
-          <option>=</option>
-          <option>!=</option>
-          <option>equal to</option>
-          <option>greater than</option>
+          <option value="">Choose ...</option>
+          {opt[formik.values.name]
+            ? opt[formik.values.name].operator.map((opt) => {
+                return <option value={opt}>{opt}</option>;
+              })
+            : null}
         </Form.Control>
         <FormErrorMessage name="operator" formik={formik} />
       </Form.Group>
@@ -93,14 +110,12 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
           onBlur={formik.handleBlur}
           value={formik.values.value}
         >
-          <option value="">Choose...</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-          <option>18 to 25</option>
-          <option>25 to 40</option>
-          <option>65</option>
-          <option>10</option>
+          <option value="">Choose ...</option>
+          {opt[formik.values.name]
+            ? opt[formik.values.name].values.map((value) => {
+                return <option value={value}>{value}</option>;
+              })
+            : null}
         </Form.Control>
         <FormErrorMessage name="value" formik={formik} />
       </Form.Group>
@@ -108,8 +123,6 @@ export default function DemographicArrayInput({ arrayHelpers, placeholder }) {
       <Button onClick={handleClick} className="w-25" onBlur={handleBlur}>
         Add
       </Button>
-
-      {/* <div className="text-danger">{formik.error}</div> */}
     </div>
   );
 }
