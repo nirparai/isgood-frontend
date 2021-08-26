@@ -5,6 +5,7 @@ import { mdiShareVariant, mdiAccountMultiple, mdiPlus, mdiCog } from "@mdi/js";
 import Icon from "@mdi/react";
 import ModalContainer from "components/ModalContainer";
 import EditProjectPage from "containers/my-projects/EditProjectPage";
+import ShareProjectPage from "containers/my-projects/ShareProjectPage";
 import { Button } from "react-bootstrap";
 
 const TriggerButton = () => {
@@ -14,6 +15,15 @@ const TriggerButton = () => {
     </Button>
   );
 };
+
+const TriggerShareButton = () => {
+  return (
+    <Button variant="primary" className="mr-2">
+      <Icon path={mdiShareVariant} size={1.5} className="p-1" />
+    </Button>
+  );
+};
+
 
 export default function ProjectHeader({ project }) {
   return (
@@ -31,7 +41,11 @@ export default function ProjectHeader({ project }) {
       <Col className="col-lg-3 col-12 d-flex justify-content-end flex-column ">
         <Row className="">
           <Col className=" col-12 d-flex justify-content-end">
-            <Icon path={mdiShareVariant} size={1.5} className="p-1" />
+            <ModalContainer
+              modalTitle="Share Project"
+              toggleComponent={<TriggerShareButton />}
+              modal={<ShareProjectPage />}
+            />
             <ModalContainer
               modalTitle="Project Settings"
               toggleComponent={<TriggerButton />}

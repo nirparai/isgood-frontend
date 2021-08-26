@@ -2,11 +2,22 @@
 // Also handles directing to the specific project route "/myprojects/:projectId"
 
 import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Icon from "@mdi/react";
 import { mdiShareVariant } from "@mdi/js";
+import ModalContainer from "components/ModalContainer";
+import ShareProjectPage from "containers/my-projects/ShareProjectPage";
 import AWSImage from "./AWSImage";
+
+
+const TriggerShareButton = () => {
+  return (
+    <Button variant="secondary">
+      <Icon path={mdiShareVariant} size={1.5} className="p-1" />
+    </Button>
+  );
+};
 
 export default function ProjectCard({ project }) {
   return (
@@ -34,7 +45,11 @@ export default function ProjectCard({ project }) {
           </Card.Body>
         </LinkContainer>
         <Card.Footer className="d-flex justify-content-end">
-          <Icon path={mdiShareVariant} size={1.5} className="p-1" />
+          <ModalContainer
+            modalTitle="Share Project"
+            toggleComponent={<TriggerShareButton />}
+            modal={<ShareProjectPage />}
+          />
         </Card.Footer>
       </Card>
     </Col>
